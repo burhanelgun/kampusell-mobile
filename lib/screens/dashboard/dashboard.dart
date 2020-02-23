@@ -1,8 +1,10 @@
 
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kampusell/screens/dashboard/AppBarContent.dart';
+import 'package:kampusell/screens/dashboard/app-bar-content.dart';
+import 'package:kampusell/screens/dashboard/categories-list.dart';
 
 class CustomAppBar extends StatelessWidget{
   @override
@@ -11,6 +13,13 @@ class CustomAppBar extends StatelessWidget{
       appBar: AppBar(
         titleSpacing: 0.0,
         title: AppBarContent()
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          CategoriesList(),
+        ],
       ),
 
 
