@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kampusell/screens/dashboard/app-bar-content.dart';
 import 'package:kampusell/screens/dashboard/categories-list.dart';
+import 'package:kampusell/screens/dashboard/products-list.dart';
 
 class CustomAppBar extends StatelessWidget{
   @override
@@ -19,6 +20,7 @@ class CustomAppBar extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           CategoriesList(),
+          ProductsList()
         ],
       ),
 
