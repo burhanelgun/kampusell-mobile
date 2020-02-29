@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:kampusell/main.dart';
 import 'package:kampusell/model/category.dart';
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/product.dart';
@@ -10,13 +11,15 @@ import 'category-item.dart';
 class ProductsList extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    final List<Product> categories = Product.fetchAll();
+    final List<Product> products = Product.fetchAll();
     return Expanded(
         child:ListView.separated(
-          itemCount: categories.length,
+          itemCount: products.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title:ProductItem(categories[index]),
+            return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                child: ProductItem(products[index]),
+                onTap: () => _onProductTap(context,products[index].id),
             );
           },
           separatorBuilder: (context, index) {
@@ -27,6 +30,10 @@ class ProductsList extends StatelessWidget{
         )
     );
 
+  }
+
+  _onProductTap(BuildContext context, String id) {
+      Navigator.pushNamed(context, ProductRoute,arguments:{"id":id} );
   }
 
 }

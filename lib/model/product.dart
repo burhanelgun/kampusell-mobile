@@ -12,6 +12,16 @@ class Product{
   Category category;
   Product(this.id,this.name,this.description,this.price,this.photoPaths,this.owner,this.category);
 
+  static fetchByID(String productID){
+    List<Product> products = Product.fetchAll();
+
+    for(int i =0;i<products.length;i++){
+      if(productID==products[i].id){
+        return products[i];
+      }
+    }
+    return null;
+  }
 
   static List<Product> fetchAll() {
     List<String> photoPaths = new List();

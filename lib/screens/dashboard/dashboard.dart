@@ -7,7 +7,11 @@ import 'package:kampusell/screens/dashboard/app-bar-content.dart';
 import 'package:kampusell/screens/dashboard/categories-list.dart';
 import 'package:kampusell/screens/dashboard/products-list.dart';
 
-class CustomAppBar extends StatelessWidget{
+class DashboardScreen extends StatelessWidget{
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
