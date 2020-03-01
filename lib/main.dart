@@ -37,7 +37,12 @@ class MyApp extends StatelessWidget {
         default:
           return null;
       }
-      return MaterialPageRoute(builder: (BuildContext context) => screen);
+      return MaterialPageRoute(
+          builder: (BuildContext context) => screen,
+          settings: RouteSettings(name: settings.name, isInitialRoute: true),
+
+
+      );
     };
   }
 }
