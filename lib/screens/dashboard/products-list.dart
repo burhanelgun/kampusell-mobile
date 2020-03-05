@@ -9,6 +9,10 @@ import 'package:kampusell/screens/dashboard/product-item.dart';
 import 'category-item.dart';
 
 class ProductsList extends StatelessWidget{
+  Category _category;
+
+  ProductsList(this._category);
+
   @override
   Widget build(BuildContext context) {
     final List<Product> products = Product.fetchAll();
