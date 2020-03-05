@@ -14,12 +14,20 @@ class CategoriesList extends StatelessWidget{
           minHeight: 15.0,
           maxHeight: 70.0,
         ),
-        child:ListView(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          children: categories.map((category)=> CategoryItem(category)).toList(),
-        )
+        child:ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                child: CategoryItem(categories[index]),
+                onTap: () => Scaffold
+                    .of(context)
+                    .showSnackBar(SnackBar(content: Text(index.toString()))),
+              );
+            },
+            itemCount: 10)
     );
+
 
   }
 

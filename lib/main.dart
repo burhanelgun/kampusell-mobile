@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: _routes(),
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        primarySwatch: Colors.red,
       ),
       home: DashboardScreen()
     );
