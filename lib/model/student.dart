@@ -1,5 +1,6 @@
 import 'package:kampusell/model/product.dart';
 
+
 class Student{
   int id;
   String username;
@@ -7,7 +8,9 @@ class Student{
   String surname;
   String email;
   String password;
-  List<Product> products;
-  Student(this.id,this.username,this.name,this.surname,this.email,this.password,this.products);
+  List<Product> sellingProducts;
+  List<Product> boughtProducts;
+
+  Student(this.id,this.username,this.name,this.surname,this.email,this.password,this.sellingProducts,this.boughtProducts);
 
 }

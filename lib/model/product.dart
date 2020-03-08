@@ -40,6 +40,7 @@ class Product{
               "elgun",
               "belgun@gtu.edu.tr",
               "123456789",
+              new List<Product>(),
               new List<Product>()),
           new Category(
               '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
@@ -57,6 +58,7 @@ class Product{
               "elgun",
               "belgun@gtu.edu.tr",
               "123456789",
+              new List<Product>(),
               new List<Product>()),
           new Category(
               '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
@@ -74,6 +76,7 @@ class Product{
               "elgun",
               "belgun@gtu.edu.tr",
               "123456789",
+              new List<Product>(),
               new List<Product>()),
           new Category(
               '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
@@ -91,6 +94,7 @@ class Product{
               "elgun",
               "belgun@gtu.edu.tr",
               "123456789",
+              new List<Product>(),
               new List<Product>()),
           new Category(
               '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
@@ -108,6 +112,7 @@ class Product{
               "elgun",
               "belgun@gtu.edu.tr",
               "123456789",
+              new List<Product>(),
               new List<Product>()),
           new Category(
               '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
@@ -125,6 +130,7 @@ class Product{
               "elgun",
               "belgun@gtu.edu.tr",
               "123456789",
+              new List<Product>(),
               new List<Product>()),
           new Category(
               '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
@@ -142,6 +148,7 @@ class Product{
               "elgun",
               "belgun@gtu.edu.tr",
               "123456789",
+              new List<Product>(),
               new List<Product>()),
           new Category(
               '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
@@ -159,6 +166,7 @@ class Product{
               "elgun",
               "belgun@gtu.edu.tr",
               "123456789",
+              new List<Product>(),
               new List<Product>()),
           new Category(
               '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
@@ -176,6 +184,7 @@ class Product{
               "elgun",
               "belgun@gtu.edu.tr",
               "123456789",
+              new List<Product>(),
               new List<Product>()),
           new Category(
               '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
@@ -193,6 +202,7 @@ class Product{
               "elgun",
               "belgun@gtu.edu.tr",
               "123456789",
+              new List<Product>(),
               new List<Product>()),
           new Category(
               '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
