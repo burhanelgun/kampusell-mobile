@@ -11,6 +11,14 @@ class Product{
   Student owner;
   Category category;
   Product(this.id,this.name,this.description,this.price,this.photoPaths,this.owner,this.category);
+  //for try(remove below later)
+  Product.foo(this.id,this.name,this.description,this.price);
+  Product.convertToProduct(data){
+    this.id = data['id'];
+    this.name = data['name'];
+    this.description = data['description'];
+    this.price = data['price'];
+  }
 
   static fetchByID(String productID){
     List<Product> products = Product.fetchAll();
@@ -209,4 +217,6 @@ class Product{
       )
     ];
   }
+
+
 }
