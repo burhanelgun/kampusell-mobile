@@ -12,12 +12,35 @@ class Product{
   Category category;
   Product(this.id,this.name,this.description,this.price,this.photoPaths,this.owner,this.category);
   //for try(remove below later)
-  Product.foo(this.id,this.name,this.description,this.price);
-  Product.convertToProduct(data){
-    this.id = data['id'];
-    this.name = data['name'];
-    this.description = data['description'];
-    this.price = data['price'];
+  Product.foo(this.id,this.name,this.description,this.price){
+    print("burhan1");
+    List<String> photoPaths = new List();
+    photoPaths.add("assets/images/kitap.png");
+    this.photoPaths=photoPaths;
+    this.owner=new Student(
+        1,
+        "burhanelgun",
+        "burhan",
+        "elgun",
+        "belgun@gtu.edu.tr",
+        "123456789",
+        new List<Product>(),
+        new List<Product>());
+    this.category=new Category(
+        '1', 'Kitap', 'assets/images/kitap.png', new List<Product>());
+  }
+
+  Product.convertToProduct(Product p){
+    List<String> photoPaths = new List();
+    photoPaths.add("assets/images/kitap.png");
+    this.id = p.id;
+    this.name = p.name;
+    this.description =p.description;
+    this.price = p.price;
+    this.photoPaths=p.photoPaths;
+    this.owner=p.owner;
+    this.category=p.category;
+
   }
 
   static fetchByID(String productID){

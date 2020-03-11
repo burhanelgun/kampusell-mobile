@@ -19,7 +19,7 @@ class DashboardState extends State<DashboardScreen> {
     print("DENEME1:");
 
     var data = await http.get("https://kampusell-api.herokuapp.com/api/products");
-    var jsonData= json.decode(data.body);
+    List<dynamic> jsonData= json.decode(data.body);
     print("DENEME2:");
 
     List<Product> products = [];
@@ -27,18 +27,21 @@ class DashboardState extends State<DashboardScreen> {
     print(jsonData);
     //Product(this.id,this.name,this.description,this.price,this.photoPaths,this.owner,this.category);
     print("DENEME55:");
+    print("DENEME56:");
 
-    for(var p in jsonData){
-      print("DENEME56:");
-      print(p['id']+"\n");
-      print("DENEME57:");
-
-      Product product = Product.foo(p['id'],p['name'],p['description'],p['price']);
+    for(int i=0;i<jsonData.length;i++){
+      print(jsonData[i]['id']);
+      print(jsonData[i]['name']);
+      print(jsonData[i]['description']);
+      print(jsonData[i]['price']);
+      Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString(),jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()));
+      print("DENEME58:");
       products.add(product);
     }
-    print("DENEME4:");
+    print("DENEME59:");
 
-    print(products.length);
+    print(products);
+
     return products;
   }
 
