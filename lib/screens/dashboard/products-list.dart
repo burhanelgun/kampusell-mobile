@@ -32,7 +32,7 @@ class ProductsList extends StatelessWidget{
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 child: ProductItem(Product.convertToProduct(snapshot.data[index])),
-                onTap: () => _onProductTap(context,snapshot.data[index].id),
+                onTap: () => _onProductTap(context,Product.convertToProduct(snapshot.data[index])),
               );
             },
             separatorBuilder: (context, index) {
@@ -47,8 +47,8 @@ class ProductsList extends StatelessWidget{
 
   }
 
-  _onProductTap(BuildContext context, String id) {
-      Navigator.pushNamed(context, ProductRoute,arguments:{"id":id} );
+  _onProductTap(BuildContext context, Product product) {
+      Navigator.pushNamed(context, ProductRoute,arguments:{"product":product} );
   }
 
 }

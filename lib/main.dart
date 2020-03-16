@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           screen = DashboardScreen();
           break;
         case ProductRoute:
-          screen = ProductScreen(arguments["id"]);
+          screen = ProductScreen(arguments["product"]);
           break;
         default:
           return null;

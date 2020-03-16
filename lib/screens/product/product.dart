@@ -11,30 +11,29 @@ import 'package:kampusell/screens/dashboard/categories-list.dart';
 import 'package:kampusell/screens/dashboard/products-list.dart';
 
 class ProductScreen extends StatelessWidget{
-  final String _productID;
+  final Product _product;
 
-  ProductScreen(this._productID);
+  ProductScreen(this._product);
 
   @override
   Widget build(BuildContext context) {
 
-    final Product product = Product.fetchByID(_productID);
 
     return Scaffold(
       appBar: AppBar(
           titleSpacing: 0.0,
-          title: Text(product.name)
+          title: Text(_product.name)
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text(product.id),
-          Text(product.name),
-          Text(product.category.name),
-          Text(product.description),
-          Text(product.owner.name),
-          Text(product.price.toString()),
+          Text(_product.id),
+          Text(_product.name),
+          Text(_product.category.name),
+          Text(_product.description),
+          Text(_product.owner.name),
+          Text(_product.price.toString()),
           new Container(
               width: 50.0,
               height: 50.0,
@@ -43,7 +42,7 @@ class ProductScreen extends StatelessWidget{
                   image: new DecorationImage(
                       fit: BoxFit.fill,
                       image: new AssetImage(
-                          product.photoPaths[0])
+                          _product.photoPaths[0])
                   )
               )
           )
