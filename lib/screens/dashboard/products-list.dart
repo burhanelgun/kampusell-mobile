@@ -29,10 +29,11 @@ class ProductsList extends StatelessWidget{
           child:ListView.separated(
             itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
+              Product clickedProduct = Product.convertToProduct(snapshot.data[index]);
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                child: ProductItem(Product.convertToProduct(snapshot.data[index])),
-                onTap: () => _onProductTap(context,Product.convertToProduct(snapshot.data[index])),
+                child: ProductItem(clickedProduct),
+                onTap: () => _onProductTap(context,clickedProduct),
               );
             },
             separatorBuilder: (context, index) {

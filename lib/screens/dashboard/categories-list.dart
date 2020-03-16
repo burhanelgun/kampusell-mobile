@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:kampusell/model/category.dart';
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
 import 'category-item.dart';
 
 class CategoriesList extends StatelessWidget{
@@ -19,10 +20,9 @@ class CategoriesList extends StatelessWidget{
             scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 child: CategoryItem(categories[index]),
-                onTap: () => Scaffold
-                    .of(context)
-                    .showSnackBar(SnackBar(content: Text(index.toString()))),
+                onTap: () => _onCategoryTap(context,categories[index]),
               );
             },
             itemCount: 10)
@@ -30,5 +30,10 @@ class CategoriesList extends StatelessWidget{
 
 
   }
+
+  _onCategoryTap(BuildContext context, Category category) {
+    Navigator.pushNamed(context, CategoryRoute,arguments:{"category":category} );
+  }
+
 
 }
