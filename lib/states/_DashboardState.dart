@@ -27,14 +27,25 @@ class DashboardState extends State<DashboardScreen> {
 
   Future<List<Product>> getDefaultProducts() async{
     var data;
-    print("null");
+    print("11111");
     data = await http.get("https://kampusell-api.herokuapp.com/api/products");
     List<dynamic> jsonData= json.decode(data.body);
+    print("222222222");
+
+
     List<Product> products = [];
     for(int i=0;i<jsonData.length;i++){
-      Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString(),jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()));
+      print("4444444444");
+
+      Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString(),jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()),Category.fromJson(jsonData[i]['category']));
+      print("5555555555");
+
       products.add(product);
+      print("6666666666");
+
     }
+    print("777777777777");
+
     return products;
   }
 
@@ -88,7 +99,7 @@ class DashboardState extends State<DashboardScreen> {
       List<dynamic> jsonData= json.decode(data.body);
       List<Product> products = [];
       for(int i=0;i<jsonData.length;i++){
-        Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString()+"2000",jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()));
+        Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString()+"2000",jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()),jsonData[i]['category']);
         products.add(product);
       }
 

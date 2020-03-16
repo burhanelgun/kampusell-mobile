@@ -12,8 +12,7 @@ class Product{
   Category category;
   Product(this.id,this.name,this.description,this.price,this.photoPaths,this.owner,this.category);
   //for try(remove below later)
-  Product.foo(this.id,this.name,this.description,this.price){
-    print("burhan1");
+  Product.foo(this.id,this.name,this.description,this.price,this.category){
     List<String> photoPaths = new List();
     photoPaths.add("assets/images/kitap.png");
     this.photoPaths=photoPaths;
@@ -24,8 +23,8 @@ class Product{
         "elgun",
         "belgun@gtu.edu.tr",
         new List<Product>());
-    this.category=new Category(
-        '1', 'Kitap');
+
+
   }
 
   Product.convertToProduct(Product p){
