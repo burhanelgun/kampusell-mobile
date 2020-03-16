@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../main.dart';
 import 'category-item.dart';
+import 'dashboard.dart';
 
 class CategoriesList extends StatelessWidget{
   @override
@@ -32,8 +33,10 @@ class CategoriesList extends StatelessWidget{
 
   }
 
-  _onCategoryTap(BuildContext context, CategoryItem categoryItem) {
-    Navigator.pushNamed(context, CategoryRoute,arguments:{"categoryItem":categoryItem} );
+  _onCategoryTap(BuildContext context, CategoryItem CategoryItem) {
+    DashboardScreen.of(context).updateProducts(CategoryItem.category);
+    //DashboardScreen.of(context).setState();
+    //Navigator.pushNamed(context, CategoryRoute,arguments:{"categoryItem":categoryItem} );
   }
 
 

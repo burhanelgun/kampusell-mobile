@@ -25,7 +25,7 @@ class Product{
         "belgun@gtu.edu.tr",
         new List<Product>());
     this.category=new Category(
-        '1', 'Kitap', 'assets/images/kitap.png', new List<Product>());
+        '1', 'Kitap');
   }
 
   Product.convertToProduct(Product p){
@@ -70,7 +70,7 @@ class Product{
               "belgun@gtu.edu.tr",
               new List<Product>()),
           new Category(
-              '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
+              '1', 'Kitap')
       ),
       Product(
           '2',
@@ -86,7 +86,7 @@ class Product{
               "belgun@gtu.edu.tr",
               new List<Product>()),
           new Category(
-              '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
+              '1', 'Kitap',)
       ),
       Product(
           '3',
@@ -102,7 +102,7 @@ class Product{
               "belgun@gtu.edu.tr",
               new List<Product>()),
           new Category(
-              '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
+              '1', 'Kitap')
       ),
       Product(
           '4',
@@ -118,7 +118,7 @@ class Product{
               "belgun@gtu.edu.tr",
               new List<Product>()),
           new Category(
-              '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
+              '1', 'Kitap')
       ),
       Product(
           '5',
@@ -134,7 +134,7 @@ class Product{
               "belgun@gtu.edu.tr",
               new List<Product>()),
           new Category(
-              '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
+              '1', 'Kitap')
       ),
       Product(
           '6',
@@ -150,7 +150,7 @@ class Product{
               "belgun@gtu.edu.tr",
               new List<Product>()),
           new Category(
-              '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
+              '1', 'Kitap')
       ),
       Product(
           '7',
@@ -166,7 +166,7 @@ class Product{
               "belgun@gtu.edu.tr",
               new List<Product>()),
           new Category(
-              '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
+              '1', 'Kitap')
       ),
       Product(
           '8',
@@ -182,7 +182,7 @@ class Product{
               "belgun@gtu.edu.tr",
               new List<Product>()),
           new Category(
-              '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
+              '1', 'Kitap')
       ),
       Product(
           '9',
@@ -198,7 +198,7 @@ class Product{
               "belgun@gtu.edu.tr",
               new List<Product>()),
           new Category(
-              '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
+              '1', 'Kitap')
       ),
       Product(
           '10',
@@ -214,7 +214,7 @@ class Product{
               "belgun@gtu.edu.tr",
               new List<Product>()),
           new Category(
-              '1', 'Kitap', 'assets/images/kitap.png', new List<Product>())
+              '1', 'Kitap')
       )
     ];
   }

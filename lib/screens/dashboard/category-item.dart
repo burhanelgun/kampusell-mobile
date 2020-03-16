@@ -21,7 +21,7 @@ class CategoryItem extends StatelessWidget{
                 image: new DecorationImage(
                     fit: BoxFit.fill,
                     image: new AssetImage(
-                        category.imagePath)
+                      'assets/images/emlak.png')
                 )
             ))
 

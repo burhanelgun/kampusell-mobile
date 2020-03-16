@@ -32,8 +32,6 @@ class CategoryScreen extends StatelessWidget{
           Text(_categoryItem.category.name)
         ],
       ),
-
-
     );
   }
 
