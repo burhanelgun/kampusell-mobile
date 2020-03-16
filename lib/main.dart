@@ -35,10 +35,10 @@ class MyApp extends StatelessWidget {
           screen = DashboardScreen();
           break;
         case ProductRoute:
-          screen = ProductScreen(arguments["product"]);
+          screen = ProductScreen(arguments["productItem"]);
           break;
         case CategoryRoute:
-          screen = CategoryScreen(arguments["category"]);
+          screen = CategoryScreen(arguments["categoryItem"]);
           break;
         default:
           return null;

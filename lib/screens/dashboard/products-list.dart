@@ -29,11 +29,11 @@ class ProductsList extends StatelessWidget{
           child:ListView.separated(
             itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
-              Product clickedProduct = Product.convertToProduct(snapshot.data[index]);
+              ProductItem productItem = new ProductItem(snapshot.data[index]);
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                child: ProductItem(clickedProduct),
-                onTap: () => _onProductTap(context,clickedProduct),
+                child: productItem,
+                onTap: () => _onProductTap(context,productItem),
               );
             },
             separatorBuilder: (context, index) {
@@ -48,8 +48,8 @@ class ProductsList extends StatelessWidget{
 
   }
 
-  _onProductTap(BuildContext context, Product product) {
-      Navigator.pushNamed(context, ProductRoute,arguments:{"product":product} );
+  _onProductTap(BuildContext context, ProductItem productItem) {
+      Navigator.pushNamed(context, ProductRoute,arguments:{"productItem":productItem} );
   }
 
 }

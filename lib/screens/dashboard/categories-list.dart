@@ -19,10 +19,11 @@ class CategoriesList extends StatelessWidget{
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
+              CategoryItem clickedCategoryItem = new CategoryItem(categories[index]);
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                child: CategoryItem(categories[index]),
-                onTap: () => _onCategoryTap(context,categories[index]),
+                child: clickedCategoryItem,
+                onTap: () => _onCategoryTap(context,clickedCategoryItem),
               );
             },
             itemCount: 10)
@@ -31,8 +32,8 @@ class CategoriesList extends StatelessWidget{
 
   }
 
-  _onCategoryTap(BuildContext context, Category category) {
-    Navigator.pushNamed(context, CategoryRoute,arguments:{"category":category} );
+  _onCategoryTap(BuildContext context, CategoryItem categoryItem) {
+    Navigator.pushNamed(context, CategoryRoute,arguments:{"categoryItem":categoryItem} );
   }
 
 
