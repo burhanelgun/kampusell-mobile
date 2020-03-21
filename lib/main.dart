@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:kampusell/model/category.dart';
 import 'package:kampusell/screens/category/category.dart';
 import 'package:kampusell/screens/dashboard/dashboard.dart';
+import 'package:kampusell/screens/sell-product/sell-product.dart';
 
 import 'screens/product/product.dart';
 
 
 const DashboardRoute = "/";
 const ProductRoute = "/product";
-const CategoryRoute = "/category";
+const SellProductRoute = "/sellProduct";
 
 void main() => runApp(MyApp());
 
@@ -37,8 +38,8 @@ class MyApp extends StatelessWidget {
         case ProductRoute:
           screen = ProductScreen(arguments["productItem"]);
           break;
-        case CategoryRoute:
-          screen = CategoryScreen(arguments["categoryItem"]);
+        case SellProductRoute:
+          screen = SellProductScreen();
           break;
         default:
           return null;
@@ -52,4 +53,6 @@ class MyApp extends StatelessWidget {
     };
   }
 }
+
+
 

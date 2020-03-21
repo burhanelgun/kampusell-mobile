@@ -10,6 +10,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../main.dart';
+
 
 class DashboardState extends State<DashboardScreen> {
 
@@ -74,6 +76,16 @@ class DashboardState extends State<DashboardScreen> {
 
         ],
       ),
+      floatingActionButton: Container(
+          padding: EdgeInsets.only(bottom: 10.0),
+          child:FloatingActionButton.extended(
+            onPressed: () => _onSellProductBtnClick(context),
+            label: Text('Eşyalarını Sat'),
+            icon: Icon(Icons.photo_camera),
+              backgroundColor: Colors.pink,
+            )
+          ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
 
 
     );
@@ -95,9 +107,7 @@ class DashboardState extends State<DashboardScreen> {
       data = await http.get("https://kampusell-api.herokuapp.com/api/products");
     }
     else {
-      print("Kitap2");
       data = await http.get("https://kampusell-api.herokuapp.com/api/products");
-      print("Kitap22");
 
       List<dynamic> jsonData= json.decode(data.body);
       List<Product> products = [];
@@ -112,6 +122,13 @@ class DashboardState extends State<DashboardScreen> {
 
       return products;
     }
+
+
+  }
+
+  _onSellProductBtnClick(BuildContext context) {
+
+    Navigator.pushNamed(context, SellProductRoute );
 
 
   }
