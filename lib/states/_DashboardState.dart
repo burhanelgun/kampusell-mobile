@@ -29,6 +29,7 @@ class DashboardState extends State<DashboardScreen> {
     var data;
     print("11111");
     data = await http.get("https://kampusell-api.herokuapp.com/api/products");
+    print("1515151515151515");
     List<dynamic> jsonData= json.decode(data.body);
     print("222222222");
 
@@ -93,14 +94,19 @@ class DashboardState extends State<DashboardScreen> {
       print("null2");
       data = await http.get("https://kampusell-api.herokuapp.com/api/products");
     }
-    else if(category.name=="Kitap"){
+    else {
       print("Kitap2");
       data = await http.get("https://kampusell-api.herokuapp.com/api/products");
+      print("Kitap22");
+
       List<dynamic> jsonData= json.decode(data.body);
       List<Product> products = [];
       for(int i=0;i<jsonData.length;i++){
-        Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString()+"2000",jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()),jsonData[i]['category']);
-        products.add(product);
+        if(Category.fromJson(jsonData[i]['category']).name==category.name){
+          Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString(),jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()),Category.fromJson(jsonData[i]['category']));
+          products.add(product);
+        }
+
       }
 
 
