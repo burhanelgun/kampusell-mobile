@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/category.dart';
-import 'package:kampusell/screens/category/category.dart';
 import 'package:kampusell/screens/dashboard/dashboard.dart';
 import 'package:kampusell/screens/sell-product/sell-product.dart';
 
