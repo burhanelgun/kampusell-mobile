@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/category.dart';
+import 'package:kampusell/screens/choose-category/choose-category.dart';
 import 'package:kampusell/screens/dashboard/dashboard.dart';
-import 'package:kampusell/screens/sell-product/sell-product.dart';
+import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
+
 
 import 'screens/product/product.dart';
 
 
 const DashboardRoute = "/";
 const ProductRoute = "/product";
-const SellProductRoute = "/sellProduct";
+const ChooseCategoryRoute = "/chooseCategory";
+const FillProductInfosRoute = "/fillProductInfosRoute";
 
 void main() => runApp(MyApp());
 
@@ -37,8 +40,11 @@ class MyApp extends StatelessWidget {
         case ProductRoute:
           screen = ProductScreen(arguments["productItem"]);
           break;
-        case SellProductRoute:
-          screen = SellProductScreen();
+        case ChooseCategoryRoute:
+          screen = ChooseCategoryScreen();
+          break;
+        case FillProductInfosRoute:
+          screen = FillProductInfosScreen(arguments["categoryItem"]);
           break;
         default:
           return null;

@@ -128,7 +128,7 @@ class DashboardState extends State<DashboardScreen> {
 
   _onSellProductBtnClick(BuildContext context) {
 
-    Navigator.pushNamed(context, SellProductRoute );
+    Navigator.pushNamed(context, ChooseCategoryRoute );
 
 
   }

@@ -33,8 +33,8 @@ class CategoriesList extends StatelessWidget{
 
   }
 
-  _onCategoryTap(BuildContext context, CategoryItem CategoryItem) {
-    DashboardScreen.of(context).updateProducts(CategoryItem.category);
+  _onCategoryTap(BuildContext context, CategoryItem categoryItem) {
+    DashboardScreen.of(context).updateProducts(categoryItem.category);
     //DashboardScreen.of(context).setState();
     //Navigator.pushNamed(context, CategoryRoute,arguments:{"categoryItem":categoryItem} );
   }

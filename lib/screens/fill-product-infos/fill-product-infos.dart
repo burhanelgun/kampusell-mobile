@@ -5,14 +5,19 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kampusell/main.dart';
+import 'package:kampusell/model/category.dart';
 import 'package:kampusell/model/product.dart';
 import 'package:kampusell/screens/dashboard/app-bar-content.dart';
 import 'package:kampusell/screens/dashboard/categories-list.dart';
+import 'package:kampusell/screens/dashboard/category-item.dart';
 import 'package:kampusell/screens/dashboard/product-item.dart';
 import 'package:kampusell/screens/dashboard/products-list.dart';
 
-class SellProductScreen extends StatelessWidget{
+class FillProductInfosScreen extends StatelessWidget{
+  final CategoryItem _categoryItem;
 
+  FillProductInfosScreen(this._categoryItem);
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +26,8 @@ class SellProductScreen extends StatelessWidget{
     return Scaffold(
       appBar: AppBar(
           titleSpacing: 0.0,
-          title: Text("Eşyanı Sat")
-      ),
-      body: Column()
+          title: Text(_categoryItem.category.name+" kategorisi için ürün bilgilerini giriniz")
+      )
 
     );
   }
