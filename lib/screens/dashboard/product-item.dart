@@ -30,7 +30,7 @@ class ProductItem extends StatelessWidget {
                   new Text(product.description, textScaleFactor: 1.0),
                 ],
               ),
-            )
+            ),
           ],
         ));
   }

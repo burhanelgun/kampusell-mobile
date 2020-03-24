@@ -27,7 +27,41 @@ class FillProductInfosScreen extends StatelessWidget{
       appBar: AppBar(
           titleSpacing: 0.0,
           title: Text(_categoryItem.category.name+" kategorisi için ürün bilgilerini giriniz")
-      )
+      ),
+      body:Container(
+        margin: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Ürün Adı'
+              ),
+
+            ),
+            SizedBox(height: 10),
+            TextFormField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Ürün Açıklaması'
+              ),
+            ),
+            SizedBox(height: 10),
+            TextFormField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Ürün Fiyatı'
+              ),
+            ),
+
+          ],
+        ) ,
+
+      ),
+
+
 
     );
   }
