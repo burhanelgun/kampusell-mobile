@@ -40,6 +40,17 @@ class Product{
 
   }
 
+  Map<String, dynamic> toJson() =>
+  {
+    'id': id,
+    'name': name,
+    'description': description,
+    'price': price,
+
+  };
+
+
+
   static fetchByID(String productID){
     List<Product> products = Product.fetchAll();
 

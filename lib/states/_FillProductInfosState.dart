@@ -2,11 +2,15 @@
 
 
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/category.dart';
+import 'package:kampusell/model/product.dart';
 import 'package:kampusell/screens/dashboard/category-item.dart';
 import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
+import 'package:http/http.dart' as http;
 
 class FillProductInfosState extends State<FillProductInfosScreen>{
   Category dropdownValue = null;
@@ -51,6 +55,12 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
                         ),
                         SizedBox(height: 10),
                         TextFormField(
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Ürün Açıklaması'
@@ -58,6 +68,12 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
                         ),
                         SizedBox(height: 10),
                         TextFormField(
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
                           keyboardType: TextInputType.multiline,
                           maxLength: 1450,
                           maxLines: null,
@@ -92,6 +108,10 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
                             if (_formKey.currentState.validate()) {
                               // If the form is valid, display a snackbar. In the real world,
                               // you'd often call a server or save the information in a database.
+
+                              Product product= Product.fetchAll()[0];
+                              createProduct(product);
+
                               Scaffold.of(context)
                                   .showSnackBar(SnackBar(content: Text('Processing Data')));
                                 print("satışa çıkarıldı");
@@ -113,6 +133,16 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
 
       )
 
+    );
+  }
+
+  Future<http.Response> createProduct(Product product) {
+    return http.post(
+      'http://10.0.2.2:8080/api/products/s',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(product.toJson()),
     );
   }
 

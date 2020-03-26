@@ -11,4 +11,16 @@ class Student{
 
   Student(this.id,this.username,this.name,this.surname,this.email,this.products);
 
+
+  Map<String, dynamic> toJson() =>
+      {
+        'id': id,
+        'name': name,
+        'username': username,
+        'name': name,
+        'surname': surname,
+        'email': email,
+
+      };
+
 }
