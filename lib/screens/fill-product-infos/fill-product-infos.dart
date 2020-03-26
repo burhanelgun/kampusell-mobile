@@ -6,14 +6,13 @@ import 'package:kampusell/states/_FillProductInfosState.dart';
 
 class FillProductInfosScreen extends StatefulWidget {
 
-  final CategoryItem _categoryItem;
 
-  FillProductInfosScreen(this._categoryItem);
+  FillProductInfosScreen();
 
 
   static FillProductInfosState of(BuildContext context) => context.findAncestorStateOfType();
 
   @override
-  FillProductInfosState createState() => FillProductInfosState(this._categoryItem);
+  FillProductInfosState createState() => FillProductInfosState();
 
 }

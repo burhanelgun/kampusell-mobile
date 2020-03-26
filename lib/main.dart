@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/category.dart';
-import 'package:kampusell/screens/choose-category/choose-category.dart';
 import 'package:kampusell/screens/dashboard/dashboard.dart';
 import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
 
@@ -40,11 +39,8 @@ class MyApp extends StatelessWidget {
         case ProductRoute:
           screen = ProductScreen(arguments["productItem"]);
           break;
-        case ChooseCategoryRoute:
-          screen = ChooseCategoryScreen();
-          break;
         case FillProductInfosRoute:
-          screen = FillProductInfosScreen(arguments["categoryItem"]);
+          screen = FillProductInfosScreen();
           break;
         default:
           return null;

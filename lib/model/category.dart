@@ -51,11 +51,8 @@ class Category{
   }
 
   Category.fromJson(Map<String, dynamic> json){
-    print("denemeee1");
     this.id=json['id'].toString();
-    print("denemeee2");
     this.name = json['name'].toString();
-    print("denemeee3");
 
   }
 
