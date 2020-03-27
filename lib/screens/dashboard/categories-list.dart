@@ -27,7 +27,7 @@ class CategoriesList extends StatelessWidget{
                 onTap: () => _onCategoryTap(context,clickedCategoryItem),
               );
             },
-            itemCount: 10)
+            itemCount: categories.length)
     );
 
 

@@ -16,37 +16,13 @@ class Category{
         'Elektronik'
       ),
       Category(
-        '3',
-        'Eşya'
-      ),
-      Category(
         '4',
         'Giyim'
       ),
       Category(
         '5',
         'Emlak'
-      ),
-      Category(
-          '6',
-          'Kitap'
-      ),
-      Category(
-          '7',
-          'Elektronik'
-      ),
-      Category(
-          '8',
-          'Eşya'
-      ),
-      Category(
-          '9',
-          'Giyim'
-      ),
-      Category(
-          '10',
-          'Emlak'
-      ),
+      )
     ];
   }
 

@@ -151,8 +151,9 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
   }
 
   Future<http.Response> createProduct(Product product) {
+    //      'http://10.0.2.2:8080/api/products/s',
     return http.post(
-      'http://10.0.2.2:8080/api/products/s',
+      'https://kampusell-api.herokuapp.com/api/products/s',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
