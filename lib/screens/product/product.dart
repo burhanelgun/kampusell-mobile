@@ -33,7 +33,7 @@ class ProductScreen extends StatelessWidget{
           Text(_productItem.product.name),
           Text(_productItem.product.category.name),
           Text(_productItem.product.description),
-          Text(_productItem.product.owner.name),
+          Text(_productItem.product.student.name),
           Text(_productItem.product.price.toString()),
           new Container(
               width: 50.0,
@@ -43,7 +43,7 @@ class ProductScreen extends StatelessWidget{
                   image: new DecorationImage(
                       fit: BoxFit.fill,
                       image: new AssetImage(
-                          _productItem.product.photoPaths[0])
+                          _productItem.product.imagePaths[0])
                   )
               )
           )

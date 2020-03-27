@@ -57,10 +57,10 @@ class Category{
   }
 
   Map<String, dynamic> toJson() =>
-      {
-        'id': id,
-        'name': name,
-      };
+  {
+    'id': id,
+    'name': name,
+  };
 
 
 }

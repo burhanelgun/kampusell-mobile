@@ -20,7 +20,7 @@ class ProductItem extends StatelessWidget {
                     shape: BoxShape.rectangle,
                     image: new DecorationImage(
                         fit: BoxFit.cover,
-                        image: new AssetImage(product.photoPaths[0])))),
+                        image: new AssetImage(product.imagePaths[0])))),
             Expanded(
               child: Column(
                 children: <Widget>[

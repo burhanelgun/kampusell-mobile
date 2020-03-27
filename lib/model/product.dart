@@ -7,16 +7,16 @@ class Product{
   String name;
   String description;
   double price;
-  List<String> photoPaths;
-  Student owner;
+  List<String> imagePaths;
+  Student student;
   Category category;
-  Product(this.id,this.name,this.description,this.price,this.photoPaths,this.owner,this.category);
+  Product(this.id,this.name,this.description,this.price,this.imagePaths,this.student,this.category);
   //for try(remove below later)
   Product.foo(this.id,this.name,this.description,this.price,this.category){
     List<String> photoPaths = new List();
     photoPaths.add("assets/images/kitap.png");
-    this.photoPaths=photoPaths;
-    this.owner=new Student(
+    this.imagePaths=photoPaths;
+    this.student=new Student(
         1,
         "burhanelgun",
         "burhan",
@@ -34,8 +34,8 @@ class Product{
     this.name = p.name;
     this.description =p.description;
     this.price = p.price;
-    this.photoPaths=p.photoPaths;
-    this.owner=p.owner;
+    this.imagePaths=p.imagePaths;
+    this.student=p.student;
     this.category=p.category;
 
   }
@@ -46,7 +46,9 @@ class Product{
     'name': name,
     'description': description,
     'price': price,
-
+    'category':category,
+    'student':student,
+    'imagePaths':imagePaths
   };
 
 

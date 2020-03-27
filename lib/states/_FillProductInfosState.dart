@@ -13,9 +13,12 @@ import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
 import 'package:http/http.dart' as http;
 
 class FillProductInfosState extends State<FillProductInfosScreen>{
-  Category dropdownValue = null;
+  Category productCategory = null;
   final _formKey = GlobalKey<FormState>();
   final List<Category> categories = Category.fetchAll();
+  final productNameController = TextEditingController();
+  final productDescriptionController = TextEditingController();
+  final productPriceController = TextEditingController();
 
   FillProductInfosState();
 
@@ -51,6 +54,8 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
                               border: OutlineInputBorder(),
                               labelText: 'Ürün Adı'
                           ),
+                          controller: productNameController,
+
 
                         ),
                         SizedBox(height: 10),
@@ -65,6 +70,8 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
                               border: OutlineInputBorder(),
                               labelText: 'Ürün Açıklaması'
                           ),
+                          controller: productDescriptionController,
+
                         ),
                         SizedBox(height: 10),
                         TextFormField(
@@ -74,6 +81,7 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
                             }
                             return null;
                           },
+                          controller: productPriceController,
                           keyboardType: TextInputType.multiline,
                           maxLength: 1450,
                           maxLines: null,
@@ -83,7 +91,7 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
                           ),
                         ),
                         DropdownButtonFormField<Category>(
-                          value:  dropdownValue != null ?dropdownValue : null,
+                          value:  productCategory != null ?productCategory : null,
                           icon: Icon(Icons.arrow_downward),
                           iconSize: 24,
                           elevation: 16,
@@ -91,7 +99,7 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
                           style: TextStyle(color: Colors.deepPurple),
                           onChanged: (Category newValue) {
                             setState(() {
-                              dropdownValue = newValue;
+                              productCategory = newValue;
                             });
                           },
                           items: categories
@@ -109,7 +117,13 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
                               // If the form is valid, display a snackbar. In the real world,
                               // you'd often call a server or save the information in a database.
 
-                              Product product= Product.fetchAll()[0];
+                              Product product= new Product(null
+                                  , productNameController.text
+                                  , productDescriptionController.text
+                                  , double.parse(productPriceController.text)
+                                  , null
+                                  , null
+                                  , productCategory);
                               createProduct(product);
 
                               Scaffold.of(context)
@@ -142,7 +156,7 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(product.toJson()),
+      body: jsonEncode(product),
     );
   }
 
