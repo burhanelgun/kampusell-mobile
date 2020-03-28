@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kampusell/main.dart';
 
 class AppBarContent extends StatelessWidget {
   @override
@@ -35,9 +36,7 @@ class AppBarContent extends StatelessWidget {
         ),
         IconButton(
           icon: Icon(Icons.filter_list),
-          onPressed: () {
-
-          },
+          onPressed: () => _onSellProductBtnClick(context)
         ),
       ],
     );
@@ -45,4 +44,9 @@ class AppBarContent extends StatelessWidget {
 
 
   }
+  _onSellProductBtnClick(BuildContext context) {
+    Navigator.pushNamed(context, FilterSettingsRoute );
+
+  }
 }
+

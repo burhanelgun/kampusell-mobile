@@ -119,7 +119,6 @@ class DashboardState extends State<DashboardScreen> {
 
 
     Navigator.pushNamed(context, FillProductInfosRoute ).then((value) {
-      print("category:"+category.name);
       setState(() {
         if(category==null){
           products=getDefaultProducts();
