@@ -26,127 +26,130 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
   Widget build(BuildContext context) {
 
 
-    return Scaffold(
-      appBar: AppBar(
-          titleSpacing: 0.0,
-          title: Text("ürün bilgilerini giriniz")
-      ),
-      body: Builder(
-        builder: (context) => Container(
-          margin: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Form(
-                  key: _formKey,
-                  child: Column(
-                      children: <Widget>[
-                        // Add TextFormFields and RaisedButton here.
-                        TextFormField(
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Ürün Adı'
-                          ),
-                          controller: productNameController,
-
-
-                        ),
-                        SizedBox(height: 10),
-                        TextFormField(
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Ürün Açıklaması'
-                          ),
-                          controller: productDescriptionController,
-
-                        ),
-                        SizedBox(height: 10),
-                        TextFormField(
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                          controller: productPriceController,
-                          keyboardType: TextInputType.multiline,
-                          maxLength: 1450,
-                          maxLines: null,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Ürün Fiyatı'
-                          ),
-                        ),
-                        DropdownButtonFormField<Category>(
-                          value:  productCategory != null ?productCategory : null,
-                          icon: Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          hint: Text("Kategori Seçiniz"),
-                          style: TextStyle(color: Colors.deepPurple),
-                          onChanged: (Category newValue) {
-                            setState(() {
-                              productCategory = newValue;
-                            });
-                          },
-                          items: categories
-                              .map<DropdownMenuItem<Category>>((Category category) {
-                            return DropdownMenuItem<Category>(
-                              value: category,
-                              child: Text(category.name),
-                            );
-                          }).toList(),
-                        ),
-                        RaisedButton(
-                          onPressed: () {
-                            // Validate returns true if the form is valid, otherwise false.
-                            if (_formKey.currentState.validate()) {
-                              // If the form is valid, display a snackbar. In the real world,
-                              // you'd often call a server or save the information in a database.
-
-                              Product product= new Product(null
-                                  , productNameController.text
-                                  , productDescriptionController.text
-                                  , double.parse(productPriceController.text)
-                                  , null
-                                  , null
-                                  , productCategory);
-                              createProduct(product);
-
-                              Scaffold.of(context)
-                                  .showSnackBar(SnackBar(content: Text('Processing Data')));
-                                print("satışa çıkarıldı");
-                            }
-                          },
-                          child: Text('Satışa Çıkar'),
-                        )
-                      ]
-                  )
-              ),
-
-
-
-
-            ],
-          ) ,
-
+    return  new WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
+        appBar: AppBar(
+            titleSpacing: 0.0,
+            title: Text("ürün bilgilerini giriniz")
         ),
+        body: Builder(
+          builder: (context) => Container(
+            margin: EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Form(
+                    key: _formKey,
+                    child: Column(
+                        children: <Widget>[
+                          // Add TextFormFields and RaisedButton here.
+                          TextFormField(
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Ürün Adı'
+                            ),
+                            controller: productNameController,
+
+
+                          ),
+                          SizedBox(height: 10),
+                          TextFormField(
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Ürün Açıklaması'
+                            ),
+                            controller: productDescriptionController,
+
+                          ),
+                          SizedBox(height: 10),
+                          TextFormField(
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            controller: productPriceController,
+                            keyboardType: TextInputType.multiline,
+                            maxLength: 1450,
+                            maxLines: null,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Ürün Fiyatı'
+                            ),
+                          ),
+                          DropdownButtonFormField<Category>(
+                            value:  productCategory != null ?productCategory : null,
+                            icon: Icon(Icons.arrow_downward),
+                            iconSize: 24,
+                            elevation: 16,
+                            hint: Text("Kategori Seçiniz"),
+                            style: TextStyle(color: Colors.deepPurple),
+                            onChanged: (Category newValue) {
+                              setState(() {
+                                productCategory = newValue;
+                              });
+                            },
+                            items: categories
+                                .map<DropdownMenuItem<Category>>((Category category) {
+                              return DropdownMenuItem<Category>(
+                                value: category,
+                                child: Text(category.name),
+                              );
+                            }).toList(),
+                          ),
+                          RaisedButton(
+                            onPressed: () {
+                              // Validate returns true if the form is valid, otherwise false.
+                              if (_formKey.currentState.validate()) {
+                                // If the form is valid, display a snackbar. In the real world,
+                                // you'd often call a server or save the information in a database.
+
+                                Product product= new Product(null
+                                    , productNameController.text
+                                    , productDescriptionController.text
+                                    , double.parse(productPriceController.text)
+                                    , null
+                                    , null
+                                    , productCategory);
+                                createProduct(product);
+
+                                Scaffold.of(context)
+                                    .showSnackBar(SnackBar(content: Text('Processing Data')));
+                                  print("satışa çıkarıldı");
+                              }
+                            },
+                            child: Text('Satışa Çıkar'),
+                          )
+                        ]
+                    )
+                ),
+
+
+
+
+              ],
+            ) ,
+
+          ),
+
+        )
 
       )
-
     );
   }
 
@@ -161,4 +164,10 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
     );
   }
 
+
+  Future<bool> _onWillPop() async{
+    Navigator.of(context).pop(true);
+    print("merhabalaf");
+    return false;
+  }
 }

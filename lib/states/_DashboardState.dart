@@ -29,26 +29,14 @@ class DashboardState extends State<DashboardScreen> {
 
   Future<List<Product>> getDefaultProducts() async{
     var data;
-    print("11111");
+    //https://kampusell-api.herokuapp.com/
     data = await http.get("https://kampusell-api.herokuapp.com/api/products");
-    print("1515151515151515");
     List<dynamic> jsonData= json.decode(data.body);
-    print("222222222");
-
-
     List<Product> products = [];
     for(int i=0;i<jsonData.length;i++){
-      print("4444444444");
-
       Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString(),jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()),Category.fromJson(jsonData[i]['category']));
-      print("5555555555");
-
       products.add(product);
-      print("6666666666");
-
     }
-    print("777777777777");
-
     return products;
   }
 
@@ -94,7 +82,7 @@ class DashboardState extends State<DashboardScreen> {
 
 
   void updateProducts(Category category) {
-
+    this.category=category;
     setState(() {
       products=getProductsByCategory(category);
     });
@@ -102,6 +90,7 @@ class DashboardState extends State<DashboardScreen> {
 
   Future<List<Product>> getProductsByCategory(Category category) async{
     var data;
+    //https://kampusell-api.herokuapp.com/
     if(category==null){
       print("null2");
       data = await http.get("https://kampusell-api.herokuapp.com/api/products");
@@ -128,7 +117,18 @@ class DashboardState extends State<DashboardScreen> {
 
   _onSellProductBtnClick(BuildContext context) {
 
-    Navigator.pushNamed(context, FillProductInfosRoute );
+
+    Navigator.pushNamed(context, FillProductInfosRoute ).then((value) {
+      print("category:"+category.name);
+      setState(() {
+        if(category==null){
+          products=getDefaultProducts();
+        }
+        else{
+          updateProducts(category);
+        }
+      });
+    });
 
 
   }

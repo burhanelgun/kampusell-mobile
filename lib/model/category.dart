@@ -16,11 +16,11 @@ class Category{
         'Elektronik'
       ),
       Category(
-        '4',
+        '3',
         'Giyim'
       ),
       Category(
-        '5',
+        '4',
         'Emlak'
       )
     ];
