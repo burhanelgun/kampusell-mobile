@@ -153,7 +153,7 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
                                     , productNameController.text
                                     , productDescriptionController.text
                                     , double.parse(productPriceController.text)
-                                    , null
+                                    , _image
                                     , null
                                     , productCategory);
                                 createProduct(product);
@@ -185,8 +185,10 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
 
   Future<http.Response> createProduct(Product product) {
     //      'http://10.0.2.2:8080/api/products/s',
+    //'https://kampusell-api.herokuapp.com/api/products/s'
+    print("encoded:"+jsonEncode(product));
     return http.post(
-      'https://kampusell-api.herokuapp.com/api/products/s',
+      'http://192.168.1.36:8080/api/products/s',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

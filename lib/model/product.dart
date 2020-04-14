@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:kampusell/model/student.dart';
 
 import 'category.dart';
@@ -7,15 +10,12 @@ class Product{
   String name;
   String description;
   double price;
-  List<String> imagePaths;
+  File image;
   Student student;
   Category category;
-  Product(this.id,this.name,this.description,this.price,this.imagePaths,this.student,this.category);
+  Product(this.id,this.name,this.description,this.price,this.image,this.student,this.category);
   //for try(remove below later)
   Product.foo(this.id,this.name,this.description,this.price,this.category){
-    List<String> photoPaths = new List();
-    photoPaths.add("assets/images/kitap.png");
-    this.imagePaths=photoPaths;
     this.student=new Student(
         1,
         "burhanelgun",
@@ -34,22 +34,25 @@ class Product{
     this.name = p.name;
     this.description =p.description;
     this.price = p.price;
-    this.imagePaths=p.imagePaths;
+    this.image=p.image;
     this.student=p.student;
     this.category=p.category;
 
   }
 
-  Map<String, dynamic> toJson() =>
-  {
-    'id': id,
-    'name': name,
-    'description': description,
-    'price': price,
-    'category':category,
-    'student':student,
-    'imagePaths':imagePaths
-  };
+  Map<String, dynamic> toJson() {
+    List<int> imageBytes = image.readAsBytesSync();
+    String base64Image = base64Encode(imageBytes);
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'price': price,
+      'category': category,
+      'student': student,
+      'image': base64Image
+    };
+  }
 
 
 
@@ -73,7 +76,7 @@ class Product{
           'Fizik 1',
           'Az kullanılmıştır.',
           25.6,
-          photoPaths,
+          null,
           new Student(
               1,
               "burhanelgun",
@@ -89,7 +92,7 @@ class Product{
           'Mat 1',
           'Az kullanılmıştır.',
           25.6,
-          photoPaths,
+          null,
           new Student(
               1,
               "burhanelgun",
@@ -105,7 +108,7 @@ class Product{
           'Kimya 1',
           'Az kullanılmıştır.',
           25.6,
-          photoPaths,
+          null,
           new Student(
               1,
               "burhanelgun",
@@ -121,7 +124,7 @@ class Product{
           'Biyoloji 1',
           'Az kullanılmıştır.',
           25.6,
-          photoPaths,
+          null,
           new Student(
               1,
               "burhanelgun",
@@ -137,7 +140,7 @@ class Product{
           'İngilizce 1',
           'Az kullanılmıştır.',
           25.6,
-          photoPaths,
+          null,
           new Student(
               1,
               "burhanelgun",
@@ -153,7 +156,7 @@ class Product{
           'Yapay Zeka 1',
           'Az kullanılmıştır.',
           25.6,
-          photoPaths,
+          null,
           new Student(
               1,
               "burhanelgun",
@@ -169,7 +172,7 @@ class Product{
           'Tarih 1',
           'Az kullanılmıştır.',
           25.6,
-          photoPaths,
+          null,
           new Student(
               1,
               "burhanelgun",
@@ -185,7 +188,7 @@ class Product{
           'Rusça 1',
           'Az kullanılmıştır.',
           25.6,
-          photoPaths,
+          null,
           new Student(
               1,
               "burhanelgun",
@@ -201,7 +204,7 @@ class Product{
           'Geometri 1',
           'Az kullanılmıştır.',
           25.6,
-          photoPaths,
+          null,
           new Student(
               1,
               "burhanelgun",
@@ -217,7 +220,7 @@ class Product{
           'Coğrafya 1',
           'Az kullanılmıştır.',
           25.6,
-          photoPaths,
+          null,
           new Student(
               1,
               "burhanelgun",

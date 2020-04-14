@@ -40,11 +40,11 @@ class ProductScreen extends StatelessWidget{
               height: 50.0,
               decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
-                  image: new DecorationImage(
+                  /*image: new DecorationImage(
                       fit: BoxFit.fill,
-                      image: new AssetImage(
+                      image: new FileImage(
                           _productItem.product.imagePaths[0])
-                  )
+                  )*/
               )
           )
         ],

@@ -18,9 +18,9 @@ class ProductItem extends StatelessWidget {
                 height: 50.0,
                 decoration: new BoxDecoration(
                     shape: BoxShape.rectangle,
-                    image: new DecorationImage(
+                    /*image: new DecorationImage(
                         fit: BoxFit.cover,
-                        image: new AssetImage(product.imagePaths[0])))),
+                        image: new FileImage(product.imagePaths[0]))*/)),
             Expanded(
               child: Column(
                 children: <Widget>[
