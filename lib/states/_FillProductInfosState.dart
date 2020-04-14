@@ -3,6 +3,7 @@
 
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:kampusell/model/product.dart';
 import 'package:kampusell/screens/dashboard/category-item.dart';
 import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 class FillProductInfosState extends State<FillProductInfosScreen>{
   Category productCategory = null;
@@ -19,8 +21,19 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
   final productNameController = TextEditingController();
   final productDescriptionController = TextEditingController();
   final productPriceController = TextEditingController();
+  File _image;
+
 
   FillProductInfosState();
+
+  Future getImage() async {
+    print("tıklandı");
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +53,18 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                Center(
+                  child: _image == null
+                      ? Text('No image selected.')
+                      :  Container(
+                        width: 70.0,
+                        height: 70.0,
+                        decoration: new BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            image: new DecorationImage(
+                                fit: BoxFit.cover,
+                                image: FileImage(_image))))
+                ),
                 Form(
                     key: _formKey,
                     child: Column(
@@ -111,6 +136,11 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
                                 child: Text(category.name),
                               );
                             }).toList(),
+                          ),
+                         FloatingActionButton(
+                            onPressed: getImage,
+                            tooltip: 'Pick Image',
+                            child: Icon(Icons.add_a_photo),
                           ),
                           RaisedButton(
                             onPressed: () {
