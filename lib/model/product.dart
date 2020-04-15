@@ -10,12 +10,12 @@ class Product{
   String name;
   String description;
   double price;
-  File image;
+  List<String> imagePaths;
   Student student;
   Category category;
-  Product(this.id,this.name,this.description,this.price,this.image,this.student,this.category);
+  Product(this.id,this.name,this.description,this.price,this.imagePaths,this.student,this.category);
   //for try(remove below later)
-  Product.foo(this.id,this.name,this.description,this.price,this.category){
+  Product.foo(this.id,this.name,this.description,this.price,this.category,this.imagePaths){
     this.student=new Student(
         1,
         "burhanelgun",
@@ -34,15 +34,13 @@ class Product{
     this.name = p.name;
     this.description =p.description;
     this.price = p.price;
-    this.image=p.image;
+    this.imagePaths=p.imagePaths;
     this.student=p.student;
     this.category=p.category;
 
   }
 
   Map<String, dynamic> toJson() {
-    List<int> imageBytes = image.readAsBytesSync();
-    String base64Image = base64Encode(imageBytes);
     return {
       'id': id,
       'name': name,
@@ -50,7 +48,7 @@ class Product{
       'price': price,
       'category': category,
       'student': student,
-      'image': base64Image
+      'imagePaths': imagePaths
     };
   }
 

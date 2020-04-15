@@ -36,15 +36,16 @@ class ProductScreen extends StatelessWidget{
           Text(_productItem.product.student.name),
           Text(_productItem.product.price.toString()),
           new Container(
-              width: 50.0,
-              height: 50.0,
+              width: 150.0,
+              height: 150.0,
               decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
-                  /*image: new DecorationImage(
-                      fit: BoxFit.fill,
-                      image: new FileImage(
-                          _productItem.product.imagePaths[0])
-                  )*/
+                  image:  _productItem.product.imagePaths == null
+                      ? null
+                      : new DecorationImage(
+                      fit: BoxFit.scaleDown,
+                      image:  NetworkImage(_productItem.product.imagePaths[0]),
+                  )
               )
           )
         ],

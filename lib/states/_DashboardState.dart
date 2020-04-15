@@ -33,10 +33,28 @@ class DashboardState extends State<DashboardScreen> {
     data = await http.get("https://kampusell-api.herokuapp.com/api/products");
     List<dynamic> jsonData= json.decode(data.body);
     List<Product> products = [];
+    print(jsonData);
+    print("bakalimbakalim");
+    print(jsonData[jsonData.length-1]['imagePaths']);
+
     for(int i=0;i<jsonData.length;i++){
-      Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString(),jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()),Category.fromJson(jsonData[i]['category']));
+      print("aloooooo1");
+      print(jsonData[i]['imagePaths']);
+      print("aloooooo2");
+
+      print(jsonData[i]['imagePaths'].runtimeType);
+      List<String> intList2 = jsonData[i]['imagePaths'].cast<String>();
+
+      print("aloooooo3");
+
+      print(intList2);
+
+      print("aloooooo4");
+      Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString(),jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()),Category.fromJson(jsonData[i]['category']),intList2);
       products.add(product);
     }
+    print("bakalimbakalim2");
+
     return products;
   }
 
@@ -102,7 +120,8 @@ class DashboardState extends State<DashboardScreen> {
       List<Product> products = [];
       for(int i=0;i<jsonData.length;i++){
         if(Category.fromJson(jsonData[i]['category']).name==category.name){
-          Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString(),jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()),Category.fromJson(jsonData[i]['category']));
+          List<String> imagePaths = jsonData[i]['imagePaths'];
+          Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString(),jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()),Category.fromJson(jsonData[i]['category']),imagePaths);
           products.add(product);
         }
 

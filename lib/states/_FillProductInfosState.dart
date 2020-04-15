@@ -9,10 +9,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/category.dart';
 import 'package:kampusell/model/product.dart';
-import 'package:kampusell/screens/dashboard/category-item.dart';
 import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class FillProductInfosState extends State<FillProductInfosScreen>{
   Category productCategory = null;
@@ -22,6 +22,8 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
   final productDescriptionController = TextEditingController();
   final productPriceController = TextEditingController();
   File _image;
+  FirebaseStorage _storage = FirebaseStorage.instance;
+  List<String> photoPaths = new List();
 
 
   FillProductInfosState();
@@ -32,6 +34,39 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
 
     setState(() {
       _image = image;
+    });
+
+  }
+
+
+  Future uploadFile() async {
+    StorageReference storageReference = FirebaseStorage.instance
+        .ref()
+        .child(productNameController.text);
+
+
+
+
+    StorageUploadTask uploadTask = storageReference.putFile(_image);
+    await uploadTask.onComplete;
+    print('File Uploaded');
+    storageReference.getDownloadURL().then((fileURL) {
+      setState(() {
+        print("heyhat1");
+        print(fileURL);
+
+        photoPaths.add(fileURL);
+        print("heyhat2");
+        Product product= new Product(null
+            , productNameController.text
+            , productDescriptionController.text
+            , double.parse(productPriceController.text)
+            , photoPaths
+            , null
+            , productCategory);
+        createProduct(product);
+
+      });
     });
   }
 
@@ -143,20 +178,13 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
                             child: Icon(Icons.add_a_photo),
                           ),
                           RaisedButton(
-                            onPressed: () {
+                            onPressed: ()  {
                               // Validate returns true if the form is valid, otherwise false.
                               if (_formKey.currentState.validate()) {
                                 // If the form is valid, display a snackbar. In the real world,
                                 // you'd often call a server or save the information in a database.
+                                uploadFile();
 
-                                Product product= new Product(null
-                                    , productNameController.text
-                                    , productDescriptionController.text
-                                    , double.parse(productPriceController.text)
-                                    , _image
-                                    , null
-                                    , productCategory);
-                                createProduct(product);
 
                                 Scaffold.of(context)
                                     .showSnackBar(SnackBar(content: Text('Processing Data')));
@@ -184,11 +212,15 @@ class FillProductInfosState extends State<FillProductInfosScreen>{
   }
 
   Future<http.Response> createProduct(Product product) {
+
     //      'http://10.0.2.2:8080/api/products/s',
+    //      'http://192.168.1.36:8080/api/products/s',
     //'https://kampusell-api.herokuapp.com/api/products/s'
     print("encoded:"+jsonEncode(product));
+    print("encoded:"+jsonEncode(product));
+
     return http.post(
-      'http://192.168.1.36:8080/api/products/s',
+      'https://kampusell-api.herokuapp.com/api/products/s',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

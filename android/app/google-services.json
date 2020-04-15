@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "419549574034",
+    "firebase_url": "https://kampusell-files.firebaseio.com",
+    "project_id": "kampusell-files",
+    "storage_bucket": "kampusell-files.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419549574034:android:9528e27b78d12e9649c74b",
+        "android_client_info": {
+          "package_name": "com.bestudios.kampusell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419549574034-4e02vovt3vnku3u5eu3ioc18lt2i7q7h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiiD8YomfWOXh7w6xikleSzuuTqHTzoaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "419549574034-4e02vovt3vnku3u5eu3ioc18lt2i7q7h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

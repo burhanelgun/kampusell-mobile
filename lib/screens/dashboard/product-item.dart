@@ -18,9 +18,11 @@ class ProductItem extends StatelessWidget {
                 height: 50.0,
                 decoration: new BoxDecoration(
                     shape: BoxShape.rectangle,
-                    /*image: new DecorationImage(
+                    image:  product.imagePaths == null
+                        ? null
+                        : new DecorationImage(
                         fit: BoxFit.cover,
-                        image: new FileImage(product.imagePaths[0]))*/)),
+                        image:  NetworkImage(product.imagePaths[0])))),
             Expanded(
               child: Column(
                 children: <Widget>[
@@ -28,6 +30,10 @@ class ProductItem extends StatelessWidget {
                   new Text(product.category.name, textScaleFactor: 1.0),
                   new Text(product.price.toString(), textScaleFactor: 1.0),
                   new Text(product.description, textScaleFactor: 1.0),
+                  /*new Text(product.imagePaths == null
+                      ? "null"
+                      : product.imagePaths[0]),*/
+
                 ],
               ),
             ),
