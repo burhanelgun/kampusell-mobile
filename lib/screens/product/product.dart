@@ -1,30 +1,16 @@
-
-
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kampusell/model/product.dart';
-import 'package:kampusell/screens/dashboard/app-bar-content.dart';
-import 'package:kampusell/screens/dashboard/categories-list.dart';
 import 'package:kampusell/screens/dashboard/product-item.dart';
-import 'package:kampusell/screens/dashboard/products-list.dart';
 
-class ProductScreen extends StatelessWidget{
+class ProductScreen extends StatelessWidget {
   final ProductItem _productItem;
 
   ProductScreen(this._productItem);
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
-      appBar: AppBar(
-          titleSpacing: 0.0,
-          title: Text(_productItem.product.name)
-      ),
+      appBar: AppBar(titleSpacing: 0.0, title: Text(_productItem.product.name)),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -40,19 +26,15 @@ class ProductScreen extends StatelessWidget{
               height: 150.0,
               decoration: new BoxDecoration(
                   shape: BoxShape.rectangle,
-                  image:  _productItem.product.imagePaths == null
+                  image: _productItem.product.imagePaths == null
                       ? null
                       : new DecorationImage(
-                      fit: BoxFit.scaleDown,
-                      image:  NetworkImage(_productItem.product.imagePaths[0]),
-                  )
-              )
-          )
+                          fit: BoxFit.scaleDown,
+                          image:
+                              NetworkImage(_productItem.product.imagePaths[0]),
+                        )))
         ],
       ),
-
-
     );
   }
-
 }
