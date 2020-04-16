@@ -120,8 +120,8 @@ class DashboardState extends State<DashboardScreen> {
       List<Product> products = [];
       for(int i=0;i<jsonData.length;i++){
         if(Category.fromJson(jsonData[i]['category']).name==category.name){
-          List<String> imagePaths = jsonData[i]['imagePaths'];
-          Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString(),jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()),Category.fromJson(jsonData[i]['category']),imagePaths);
+          List<String> intList2 = jsonData[i]['imagePaths'].cast<String>();
+          Product product = new Product.foo(jsonData[i]['id'].toString(),jsonData[i]['name'].toString(),jsonData[i]['description'].toString(),double.parse(jsonData[i]['price'].toString()),Category.fromJson(jsonData[i]['category']),intList2);
           products.add(product);
         }
 
