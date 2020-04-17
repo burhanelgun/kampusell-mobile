@@ -47,7 +47,7 @@ class DashboardState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: NavDrawer(),
+      drawer: NavDrawer(this),
       appBar: AppBar(titleSpacing: 0.0, automaticallyImplyLeading: false, title: AppBarContent(_scaffoldKey)),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -68,7 +68,8 @@ class DashboardState extends State<DashboardScreen> {
             label: Text('Eşyalarını Sat'),
             icon: Icon(Icons.photo_camera),
             backgroundColor: Colors.pink,
-          )),
+          )
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -116,4 +117,7 @@ class DashboardState extends State<DashboardScreen> {
       });
     });
   }
+
+  refresh() => setState(() {});
+
 }

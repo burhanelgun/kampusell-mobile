@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:kampusell/states/_DashboardState.dart';
+
+import '../../main.dart';
 
 class NavDrawer extends StatelessWidget {
+  DashboardState _dashboardState;
+  NavDrawer(DashboardState dashboardState){
+    _dashboardState=dashboardState;
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -16,7 +25,7 @@ class NavDrawer extends StatelessWidget {
                 color: Colors.green,
                 image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage('assets/images/cover.jpg'))),
+                    image: AssetImage('assets/images/elektronik.png'))),
           ),
           ListTile(
             leading: Icon(Icons.input),
@@ -26,7 +35,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.verified_user),
             title: Text('Profile'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => onTapProfile(context),
           ),
           ListTile(
             leading: Icon(Icons.settings),
@@ -46,5 +55,10 @@ class NavDrawer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  onTapProfile(BuildContext context) {
+    Navigator.of(context).pop();
+    Navigator.pushNamed(context, ProfileRoute);
   }
 }
