@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:kampusell/main.dart';
 
 class AppBarContent extends StatelessWidget {
+  GlobalKey<ScaffoldState> _scaffoldKey;
+  AppBarContent(GlobalKey<ScaffoldState> scaffoldKey){
+    _scaffoldKey=scaffoldKey;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
         IconButton(
           icon: Icon(Icons.account_circle),
-          onPressed: () {},
+          onPressed: () => _scaffoldKey.currentState.openDrawer(),
         ),
         Flexible(
             child: TextField(

@@ -13,7 +13,7 @@ class FilterSettingsState extends State<FilterSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(titleSpacing: 0.0, title: AppBarContent()),
+        appBar: new AppBar(),
         body: Text("Merhabalar"));
   }
 }

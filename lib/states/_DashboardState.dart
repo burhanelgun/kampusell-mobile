@@ -9,12 +9,14 @@ import 'package:kampusell/screens/dashboard/app-bar-content.dart';
 import 'package:kampusell/screens/dashboard/categories-list.dart';
 import 'package:kampusell/screens/dashboard/dashboard.dart';
 import 'package:kampusell/screens/dashboard/products-list.dart';
+import 'package:kampusell/screens/side-menu/NavDrawer.dart';
 
 import '../main.dart';
 
 class DashboardState extends State<DashboardScreen> {
   Category category;
   Future<List<Product>> products;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -44,7 +46,9 @@ class DashboardState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(titleSpacing: 0.0, title: AppBarContent()),
+      key: _scaffoldKey,
+      drawer: NavDrawer(),
+      appBar: AppBar(titleSpacing: 0.0, automaticallyImplyLeading: false, title: AppBarContent(_scaffoldKey)),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
