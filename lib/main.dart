@@ -3,7 +3,9 @@ import 'package:kampusell/model/category.dart';
 import 'package:kampusell/screens/dashboard/dashboard.dart';
 import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
 import 'package:kampusell/screens/filter-settings/filter-settings.dart';
-import 'package:kampusell/screens/profile/profile.dart';
+import 'package:kampusell/screens/my-messages/my-messages.dart';
+import 'package:kampusell/screens/my-products/my-products.dart';
+import 'package:kampusell/screens/my-profile/my-profile.dart';
 
 
 import 'screens/product/product.dart';
@@ -15,6 +17,9 @@ const ChooseCategoryRoute = "/chooseCategory";
 const FillProductInfosRoute = "/fillProductInfosRoute";
 const FilterSettingsRoute = "/filterSettingsRoute";
 const ProfileRoute = "/profileRoute";
+const MyProductsRoute = "/myProductsRoute";
+const MyMessagesRoute = "/myMessagesRoute";
+
 
 void main() => runApp(MyApp());
 
@@ -50,7 +55,13 @@ class MyApp extends StatelessWidget {
           screen = FilterSettingsScreen();
           break;
         case ProfileRoute:
-          screen = ProfileScreen();
+          screen = MyProfileScreen();
+          break;
+        case MyProductsRoute:
+          screen = MyProductsScreen();
+          break;
+        case MyMessagesRoute:
+          screen = MyMessagesScreen();
           break;
         default:
           return null;

@@ -24,24 +24,6 @@ class DashboardState extends State<DashboardScreen> {
     products = getDefaultProducts();
   }
 
-  Future<List<Product>> getDefaultProducts() async {
-    var data;
-    data = await http.get("https://kampusell-api.herokuapp.com/api/products");
-    List<dynamic> jsonData = json.decode(data.body);
-    List<Product> products = [];
-    for (int i = 0; i < jsonData.length; i++) {
-      List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
-      Product product = new Product.foo(
-          jsonData[i]['id'].toString(),
-          jsonData[i]['name'].toString(),
-          jsonData[i]['description'].toString(),
-          double.parse(jsonData[i]['price'].toString()),
-          Category.fromJson(jsonData[i]['category']),
-          imagePaths);
-      products.add(product);
-    }
-    return products;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,12 +63,35 @@ class DashboardState extends State<DashboardScreen> {
     });
   }
 
+
+
+  Future<List<Product>> getDefaultProducts() async {
+    var data;
+    data = await http.get("https://kampusell-api.herokuapp.com/api/products");
+    List<dynamic> jsonData = json.decode(data.body);
+    List<Product> products = [];
+    for (int i = 0; i < jsonData.length; i++) {
+      List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
+      Product product = new Product.foo(
+          jsonData[i]['id'].toString(),
+          jsonData[i]['name'].toString(),
+          jsonData[i]['description'].toString(),
+          double.parse(jsonData[i]['price'].toString()),
+          Category.fromJson(jsonData[i]['category']),
+          imagePaths);
+      products.add(product);
+    }
+    return products;
+  }
+
+
+
   Future<List<Product>> getProductsByCategory(Category category) async {
     var data;
     if (category == null) {
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products");
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products/categoryId="+category.id);
     } else {
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products");
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products/categoryId="+category.id);
       List<dynamic> jsonData = json.decode(data.body);
       List<Product> products = [];
       for (int i = 0; i < jsonData.length; i++) {
@@ -118,6 +123,5 @@ class DashboardState extends State<DashboardScreen> {
     });
   }
 
-  refresh() => setState(() {});
 
 }

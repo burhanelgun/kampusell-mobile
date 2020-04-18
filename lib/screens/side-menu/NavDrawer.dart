@@ -28,29 +28,24 @@ class NavDrawer extends StatelessWidget {
                     image: AssetImage('assets/images/elektronik.png'))),
           ),
           ListTile(
-            leading: Icon(Icons.input),
-            title: Text('Welcome'),
-            onTap: () => {},
-          ),
-          ListTile(
             leading: Icon(Icons.verified_user),
-            title: Text('Profile'),
+            title: Text('Profilim'),
             onTap: () => onTapProfile(context),
           ),
           ListTile(
             leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () => {Navigator.of(context).pop()},
+            title: Text('Ürünlerim'),
+            onTap: () => onTapMyProducts(context),
           ),
           ListTile(
             leading: Icon(Icons.border_color),
-            title: Text('Feedback'),
-            onTap: () => {Navigator.of(context).pop()},
+            title: Text('Mesajlarım'),
+            onTap: () => onTapMyMessages(context),
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
-            title: Text('Logout'),
-            onTap: () => {Navigator.of(context).pop()},
+            title: Text('Çıkış Yap'),
+            onTap: () => onTapLogout(context)
           ),
         ],
       ),
@@ -60,5 +55,19 @@ class NavDrawer extends StatelessWidget {
   onTapProfile(BuildContext context) {
     Navigator.of(context).pop();
     Navigator.pushNamed(context, ProfileRoute);
+  }
+
+  onTapMyProducts(BuildContext context) {
+    Navigator.of(context).pop();
+    Navigator.pushNamed(context, MyProductsRoute);
+  }
+
+  onTapMyMessages(BuildContext context) {
+    Navigator.of(context).pop();
+    Navigator.pushNamed(context, MyMessagesRoute);
+  }
+
+  onTapLogout(BuildContext context) {
+    Navigator.of(context).pop();
   }
 }
