@@ -6,13 +6,14 @@ import 'package:kampusell/states/_DashboardState.dart';
 class AppBarContent extends StatelessWidget {
   GlobalKey<ScaffoldState> _scaffoldKey;
   TextEditingController _searchTextController;
+  DashboardState _dashboardState;
 
 
 
-
-  AppBarContent(GlobalKey<ScaffoldState> scaffoldKey, TextEditingController searchTextController) {
+  AppBarContent(GlobalKey<ScaffoldState> scaffoldKey, TextEditingController searchTextController, DashboardState dashboardState) {
     _scaffoldKey = scaffoldKey;
     _searchTextController=searchTextController;
+    _dashboardState=dashboardState;
   }
 
   @override
@@ -44,7 +45,7 @@ class AppBarContent extends StatelessWidget {
               controller: _searchTextController,
               onSubmitted:_onSearchTextSubmitted(),
               onChanged: _onSearchTextChanged(),
-              onEditingComplete: _onSearchTextEditingComplete(),
+              onEditingComplete: () =>  _onSearchTextEditingComplete(),
 
 
 
@@ -61,16 +62,17 @@ class AppBarContent extends StatelessWidget {
     Navigator.pushNamed(context, FilterSettingsRoute);
   }
 
+  _onSearchTextEditingComplete(){
+    _dashboardState.search();
+
+    //print("onsearchtexteditingcomplete");
+  }
+
   _onSearchTextSubmitted(){
-    print("onsubmitted");
+    //print("onsubmitted");
   }
   _onSearchTextChanged(){
-    print("onchanged");
-
-  }
-  _onSearchTextEditingComplete(){
-
-    print("onsearchtexteditingcomplete");
+   // print("onchanged");
   }
 
 }

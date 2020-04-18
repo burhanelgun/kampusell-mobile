@@ -39,7 +39,7 @@ class DashboardState extends State<DashboardScreen> {
       appBar: AppBar(
           titleSpacing: 0.0,
           automaticallyImplyLeading: false,
-          title: AppBarContent(_scaffoldKey,searchTextController)),
+          title: AppBarContent(_scaffoldKey,searchTextController,this)),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -92,9 +92,7 @@ class DashboardState extends State<DashboardScreen> {
 
   Future<List<Product>> getProductsByCategory(Category category) async {
     var data;
-    data = await http.get(
-        "https://kampusell-api.herokuapp.com/api/products/categoryId=" +
-            category.id);
+    data = await http.get("https://kampusell-api.herokuapp.com/api/products/categoryId=" + category.id);
     List<dynamic> jsonData = json.decode(data.body);
     List<Product> products = [];
     for (int i = 0; i < jsonData.length; i++) {
@@ -128,4 +126,39 @@ class DashboardState extends State<DashboardScreen> {
   refresh() {
     setState(() {});
   }
-}
+
+  void search()  {
+    print("search işlemi başladı:");
+    setState(() {
+      products=getSearchedProducts(searchTextController.text);
+    });
+
+  }
+
+  Future<List<Product>> getSearchedProducts(String searchText) async{
+    var data;
+    data = await http.get("https://kampusell-api.herokuapp.com/api/products/searchText=" + searchText);
+    List<dynamic> jsonData = json.decode(data.body);
+    List<Product> products = [];
+    for (int i = 0; i < jsonData.length; i++) {
+      List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
+      Product product = new Product.foo(
+          jsonData[i]['id'].toString(),
+          jsonData[i]['name'].toString(),
+          jsonData[i]['description'].toString(),
+          double.parse(jsonData[i]['price'].toString()),
+          Category.fromJson(jsonData[i]['category']),
+          imagePaths);
+      products.add(product);
+    }
+    return products;
+
+
+
+
+  }
+
+
+
+ }
+
