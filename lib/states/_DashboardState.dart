@@ -24,13 +24,15 @@ class DashboardState extends State<DashboardScreen> {
     products = getDefaultProducts();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       drawer: NavDrawer(this),
-      appBar: AppBar(titleSpacing: 0.0, automaticallyImplyLeading: false, title: AppBarContent(_scaffoldKey)),
+      appBar: AppBar(
+          titleSpacing: 0.0,
+          automaticallyImplyLeading: false,
+          title: AppBarContent(_scaffoldKey)),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -50,8 +52,7 @@ class DashboardState extends State<DashboardScreen> {
             label: Text('Eşyalarını Sat'),
             icon: Icon(Icons.photo_camera),
             backgroundColor: Colors.pink,
-          )
-      ),
+          )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -62,8 +63,6 @@ class DashboardState extends State<DashboardScreen> {
       products = getProductsByCategory(category);
     });
   }
-
-
 
   Future<List<Product>> getDefaultProducts() async {
     var data;
@@ -84,31 +83,27 @@ class DashboardState extends State<DashboardScreen> {
     return products;
   }
 
-
-
   Future<List<Product>> getProductsByCategory(Category category) async {
     var data;
-    if (category == null) {
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products/categoryId="+category.id);
-    } else {
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products/categoryId="+category.id);
-      List<dynamic> jsonData = json.decode(data.body);
-      List<Product> products = [];
-      for (int i = 0; i < jsonData.length; i++) {
-        if (Category.fromJson(jsonData[i]['category']).name == category.name) {
-          List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
-          Product product = new Product.foo(
-              jsonData[i]['id'].toString(),
-              jsonData[i]['name'].toString(),
-              jsonData[i]['description'].toString(),
-              double.parse(jsonData[i]['price'].toString()),
-              Category.fromJson(jsonData[i]['category']),
-              imagePaths);
-          products.add(product);
-        }
+    data = await http.get(
+        "https://kampusell-api.herokuapp.com/api/products/categoryId=" +
+            category.id);
+    List<dynamic> jsonData = json.decode(data.body);
+    List<Product> products = [];
+    for (int i = 0; i < jsonData.length; i++) {
+      if (Category.fromJson(jsonData[i]['category']).name == category.name) {
+        List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
+        Product product = new Product.foo(
+            jsonData[i]['id'].toString(),
+            jsonData[i]['name'].toString(),
+            jsonData[i]['description'].toString(),
+            double.parse(jsonData[i]['price'].toString()),
+            Category.fromJson(jsonData[i]['category']),
+            imagePaths);
+        products.add(product);
       }
-      return products;
     }
+    return products;
   }
 
   _onSellProductBtnClick(BuildContext context) {
@@ -122,6 +117,4 @@ class DashboardState extends State<DashboardScreen> {
       });
     });
   }
-
-
 }
