@@ -17,11 +17,18 @@ class DashboardState extends State<DashboardScreen> {
   Category category;
   Future<List<Product>> products;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  TextEditingController searchTextController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     products = getDefaultProducts();
+    searchTextController.addListener(() {
+      print(searchTextController.text);
+      setState(() {
+
+      });
+    });
   }
 
   @override
@@ -32,7 +39,7 @@ class DashboardState extends State<DashboardScreen> {
       appBar: AppBar(
           titleSpacing: 0.0,
           automaticallyImplyLeading: false,
-          title: AppBarContent(_scaffoldKey)),
+          title: AppBarContent(_scaffoldKey,searchTextController)),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -116,5 +123,9 @@ class DashboardState extends State<DashboardScreen> {
         }
       });
     });
+  }
+
+  refresh() {
+    setState(() {});
   }
 }

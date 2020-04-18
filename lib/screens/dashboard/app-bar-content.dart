@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:kampusell/main.dart';
+import 'package:kampusell/model/product.dart';
+import 'package:kampusell/states/_DashboardState.dart';
 
 class AppBarContent extends StatelessWidget {
   GlobalKey<ScaffoldState> _scaffoldKey;
-  AppBarContent(GlobalKey<ScaffoldState> scaffoldKey){
-    _scaffoldKey=scaffoldKey;
+  TextEditingController _searchTextController;
+
+
+
+
+  AppBarContent(GlobalKey<ScaffoldState> scaffoldKey, TextEditingController searchTextController) {
+    _scaffoldKey = scaffoldKey;
+    _searchTextController=searchTextController;
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Row(
       children: <Widget>[
         IconButton(
@@ -17,21 +26,30 @@ class AppBarContent extends StatelessWidget {
         ),
         Flexible(
             child: TextField(
-          decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              hoverColor: Colors.white,
-              focusColor: Colors.white,
-              contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(25.0)),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 32.0),
-                  borderRadius: BorderRadius.circular(25.0)),
-              hintText: 'Search'),
-        )),
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  hoverColor: Colors.white,
+                  focusColor: Colors.white,
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(25.0)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 32.0),
+                      borderRadius: BorderRadius.circular(25.0)),
+                  hintText: 'Ürün Ara'
+              ),
+              controller: _searchTextController,
+              onSubmitted:_onSearchTextSubmitted(),
+              onChanged: _onSearchTextChanged(),
+              onEditingComplete: _onSearchTextEditingComplete(),
+
+
+
+            )
+        ),
         IconButton(
             icon: Icon(Icons.filter_list),
             onPressed: () => _onSellProductBtnClick(context)),
@@ -42,4 +60,17 @@ class AppBarContent extends StatelessWidget {
   _onSellProductBtnClick(BuildContext context) {
     Navigator.pushNamed(context, FilterSettingsRoute);
   }
+
+  _onSearchTextSubmitted(){
+    print("onsubmitted");
+  }
+  _onSearchTextChanged(){
+    print("onchanged");
+
+  }
+  _onSearchTextEditingComplete(){
+
+    print("onsearchtexteditingcomplete");
+  }
+
 }
