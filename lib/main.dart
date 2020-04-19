@@ -8,6 +8,7 @@ import 'package:kampusell/screens/my-products/my-products.dart';
 import 'package:kampusell/screens/my-profile/my-profile.dart';
 
 
+import 'framework/bounce_scroll_behavior.dart';
 import 'screens/product/product.dart';
 
 
@@ -31,9 +32,18 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: _routes(),
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+          primarySwatch: Colors.blue,
+          pageTransitionsTheme: PageTransitionsTheme(
+          builders: <TargetPlatform, PageTransitionsBuilder>{
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          },
+        )
       ),
-      home: DashboardScreen()
+      home:  ScrollConfiguration(
+        behavior: BounceScrollBehavior(),
+        child: DashboardScreen(),
+      )
     );
   }
 
