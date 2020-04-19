@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:kampusell/model/category.dart';
+import 'package:kampusell/model/product-filter.dart';
 import 'package:kampusell/model/product.dart';
 import 'package:kampusell/screens/dashboard/app-bar-content.dart';
 import 'package:kampusell/screens/dashboard/categories-list.dart';
@@ -135,6 +136,14 @@ class DashboardState extends State<DashboardScreen> {
 
   }
 
+  void filter(ProductFilter productFilter)  {
+    print("filtreleme işlemi başladı:");
+    setState(() {
+      products=getFilteredProducts(productFilter);
+    });
+
+  }
+
   Future<List<Product>> getSearchedProducts(String searchText) async{
     var data;
     data = await http.get("https://kampusell-api.herokuapp.com/api/products/searchText=" + searchText);
@@ -153,6 +162,37 @@ class DashboardState extends State<DashboardScreen> {
     }
     return products;
 
+  }
+
+  Future<List<Product>> getFilteredProducts(ProductFilter productFilter) async{
+    print("filtre2");
+
+    print(productFilter.category);
+    print(productFilter.minPrice);
+    print(productFilter.maxPrice);
+
+    var data;
+    data = await http.post(
+      'http://10.0.2.2:8080/api/products/filter',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(productFilter),
+    );
+    List<dynamic> jsonData = json.decode(data.body);
+    List<Product> products = [];
+    for (int i = 0; i < jsonData.length; i++) {
+      List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
+      Product product = new Product.foo(
+          jsonData[i]['id'].toString(),
+          jsonData[i]['name'].toString(),
+          jsonData[i]['description'].toString(),
+          double.parse(jsonData[i]['price'].toString()),
+          Category.fromJson(jsonData[i]['category']),
+          imagePaths);
+      products.add(product);
+    }
+    return products;
 
 
 

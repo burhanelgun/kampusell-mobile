@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kampusell/main.dart';
+import 'package:kampusell/model/product-filter.dart';
 import 'package:kampusell/model/product.dart';
 import 'package:kampusell/states/_DashboardState.dart';
 
@@ -58,8 +59,11 @@ class AppBarContent extends StatelessWidget {
     );
   }
 
-  _onSellProductBtnClick(BuildContext context) {
-    Navigator.pushNamed(context, FilterSettingsRoute);
+  _onSellProductBtnClick(BuildContext context) async {
+    final productFilter = await Navigator.pushNamed(context, FilterSettingsRoute);
+    _dashboardState.filter(productFilter);
+
+
   }
 
   _onSearchTextEditingComplete(){
