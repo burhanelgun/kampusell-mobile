@@ -173,7 +173,7 @@ class DashboardState extends State<DashboardScreen> {
 
     var data;
     data = await http.post(
-      'http://10.0.2.2:8080/api/products/filter',
+      'https://kampusell-api.herokuapp.com/api/products/filter',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
