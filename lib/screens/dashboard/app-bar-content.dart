@@ -24,7 +24,7 @@ class AppBarContent extends StatelessWidget {
       children: <Widget>[
         IconButton(
           icon: Icon(Icons.account_circle),
-          onPressed: () => _scaffoldKey.currentState.openDrawer(),
+          onPressed: () => handleAccountClick(context),
         ),
         Flexible(
             child: TextField(
@@ -77,6 +77,30 @@ class AppBarContent extends StatelessWidget {
   }
   _onSearchTextChanged(){
    // print("onchanged");
+  }
+
+  handleAccountClick(BuildContext context) {
+
+    //if user not signed in(for now it is false)
+    bool isUserSignedIn = false;
+    if(isUserSignedIn==true){
+      _scaffoldKey.currentState.openDrawer();
+    }
+    else{
+      Navigator.pushNamed(context, SignInRoute).then((value) {
+        //read "value" value for checking is user signed in
+        value=true;
+        isUserSignedIn=value;
+        //after the sign in
+        if(isUserSignedIn==true){
+          //change default user icon with the user image in app bar
+        }
+        else{
+
+        }
+      });
+    }
+
   }
 
 }
