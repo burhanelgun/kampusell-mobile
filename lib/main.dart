@@ -7,6 +7,7 @@ import 'package:kampusell/screens/my-messages/my-messages.dart';
 import 'package:kampusell/screens/my-products/my-products.dart';
 import 'package:kampusell/screens/my-profile/my-profile.dart';
 import 'package:kampusell/screens/signin/sign_in.dart';
+import 'package:kampusell/screens/signup/sign_up.dart';
 
 
 import 'framework/bounce_scroll_behavior.dart';
@@ -22,6 +23,7 @@ const ProfileRoute = "/profileRoute";
 const MyProductsRoute = "/myProductsRoute";
 const MyMessagesRoute = "/myMessagesRoute";
 const SignInRoute = "/signInRoute";
+const SignUpRoute = "/signUpRoute";
 
 
 
@@ -78,6 +80,9 @@ class MyApp extends StatelessWidget {
           break;
         case SignInRoute:
           screen = SignInScreen();
+          break;
+        case SignUpRoute:
+          screen = SignUpScreen();
           break;
         default:
           return null;
