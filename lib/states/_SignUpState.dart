@@ -24,8 +24,8 @@ class SignUpState extends State<SignUpScreen> {
   final passwordController = TextEditingController();
   File _image;
   List<String> photoPaths = new List();
-
-  SignUpState();
+  String jwt;
+  SignUpState(this.jwt);
 
 
   @override
@@ -113,13 +113,27 @@ class SignUpState extends State<SignUpScreen> {
 
 
     http.Response data;
-    data = await  http.post(
-      'https://kampusell-api.herokuapp.com/api/auth/signup',
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(signUpForm),
-    );
+
+
+    if(isLocal){
+      data = await  http.post(
+        'http://10.0.2.2:8080/api/auth/signup',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(signUpForm),
+      );
+    }
+    else{
+      data = await  http.post(
+        'https://kampusell-api.herokuapp.com/api/auth/signup',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(signUpForm),
+      );
+    }
+
     print("jsonEncode:"+jsonEncode(signUpForm));
     print("------------------------------------------");
     print(data.statusCode);

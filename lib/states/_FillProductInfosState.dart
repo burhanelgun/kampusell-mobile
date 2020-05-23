@@ -10,6 +10,8 @@ import 'package:kampusell/model/category.dart';
 import 'package:kampusell/model/product.dart';
 import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
 
+import '../main.dart';
+
 class FillProductInfosState extends State<FillProductInfosScreen> {
   Category productCategory = null;
   final _formKey = GlobalKey<FormState>();
@@ -19,8 +21,10 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
   final productPriceController = TextEditingController();
   File _image;
   List<String> photoPaths = new List();
+  String jwt;
 
-  FillProductInfosState();
+
+  FillProductInfosState(this.jwt);
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -33,21 +37,45 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
     //'http://10.0.2.2:8080/api/products/s',
     //'http://192.168.1.36:8080/api/products/s',
     //'https://kampusell-api.herokuapp.com/api/products/s'
-    return http.post(
-      'https://kampusell-api.herokuapp.com/api/products/s',
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(product),
-    );
+    print("denemesatisi");
+    print(jwt);
+    if(jwt!="" || jwt!=null){
+
+      if(isLocal){
+        return http.post(
+          'http://10.0.2.2:8080/api/products/s',
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            "Authorization": jwt
+          },
+          body: jsonEncode(product),
+        );
+      }
+      else{
+        return http.post(
+          'https://kampusell-api.herokuapp.com/api/products/s',
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            "Authorization": jwt
+          },
+          body: jsonEncode(product),
+        );
+      }
+
+
+    }
+
   }
 
   Future uploadFile() async {
+    print('File Uploaded1');
     StorageReference storageReference =
         FirebaseStorage.instance.ref().child(productNameController.text);
+    print('File Uploaded2');
     StorageUploadTask uploadTask = storageReference.putFile(_image);
+    print('File Uploaded3');
     await uploadTask.onComplete;
-    print('File Uploaded');
+    print('File Uploaded4');
     storageReference.getDownloadURL().then((fileURL) {
       setState(() {
         print(fileURL);

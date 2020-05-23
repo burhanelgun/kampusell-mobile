@@ -23,8 +23,9 @@ class SignInState extends State<SignInScreen> {
   final passwordController = TextEditingController();
   File _image;
   List<String> photoPaths = new List();
+  String jwt;
 
-  SignInState();
+  SignInState(this.jwt);
 
 
   @override
@@ -131,18 +132,31 @@ class SignInState extends State<SignInScreen> {
 
   Future<void> _onSignInButtonClick() async {
     //Initialize signin form object
+    //'http://10.0.2.2:8080/api/products/s',
 
     SignInForm signInForm = new SignInForm(usernameController.text, passwordController.text);
 
 
+
     http.Response data;
-    data = await  http.post(
-      'https://kampusell-api.herokuapp.com/api/auth/signin',
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(signInForm),
-    );
+    if(isLocal){
+      data = await  http.post(
+        'http://10.0.2.2:8080/api/auth/signin',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(signInForm),
+      );
+    }
+    else{
+      data = await  http.post(
+        'https://kampusell-api.herokuapp.com/api/auth/signin',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(signInForm),
+      );
+    }
     print("jsonEncodee:"+jsonEncode(signInForm));
     print("e------------------------------------------");
     print(data.statusCode);
@@ -151,12 +165,18 @@ class SignInState extends State<SignInScreen> {
     print("e------------------------------------------");
     print(data.body);
     print("e------------------------------------------");
+    Map<String, dynamic> jsonData = json.decode(data.body);
 
     if(data.statusCode==200){
       bool isUserSignedUp = true;
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text("giriş yapıldı"),
       ));
+      var jwt = jsonData["tokenType"].toString()+" "+jsonData["accessToken"].toString();
+      print("yazılan jwt:"+jwt.toString());
+      storage.deleteAll();
+      storage.write(key: "jwt", value: jwt);
+
     }
     else{
       bool isUserSignedUp = false;
