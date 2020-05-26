@@ -80,7 +80,6 @@ class DashboardState extends State<DashboardScreen> {
     var data;
     if(isLocal){
       data = await http.get("http://10.0.2.2:8080/api/products",headers: {"Authorization": jwt});
-
     }
     else{
       data = await http.get("https://kampusell-api.herokuapp.com/api/products",headers: {"Authorization": jwt});
@@ -104,6 +103,7 @@ class DashboardState extends State<DashboardScreen> {
   Future<List<Product>> getProductsByCategory(Category category) async {
     var data;
     print("categorye göre seçim yaparken gönderilen jwt:");
+    jwt= await storage.read(key: "jwt");
     print(jwt);
 
     if(isLocal){

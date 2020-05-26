@@ -14,7 +14,7 @@ import 'framework/bounce_scroll_behavior.dart';
 import 'screens/product/product.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-bool isLocal= true;
+bool isLocal= false;
 
 const DashboardRoute = "/";
 const ProductRoute = "/product";
@@ -66,8 +66,12 @@ class MyApp extends StatelessWidget {
         home: FutureBuilder(
             future: jwtOrEmpty(),
             builder: (context, snapshot) {
+                print("ilk açılışta jwt null mı değilmi if controlu");
                 if(snapshot.data != "" && snapshot.data != null) {
-                  print("new::"+ snapshot.data.toString());
+                  print("----------------------------------");
+                  print("ilk açılılşta jwt dolu okundu sistmeden");
+                  print("ilk açılışta okunan jwt değeri::"+ snapshot.data.toString());
+                  print("----------------------------------");
                   jwt = snapshot.data;
                   return ScrollConfiguration(
                     behavior: BounceScrollBehavior(),
@@ -75,6 +79,7 @@ class MyApp extends StatelessWidget {
                   );
                 }
                 else{
+                  print("ilk açılılşta jwt null okundu sistemden");
                   return DashboardScreen(jwt);
                 }
 
