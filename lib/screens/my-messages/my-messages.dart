@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyMessagesScreen extends StatelessWidget {
-  String jwt;
 
-  MyMessagesScreen(this.jwt);
+  MyMessagesScreen();
 
 
   @override

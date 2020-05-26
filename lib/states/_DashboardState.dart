@@ -19,9 +19,8 @@ class DashboardState extends State<DashboardScreen> {
   Future<List<Product>> products;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController searchTextController = TextEditingController();
-  String jwt;
 
-  DashboardState(this.jwt);
+  DashboardState();
 
   @override
   void initState() {
@@ -79,10 +78,11 @@ class DashboardState extends State<DashboardScreen> {
 
     var data;
     if(isLocal){
-      data = await http.get("http://10.0.2.2:8080/api/products",headers: {"Authorization": jwt});
+      data = await http.get("http://10.0.2.2:8080/api/products",headers: {"Authorization": JWT});
     }
     else{
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products",headers: {"Authorization": jwt});
+      print("hello"+JWT.toString());
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products",headers: {"Authorization": JWT});
     }
     List<dynamic> jsonData = json.decode(data.body);
     List<Product> products = [];
@@ -103,14 +103,13 @@ class DashboardState extends State<DashboardScreen> {
   Future<List<Product>> getProductsByCategory(Category category) async {
     var data;
     print("categorye göre seçim yaparken gönderilen jwt:");
-    jwt= await storage.read(key: "jwt");
-    print(jwt);
+    print(JWT);
 
     if(isLocal){
-      data = await http.get("http://10.0.2.2:8080/api/products/categoryId=" + category.id,headers: {"Authorization": jwt});
+      data = await http.get("http://10.0.2.2:8080/api/products/categoryId=" + category.id,headers: {"Authorization": JWT});
     }
     else{
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products/categoryId=" + category.id,headers: {"Authorization": jwt});
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products/categoryId=" + category.id,headers: {"Authorization": JWT});
     }
 
     List<dynamic> jsonData = json.decode(data.body);
@@ -168,10 +167,10 @@ class DashboardState extends State<DashboardScreen> {
     var data;
 
     if(isLocal){
-      data = await http.get("http://10.0.2.2:8080/api/products/searchText=" + searchText,headers: {"Authorization": jwt});
+      data = await http.get("http://10.0.2.2:8080/api/products/searchText=" + searchText,headers: {"Authorization": JWT});
     }
     else{
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products/searchText=" + searchText,headers: {"Authorization": jwt});
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products/searchText=" + searchText,headers: {"Authorization": JWT});
     }
 
 
@@ -207,7 +206,7 @@ class DashboardState extends State<DashboardScreen> {
         'http://10.0.2.2:8080/api/products/filter',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          "Authorization": jwt
+          "Authorization": JWT
         },
         body: jsonEncode(productFilter),
       );
@@ -217,7 +216,7 @@ class DashboardState extends State<DashboardScreen> {
         'https://kampusell-api.herokuapp.com/api/products/filter',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          "Authorization": jwt
+          "Authorization": JWT
         },
         body: jsonEncode(productFilter),
       );

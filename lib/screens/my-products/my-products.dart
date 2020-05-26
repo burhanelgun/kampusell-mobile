@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyProductsScreen extends StatelessWidget {
-  String jwt;
-  MyProductsScreen(this.jwt);
+  MyProductsScreen();
 
 
   @override

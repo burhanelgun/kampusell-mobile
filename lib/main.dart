@@ -26,6 +26,7 @@ const MyProductsRoute = "/myProductsRoute";
 const MyMessagesRoute = "/myMessagesRoute";
 const SignInRoute = "/signInRoute";
 const SignUpRoute = "/signUpRoute";
+String JWT = "";
 
 final storage = FlutterSecureStorage();
 
@@ -33,9 +34,6 @@ final storage = FlutterSecureStorage();
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-
-  String jwt;
-
 
 
 
@@ -69,22 +67,26 @@ class MyApp extends StatelessWidget {
             future: jwtOrEmpty(),
             builder: (context, snapshot) {
                 print("ilk açılışta jwt null mı değilmi if controlu");
-                if(snapshot.data != "" && snapshot.data != null) {
+                if(snapshot.hasData) {
                   print("----------------------------------");
-                  print("ilk açılılşta jwt dolu okundu sistmeden");
+                  print("ilk açılılşta jwt dolu okundu sistemden");
                   print("ilk açılışta okunan jwt değeri::"+ snapshot.data.toString());
                   print("----------------------------------");
-                  jwt = snapshot.data;
+                  JWT = snapshot.data;
                   return ScrollConfiguration(
                     behavior: BounceScrollBehavior(),
-                    child: DashboardScreen(jwt),
+                    child: DashboardScreen(),
                   );
+
                 }
                 else{
-                  print("ilk açılılşta jwt null okundu sistemden");
-                  return DashboardScreen(jwt);
-                }
+                  print("**************************************");
+                  print("ilk açılılşta jwt boş okundu sistemden");
+                  print("ilk açılışta boş okunan jwt değeri::"+ snapshot.data.toString());
+                  print("**************************************");
+                  return  CircularProgressIndicator();
 
+                }
 
             }
         )
@@ -103,31 +105,31 @@ class MyApp extends StatelessWidget {
       Widget screen;
       switch(settings.name){
         case DashboardRoute:
-          screen = DashboardScreen(jwt);
+          screen = DashboardScreen();
           break;
         case ProductRoute:
           screen = ProductScreen(arguments["productItem"]);
           break;
         case FillProductInfosRoute:
-          screen = FillProductInfosScreen(jwt);
+          screen = FillProductInfosScreen();
           break;
         case FilterSettingsRoute:
-          screen = FilterSettingsScreen(jwt);
+          screen = FilterSettingsScreen();
           break;
         case ProfileRoute:
-          screen = MyProfileScreen(jwt);
+          screen = MyProfileScreen();
           break;
         case MyProductsRoute:
-          screen = MyProductsScreen(jwt);
+          screen = MyProductsScreen();
           break;
         case MyMessagesRoute:
-          screen = MyMessagesScreen(jwt);
+          screen = MyMessagesScreen();
           break;
         case SignInRoute:
-          screen = SignInScreen(jwt);
+          screen = SignInScreen();
           break;
         case SignUpRoute:
-          screen = SignUpScreen(jwt);
+          screen = SignUpScreen();
           break;
         default:
           return null;

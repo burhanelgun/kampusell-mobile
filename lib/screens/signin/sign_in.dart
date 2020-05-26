@@ -4,12 +4,11 @@ import 'package:kampusell/states/_FillProductInfosState.dart';
 import 'package:kampusell/states/_SignInState.dart';
 
 class SignInScreen extends StatefulWidget {
-  String jwt;
-  SignInScreen(this.jwt);
+  SignInScreen();
 
   static FillProductInfosState of(BuildContext context) =>
       context.findAncestorStateOfType();
 
   @override
-  SignInState createState() => SignInState(jwt);
+  SignInState createState() => SignInState();
 }

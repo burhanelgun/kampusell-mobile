@@ -21,10 +21,9 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
   final productPriceController = TextEditingController();
   File _image;
   List<String> photoPaths = new List();
-  String jwt;
 
 
-  FillProductInfosState(this.jwt);
+  FillProductInfosState();
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -37,16 +36,14 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
     //'http://10.0.2.2:8080/api/products/s',
     //'http://192.168.1.36:8080/api/products/s',
     //'https://kampusell-api.herokuapp.com/api/products/s'
-    print("denemesatisi");
-    print(jwt);
-    if(jwt!="" || jwt!=null){
+
 
       if(isLocal){
         return http.post(
           'http://10.0.2.2:8080/api/products/s',
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
-            "Authorization": jwt
+            "Authorization": JWT
           },
           body: jsonEncode(product),
         );
@@ -56,14 +53,14 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
           'https://kampusell-api.herokuapp.com/api/products/s',
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
-            "Authorization": jwt
+            "Authorization": JWT
           },
           body: jsonEncode(product),
         );
       }
 
 
-    }
+
 
   }
 

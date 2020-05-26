@@ -5,8 +5,7 @@ import 'package:kampusell/screens/filter-settings/filter-settings.dart';
 import 'package:kampusell/model/product-filter.dart';
 
 class FilterSettingsState extends State<FilterSettingsScreen> {
-  String jwt;
-  FilterSettingsState(this.jwt);
+  FilterSettingsState();
   Category selectedCategory = null;
   final _formKey = GlobalKey<FormState>();
   final List<Category> categories = Category.fetchAll();

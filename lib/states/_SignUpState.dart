@@ -24,8 +24,7 @@ class SignUpState extends State<SignUpScreen> {
   final passwordController = TextEditingController();
   File _image;
   List<String> photoPaths = new List();
-  String jwt;
-  SignUpState(this.jwt);
+  SignUpState();
 
 
   @override

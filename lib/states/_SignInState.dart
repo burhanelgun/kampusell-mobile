@@ -23,9 +23,8 @@ class SignInState extends State<SignInScreen> {
   final passwordController = TextEditingController();
   File _image;
   List<String> photoPaths = new List();
-  String jwt;
 
-  SignInState(this.jwt);
+  SignInState();
 
 
   @override
@@ -167,13 +166,13 @@ class SignInState extends State<SignInScreen> {
 
     if(data.statusCode==200){
       bool isUserSignedIn = true;
-      var jwt = jsonData["tokenType"].toString()+" "+jsonData["accessToken"].toString();
-      print("yazılan jwt:"+jwt.toString());
+      JWT = jsonData["tokenType"].toString()+" "+jsonData["accessToken"].toString();
+      print("yazılan jwt:"+JWT.toString());
 
       storage.delete(key:"jwt");
-      storage.write(key: "jwt", value: jwt);
+      storage.write(key: "jwt", value: JWT);
 
-      Navigator.of(context).pop(jwt);
+      Navigator.of(context).pop(true);
 
 
     }
