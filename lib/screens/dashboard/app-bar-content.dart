@@ -89,14 +89,17 @@ class AppBarContent extends StatelessWidget {
     else{
       Navigator.pushNamed(context, SignInRoute).then((value) {
         //read "value" value for checking is user signed in
-        value=true;
-        isUserSignedIn=value;
+        String jwt=value;
         //after the sign in
-        if(isUserSignedIn==true){
+        if(value!=null && value!=""){
+          _dashboardState.jwt=value;
           //change default user icon with the user image in app bar
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text("Giriş Yapıldı"),
+          ));
         }
         else{
-
+          //User couldn't sign in but user can go the dashboard
         }
       });
     }

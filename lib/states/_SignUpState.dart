@@ -104,7 +104,7 @@ class SignUpState extends State<SignUpScreen> {
   }
 
   Future<bool> _onWillPop() async {
-    Navigator.of(context).pop(true);
+    Navigator.of(context).pop(false);
     return false;
   }
   _onSignUpButtonClick(BuildContext context) async {
@@ -144,39 +144,20 @@ class SignUpState extends State<SignUpScreen> {
     print("------------------------------------------");
 
     if(data.statusCode==200){
+      //signed up done. so, go the sign in page
       bool isUserSignedUp = true;
-      Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text("kayıt olundu"),
-      ));
+      Navigator.of(context).pop(isUserSignedUp);
+
+
     }
     else{
+      //can't sign up, wait on the sign up page.
       bool isUserSignedUp = false;
-      Navigator.of(context).pop(isUserSignedUp);
       Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text("kayıt olunamadı"),
+        content: Text("Kayıt olunmadı."),
       ));
-
     }
 
-    /*//if user not signed in(for now it is false)
-    bool isUserSignedUp = false;
-    Navigator.of(context).pop(isUserSignedUp);
 
-    Navigator.pushNamed(context, SignUpRoute).then((value) {
-      //read "value" value for checking is user signed up
-      value=true;
-      isUserSignedUp=value;
-      //after the sign in
-      if(isUserSignedUp==true){
-        //if user signed up successfully, then do nothing
-      }
-      else{
-        //if user cannot signed up successfully,then pop the sign in page with false
-        Navigator.of(context).pop(false);
-        //false causes showing dashboard in app-barr-content.dart
-
-      }
-    });
-*/
   }
 }

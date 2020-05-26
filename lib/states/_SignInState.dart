@@ -101,29 +101,27 @@ class SignInState extends State<SignInScreen> {
   }
 
   Future<bool> _onWillPop() async {
-    Navigator.of(context).pop(true);
+    Navigator.of(context).pop(false);
+    print("false gönderildi");
     return false;
   }
   _onSignUpButtonClick(BuildContext context) {
     //if user not signed in(for now it is false)
     bool isUserSignedUp = false;
-    Navigator.of(context).pop(isUserSignedUp);
 
     Navigator.pushNamed(context, SignUpRoute).then((value) {
       //read "value" value for checking is user signed up
+      print("value:"+value.toString());
       isUserSignedUp=value;
-      //after the sign up
       if(isUserSignedUp==true){
-        print("kayıt olunmuş");
-
+        //User could sign up
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("Kayıt olundu."),
+        ));
         //if user signed up successfully, then wait in sign in page
       }
       else{
-        print("kayıt olunamamış");
-
-        //if user cannot signed up successfully,then pop the sign in page with false
-        Navigator.of(context).pop(false);
-        //false causes showing dashboard in app-barr-content.dart
+        //user couldn't sign up, wait on the page, don't do automatic process
 
       }
     });
@@ -168,21 +166,21 @@ class SignInState extends State<SignInScreen> {
     Map<String, dynamic> jsonData = json.decode(data.body);
 
     if(data.statusCode==200){
-      bool isUserSignedUp = true;
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text("giriş yapıldı"),
-      ));
+      bool isUserSignedIn = true;
       var jwt = jsonData["tokenType"].toString()+" "+jsonData["accessToken"].toString();
       print("yazılan jwt:"+jwt.toString());
-      storage.deleteAll();
+
+      storage.delete(key:"jwt");
       storage.write(key: "jwt", value: jwt);
+
+      Navigator.of(context).pop(jwt);
+
 
     }
     else{
       bool isUserSignedUp = false;
-      Navigator.of(context).pop(isUserSignedUp);
       _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text("giriş yapılamadı"),
+        content: Text("Giriş yapılamadı."),
       ));
 
     }
