@@ -32,6 +32,8 @@ dev_dependencies:
   firebase_core: 0.4.4+3
   firebase_storage: 3.1.5
   flutter_secure_storage: ^3.3.3
+  provider: ^3.0.0
+
 
 
 # For information on the generic Dart part of this file, see the

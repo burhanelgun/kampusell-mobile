@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:kampusell/model/category.dart';
 import 'package:kampusell/model/product-filter.dart';
 import 'package:kampusell/model/product.dart';
+import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/screens/dashboard/app-bar-content.dart';
 import 'package:kampusell/screens/dashboard/categories-list.dart';
 import 'package:kampusell/screens/dashboard/dashboard.dart';
@@ -13,13 +14,14 @@ import 'package:kampusell/screens/dashboard/products-list.dart';
 import 'package:kampusell/screens/side-menu/NavDrawer.dart';
 
 import '../main.dart';
+import 'package:provider/provider.dart';
 
 class DashboardState extends State<DashboardScreen> {
   Category category;
   Future<List<Product>> products;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController searchTextController = TextEditingController();
-
+  JwtModel jwtModel;
   DashboardState();
 
   @override
@@ -36,35 +38,42 @@ class DashboardState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: NavDrawer(this),
-      appBar: AppBar(
-          titleSpacing: 0.0,
-          automaticallyImplyLeading: false,
-          title: AppBarContent(_scaffoldKey,searchTextController,this)),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          CategoriesList(),
-          FutureBuilder(
-              future: products,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                return ProductsList(null, snapshot);
-              })
-        ],
-      ),
-      floatingActionButton: Container(
-          padding: EdgeInsets.only(bottom: 10.0),
-          child: FloatingActionButton.extended(
-            onPressed: () => _onSellProductBtnClick(context),
-            label: Text('Eşyalarını Sat'),
-            icon: Icon(Icons.photo_camera),
-            backgroundColor: Colors.pink,
-          )),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
+
+          return Consumer<JwtModel>(
+            builder: (context,jwtModel,child){
+              this.jwtModel = jwtModel;
+              return Scaffold(
+                key: _scaffoldKey,
+                drawer: NavDrawer(this),
+                appBar: AppBar(
+                    titleSpacing: 0.0,
+                    automaticallyImplyLeading: false,
+                    title: AppBarContent(_scaffoldKey, searchTextController, this,jwtModel)),
+                body: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    CategoriesList(),
+                    FutureBuilder(
+                        future: products,
+                        builder: (BuildContext context, AsyncSnapshot snapshot) {
+                          return ProductsList(null, snapshot);
+                        })
+                  ],
+                ),
+                floatingActionButton: Container(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: FloatingActionButton.extended(
+                      onPressed: () => _onSellProductBtnClick(context),
+                      label: Text('Eşyalarını Sat'),
+                      icon: Icon(Icons.photo_camera),
+                      backgroundColor: Colors.pink,
+                    )),
+                floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+              );
+            }
+          );
+
   }
 
   void updateProducts(Category category) {
@@ -74,15 +83,23 @@ class DashboardState extends State<DashboardScreen> {
     });
   }
 
-  Future<List<Product>> getDefaultProducts() async {
 
+  void updateProductsDefault() {
+    this.category = category;
+    setState(() {
+      products = getDefaultProducts();
+    });
+  }
+  Future<List<Product>> getDefaultProducts() async {
+    print("getDefaultProducts with this jwt:");
+    print(jwtModel.jwt);
     var data;
     if(isLocal){
-      data = await http.get("http://10.0.2.2:8080/api/products",headers: {"Authorization": JWT});
+      data = await http.get("http://10.0.2.2:8080/api/products",headers: {"Authorization": jwtModel.jwt});
     }
     else{
-      print("hello"+JWT.toString());
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products",headers: {"Authorization": JWT});
+      print("hello"+jwtModel.jwt.toString());
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products",headers: {"Authorization": jwtModel.jwt});
     }
     List<dynamic> jsonData = json.decode(data.body);
     List<Product> products = [];
@@ -103,13 +120,13 @@ class DashboardState extends State<DashboardScreen> {
   Future<List<Product>> getProductsByCategory(Category category) async {
     var data;
     print("categorye göre seçim yaparken gönderilen jwt:");
-    print(JWT);
+    print(jwtModel.jwt);
 
     if(isLocal){
-      data = await http.get("http://10.0.2.2:8080/api/products/categoryId=" + category.id,headers: {"Authorization": JWT});
+      data = await http.get("http://10.0.2.2:8080/api/products/categoryId=" + category.id,headers: {"Authorization": jwtModel.jwt});
     }
     else{
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products/categoryId=" + category.id,headers: {"Authorization": JWT});
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products/categoryId=" + category.id,headers: {"Authorization": jwtModel.jwt});
     }
 
     List<dynamic> jsonData = json.decode(data.body);
@@ -167,10 +184,10 @@ class DashboardState extends State<DashboardScreen> {
     var data;
 
     if(isLocal){
-      data = await http.get("http://10.0.2.2:8080/api/products/searchText=" + searchText,headers: {"Authorization": JWT});
+      data = await http.get("http://10.0.2.2:8080/api/products/searchText=" + searchText,headers: {"Authorization": jwtModel.jwt});
     }
     else{
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products/searchText=" + searchText,headers: {"Authorization": JWT});
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products/searchText=" + searchText,headers: {"Authorization": jwtModel.jwt});
     }
 
 
@@ -206,7 +223,7 @@ class DashboardState extends State<DashboardScreen> {
         'http://10.0.2.2:8080/api/products/filter',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          "Authorization": JWT
+          "Authorization": jwtModel.jwt
         },
         body: jsonEncode(productFilter),
       );
@@ -216,7 +233,7 @@ class DashboardState extends State<DashboardScreen> {
         'https://kampusell-api.herokuapp.com/api/products/filter',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          "Authorization": JWT
+          "Authorization": jwtModel.jwt
         },
         body: jsonEncode(productFilter),
       );

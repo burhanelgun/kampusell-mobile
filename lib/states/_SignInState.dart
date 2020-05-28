@@ -9,8 +9,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kampusell/model/category.dart';
 import 'package:kampusell/model/product.dart';
 import 'package:kampusell/model/signin-form.dart';
+import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
 import 'package:kampusell/screens/signin/sign_in.dart';
+import 'package:provider/provider.dart';
 
 import '../main.dart';
 
@@ -38,66 +40,75 @@ class SignInState extends State<SignInScreen> {
             body: Builder(
               builder: (context) => Container(
                 margin: EdgeInsets.all(20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Form(
-                        key: _formKey,
-                        child: Column(children: <Widget>[
-                          // Add TextFormFields and RaisedButton here.
-                          TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Kullanıcı Adı'),
-                            controller: usernameController,
-                          ),
-                          SizedBox(height: 10),
-                          TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Şifre'),
-                            controller: passwordController,
-                          ),
-                          SizedBox(height: 10),
+                child: Consumer<JwtModel>(
+                  builder: (context,jwtProvider,child) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Form(
+                            key: _formKey,
+                            child: Column(children: <Widget>[
+                              // Add TextFormFields and RaisedButton here.
+                              TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Kullanıcı Adı'),
+                                controller: usernameController,
+                              ),
+                              SizedBox(height: 10),
+                              TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Şifre'),
+                                controller: passwordController,
+                              ),
+                              SizedBox(height: 10),
 
-                          RaisedButton(
-                            onPressed: () {
-                              // Validate returns true if the form is valid, otherwise false.
-                              if (_formKey.currentState.validate()) {
-                                _onSignInButtonClick();
-                              }
-                            },
-                            child: Text('Giriş Yap'),
-                          ),
-                          RaisedButton(
-                            onPressed: () {
-                              // Validate returns true if the form is valid, otherwise false.
-                              _onSignUpButtonClick(context);
+                              RaisedButton(
+                                onPressed: () {
+                                  // Validate returns true if the form is valid, otherwise false.
+                                  if (_formKey.currentState.validate()) {
+                                    _onSignInButtonClick(jwtProvider);
+                                  }
+                                },
+                                child: Text('Giriş Yap'),
+                              ),
+                              RaisedButton(
+                                onPressed: () {
+                                  // Validate returns true if the form is valid, otherwise false.
+                                  _onSignUpButtonClick(context);
 
-                            },
-                            child: Text('Kayıt Ol'),
-                          )
+                                },
+                                child: Text('Kayıt Ol'),
+                              )
 
 
-                        ])),
-                  ],
-                ),
+                            ]
+                            )
+                        ),
+                      ],
+                    );
+                  }
               ),
-            )));
+            ),
+    )
+    )
+    );
   }
+
 
   Future<bool> _onWillPop() async {
     Navigator.of(context).pop(false);
@@ -127,7 +138,7 @@ class SignInState extends State<SignInScreen> {
 
   }
 
-  Future<void> _onSignInButtonClick() async {
+  Future<void> _onSignInButtonClick(JwtModel jwtProvider) async {
     //Initialize signin form object
     //'http://10.0.2.2:8080/api/products/s',
 
@@ -166,12 +177,12 @@ class SignInState extends State<SignInScreen> {
 
     if(data.statusCode==200){
       bool isUserSignedIn = true;
-      JWT = jsonData["tokenType"].toString()+" "+jsonData["accessToken"].toString();
-      print("yazılan jwt:"+JWT.toString());
+      String localJwt = jsonData["tokenType"].toString()+" "+jsonData["accessToken"].toString();
+      print("yazılan jwt:"+localJwt);
 
       storage.delete(key:"jwt");
-      storage.write(key: "jwt", value: JWT);
-
+      storage.write(key: "jwt", value: localJwt);
+      jwtProvider.jwt=localJwt;
       Navigator.of(context).pop(true);
 
 

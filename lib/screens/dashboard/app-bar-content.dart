@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:kampusell/main.dart';
 import 'package:kampusell/model/product-filter.dart';
 import 'package:kampusell/model/product.dart';
+import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/states/_DashboardState.dart';
 
 class AppBarContent extends StatelessWidget {
   GlobalKey<ScaffoldState> _scaffoldKey;
   TextEditingController _searchTextController;
   DashboardState _dashboardState;
+  JwtModel _jwtModel;
 
 
 
-  AppBarContent(GlobalKey<ScaffoldState> scaffoldKey, TextEditingController searchTextController, DashboardState dashboardState) {
+  AppBarContent(GlobalKey<ScaffoldState> scaffoldKey, TextEditingController searchTextController, DashboardState dashboardState, JwtModel jwtModel) {
     _scaffoldKey = scaffoldKey;
     _searchTextController=searchTextController;
     _dashboardState=dashboardState;
+    _jwtModel = jwtModel;
   }
 
   @override
@@ -96,6 +99,7 @@ class AppBarContent extends StatelessWidget {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             content: Text("Giriş Yapıldı"),
           ));
+          _dashboardState.updateProductsDefault();
         }
         else{
           //User couldn't sign in but user can go the dashboard

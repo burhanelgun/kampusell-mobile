@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/category.dart';
+import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/screens/dashboard/dashboard.dart';
 import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
 import 'package:kampusell/screens/filter-settings/filter-settings.dart';
@@ -13,7 +14,7 @@ import 'package:kampusell/screens/signup/sign_up.dart';
 import 'framework/bounce_scroll_behavior.dart';
 import 'screens/product/product.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
+import 'package:provider/provider.dart';
 bool isLocal= false;
 
 const DashboardRoute = "/";
@@ -31,7 +32,12 @@ String JWT = "";
 final storage = FlutterSecureStorage();
 
 
-void main() => runApp(MyApp());
+void main() =>  runApp(
+  ChangeNotifierProvider(
+    create: (context) => JwtModel(),
+    child: MyApp(),
+  ),
+);
 
 class MyApp extends StatelessWidget {
 

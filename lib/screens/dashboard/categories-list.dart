@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/category.dart';
+import 'package:kampusell/providers/jwt_model.dart';
 
 import 'category-item.dart';
 import 'dashboard.dart';
 
 class CategoriesList extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     final List<Category> categories = Category.fetchAll();
