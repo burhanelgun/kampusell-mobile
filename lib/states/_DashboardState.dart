@@ -64,7 +64,7 @@ class DashboardState extends State<DashboardScreen> {
                 floatingActionButton: Container(
                     padding: EdgeInsets.only(bottom: 10.0),
                     child: FloatingActionButton.extended(
-                      onPressed: () => _onSellProductBtnClick(context),
+                      onPressed: () => _onSellProductBtnClick(context,jwtModel),
                       label: Text('Eşyalarını Sat'),
                       icon: Icon(Icons.photo_camera),
                       backgroundColor: Colors.pink,
@@ -148,8 +148,8 @@ class DashboardState extends State<DashboardScreen> {
     return products;
   }
 
-  _onSellProductBtnClick(BuildContext context) {
-    Navigator.pushNamed(context, FillProductInfosRoute).then((value) {
+  _onSellProductBtnClick(BuildContext context, JwtModel jwtModel) {
+    Navigator.pushNamed(context, FillProductInfosRoute,arguments: {"jwtModel": jwtModel}).then((value) {
       setState(() {
         if (category == null) {
           products = getDefaultProducts();

@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:kampusell/model/category.dart';
 import 'package:kampusell/model/product.dart';
+import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
 
 import '../main.dart';
@@ -22,8 +23,10 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
   File _image;
   List<String> photoPaths = new List();
 
+  JwtModel jwtModel;
 
-  FillProductInfosState();
+
+  FillProductInfosState(this.jwtModel);
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -37,13 +40,14 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
     //'http://192.168.1.36:8080/api/products/s',
     //'https://kampusell-api.herokuapp.com/api/products/s'
 
-
+      print("satışta gonderilen jwt");
+      print(jwtModel.jwt);
       if(isLocal){
         return http.post(
           'http://10.0.2.2:8080/api/products/s',
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
-            "Authorization": JWT
+            "Authorization": jwtModel.jwt
           },
           body: jsonEncode(product),
         );
@@ -53,7 +57,7 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
           'https://kampusell-api.herokuapp.com/api/products/s',
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
-            "Authorization": JWT
+            "Authorization": jwtModel.jwt
           },
           body: jsonEncode(product),
         );

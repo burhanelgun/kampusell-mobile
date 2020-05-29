@@ -15,7 +15,7 @@ import 'framework/bounce_scroll_behavior.dart';
 import 'screens/product/product.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
-bool isLocal= false;
+bool isLocal= true;
 
 const DashboardRoute = "/";
 const ProductRoute = "/product";
@@ -117,7 +117,7 @@ class MyApp extends StatelessWidget {
           screen = ProductScreen(arguments["productItem"]);
           break;
         case FillProductInfosRoute:
-          screen = FillProductInfosScreen();
+          screen = FillProductInfosScreen(arguments["jwtModel"]);
           break;
         case FilterSettingsRoute:
           screen = FilterSettingsScreen();
