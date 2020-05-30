@@ -1,7 +1,7 @@
 import 'package:kampusell/model/product.dart';
 
 class Student {
-  int id;
+  String id;
   String username;
   String name;
   String surname;
@@ -14,10 +14,17 @@ class Student {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'username': username,
+        'username':username ,
         'name': name,
         'surname': surname,
         'email': email,
         'products': products
       };
+
+  Student.fromJson(Map<String, dynamic> json) {
+    print("çalışıyor mu?");
+    this.id = json['id'].toString();
+    this.username = json['username'].toString();
+  }
+
 }

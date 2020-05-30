@@ -182,7 +182,7 @@ class SignInState extends State<SignInScreen> {
 
       storage.delete(key:"jwt");
       storage.write(key: "jwt", value: localJwt);
-      jwtProvider.jwt=localJwt;
+      jwtProvider.set(localJwt);
       Navigator.of(context).pop(true);
 
 

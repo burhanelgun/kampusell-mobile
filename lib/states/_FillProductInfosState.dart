@@ -41,13 +41,13 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
     //'https://kampusell-api.herokuapp.com/api/products/s'
 
       print("satışta gonderilen jwt");
-      print(jwtModel.jwt);
+      print(jwtModel.getJwt());
       if(isLocal){
         return http.post(
           'http://10.0.2.2:8080/api/products/s',
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
-            "Authorization": jwtModel.jwt
+            "Authorization": jwtModel.getJwt()
           },
           body: jsonEncode(product),
         );
@@ -57,7 +57,7 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
           'https://kampusell-api.herokuapp.com/api/products/s',
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
-            "Authorization": jwtModel.jwt
+            "Authorization": jwtModel.getJwt()
           },
           body: jsonEncode(product),
         );

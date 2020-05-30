@@ -57,28 +57,31 @@ class MyApp extends StatelessWidget {
 
 
 
-    return MaterialApp(
-        onGenerateRoute: _routes(),
-        title: 'Flutter Demo',
-        theme: ThemeData(
-            primarySwatch: Colors.blue,
-            pageTransitionsTheme: PageTransitionsTheme(
-              builders: <TargetPlatform, PageTransitionsBuilder>{
-                TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-                TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-              },
-            )
-        ),
-        home: FutureBuilder(
-            future: jwtOrEmpty(),
-            builder: (context, snapshot) {
+    return Consumer<JwtModel>(
+        builder: (context,jwtModel,child){
+
+          return MaterialApp(
+          onGenerateRoute: _routes(),
+          title: 'Flutter Demo',
+          theme: ThemeData(
+              primarySwatch: Colors.blue,
+              pageTransitionsTheme: PageTransitionsTheme(
+                builders: <TargetPlatform, PageTransitionsBuilder>{
+                  TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+                  TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+                },
+              )
+          ),
+          home: FutureBuilder(
+              future: jwtOrEmpty(),
+              builder: (context, snapshot) {
                 print("ilk açılışta jwt null mı değilmi if controlu");
                 if(snapshot.hasData) {
                   print("----------------------------------");
                   print("ilk açılılşta jwt dolu okundu sistemden");
                   print("ilk açılışta okunan jwt değeri::"+ snapshot.data.toString());
                   print("----------------------------------");
-                  JWT = snapshot.data;
+                  jwtModel.set(snapshot.data.toString());
                   return ScrollConfiguration(
                     behavior: BounceScrollBehavior(),
                     child: DashboardScreen(),
@@ -94,14 +97,15 @@ class MyApp extends StatelessWidget {
 
                 }
 
-            }
-        )
+              }
+          )
 
 
 
 
 
-        );
+      );
+    });
 
   }
 

@@ -30,6 +30,7 @@ class ProductItem extends StatelessWidget {
                   new Text(product.category.name, textScaleFactor: 1.0),
                   new Text(product.price.toString(), textScaleFactor: 1.0),
                   new Text(product.description, textScaleFactor: 1.0),
+                  new Text(product.student.username, textScaleFactor: 1.0),
                   /*new Text(product.imagePaths == null
                       ? "null"
                       : product.imagePaths[0]),*/

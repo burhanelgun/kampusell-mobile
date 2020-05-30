@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:kampusell/model/category.dart';
 import 'package:kampusell/model/product-filter.dart';
 import 'package:kampusell/model/product.dart';
+import 'package:kampusell/model/student.dart';
 import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/screens/dashboard/app-bar-content.dart';
 import 'package:kampusell/screens/dashboard/categories-list.dart';
@@ -92,26 +93,30 @@ class DashboardState extends State<DashboardScreen> {
   }
   Future<List<Product>> getDefaultProducts() async {
     print("getDefaultProducts with this jwt:");
-    print(jwtModel.jwt);
+    print(jwtModel.getJwt());
+    print("1111111");
     var data;
     if(isLocal){
-      data = await http.get("http://10.0.2.2:8080/api/products",headers: {"Authorization": jwtModel.jwt});
+      data = await http.get("http://10.0.2.2:8080/api/products",headers: {"Authorization": jwtModel.getJwt()});
     }
     else{
-      print("hello"+jwtModel.jwt.toString());
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products",headers: {"Authorization": jwtModel.jwt});
+      print("hello"+jwtModel.getJwt().toString());
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products",headers: {"Authorization": jwtModel.getJwt()});
     }
     List<dynamic> jsonData = json.decode(data.body);
+    print(jsonData);
     List<Product> products = [];
     for (int i = 0; i < jsonData.length; i++) {
       List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
-      Product product = new Product.foo(
+      Product product = new Product(
           jsonData[i]['id'].toString(),
           jsonData[i]['name'].toString(),
           jsonData[i]['description'].toString(),
           double.parse(jsonData[i]['price'].toString()),
+          imagePaths,
+          Student.fromJson(jsonData[i]['student']),
           Category.fromJson(jsonData[i]['category']),
-          imagePaths);
+          );
       products.add(product);
     }
     return products;
@@ -120,13 +125,13 @@ class DashboardState extends State<DashboardScreen> {
   Future<List<Product>> getProductsByCategory(Category category) async {
     var data;
     print("categorye göre seçim yaparken gönderilen jwt:");
-    print(jwtModel.jwt);
+    print(jwtModel.getJwt());
 
     if(isLocal){
-      data = await http.get("http://10.0.2.2:8080/api/products/categoryId=" + category.id,headers: {"Authorization": jwtModel.jwt});
+      data = await http.get("http://10.0.2.2:8080/api/products/categoryName=" + category.name,headers: {"Authorization": jwtModel.getJwt()});
     }
     else{
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products/categoryId=" + category.id,headers: {"Authorization": jwtModel.jwt});
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products/categoryName=" + category.name,headers: {"Authorization": jwtModel.getJwt()});
     }
 
     List<dynamic> jsonData = json.decode(data.body);
@@ -135,13 +140,15 @@ class DashboardState extends State<DashboardScreen> {
     for (int i = 0; i < jsonData.length; i++) {
       if (Category.fromJson(jsonData[i]['category']).name == category.name) {
         List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
-        Product product = new Product.foo(
-            jsonData[i]['id'].toString(),
-            jsonData[i]['name'].toString(),
-            jsonData[i]['description'].toString(),
-            double.parse(jsonData[i]['price'].toString()),
-            Category.fromJson(jsonData[i]['category']),
-            imagePaths);
+        Product product = new Product(
+          jsonData[i]['id'].toString(),
+          jsonData[i]['name'].toString(),
+          jsonData[i]['description'].toString(),
+          double.parse(jsonData[i]['price'].toString()),
+          imagePaths,
+          Student.fromJson(jsonData[i]['student']),
+          Category.fromJson(jsonData[i]['category']),
+        );
         products.add(product);
       }
     }
@@ -184,10 +191,10 @@ class DashboardState extends State<DashboardScreen> {
     var data;
 
     if(isLocal){
-      data = await http.get("http://10.0.2.2:8080/api/products/searchText=" + searchText,headers: {"Authorization": jwtModel.jwt});
+      data = await http.get("http://10.0.2.2:8080/api/products/searchText=" + searchText,headers: {"Authorization": jwtModel.getJwt()});
     }
     else{
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products/searchText=" + searchText,headers: {"Authorization": jwtModel.jwt});
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products/searchText=" + searchText,headers: {"Authorization": jwtModel.getJwt()});
     }
 
 
@@ -196,13 +203,15 @@ class DashboardState extends State<DashboardScreen> {
     List<Product> products = [];
     for (int i = 0; i < jsonData.length; i++) {
       List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
-      Product product = new Product.foo(
-          jsonData[i]['id'].toString(),
-          jsonData[i]['name'].toString(),
-          jsonData[i]['description'].toString(),
-          double.parse(jsonData[i]['price'].toString()),
-          Category.fromJson(jsonData[i]['category']),
-          imagePaths);
+      Product product = new Product(
+        jsonData[i]['id'].toString(),
+        jsonData[i]['name'].toString(),
+        jsonData[i]['description'].toString(),
+        double.parse(jsonData[i]['price'].toString()),
+        imagePaths,
+        Student.fromJson(jsonData[i]['student']),
+        Category.fromJson(jsonData[i]['category']),
+      );
       products.add(product);
     }
     return products;
@@ -223,7 +232,7 @@ class DashboardState extends State<DashboardScreen> {
         'http://10.0.2.2:8080/api/products/filter',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          "Authorization": jwtModel.jwt
+          "Authorization": jwtModel.getJwt()
         },
         body: jsonEncode(productFilter),
       );
@@ -233,7 +242,7 @@ class DashboardState extends State<DashboardScreen> {
         'https://kampusell-api.herokuapp.com/api/products/filter',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          "Authorization": jwtModel.jwt
+          "Authorization": jwtModel.getJwt()
         },
         body: jsonEncode(productFilter),
       );
@@ -244,13 +253,15 @@ class DashboardState extends State<DashboardScreen> {
     List<Product> products = [];
     for (int i = 0; i < jsonData.length; i++) {
       List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
-      Product product = new Product.foo(
-          jsonData[i]['id'].toString(),
-          jsonData[i]['name'].toString(),
-          jsonData[i]['description'].toString(),
-          double.parse(jsonData[i]['price'].toString()),
-          Category.fromJson(jsonData[i]['category']),
-          imagePaths);
+      Product product = new Product(
+        jsonData[i]['id'].toString(),
+        jsonData[i]['name'].toString(),
+        jsonData[i]['description'].toString(),
+        double.parse(jsonData[i]['price'].toString()),
+        imagePaths,
+        Student.fromJson(jsonData[i]['student']),
+        Category.fromJson(jsonData[i]['category']),
+      );
       products.add(product);
     }
     return products;

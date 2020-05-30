@@ -19,7 +19,7 @@ class ProductScreen extends StatelessWidget {
           Text(_productItem.product.name),
           Text(_productItem.product.category.name),
           Text(_productItem.product.description),
-          Text(_productItem.product.student.name),
+          Text(_productItem.product.student.username),
           Text(_productItem.product.price.toString()),
           new Container(
               width: 150.0,
