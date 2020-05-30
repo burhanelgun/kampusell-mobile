@@ -15,7 +15,7 @@ import 'framework/bounce_scroll_behavior.dart';
 import 'screens/product/product.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
-bool isLocal= true;
+bool isLocal= false;
 
 const DashboardRoute = "/";
 const ProductRoute = "/product";
@@ -27,7 +27,6 @@ const MyProductsRoute = "/myProductsRoute";
 const MyMessagesRoute = "/myMessagesRoute";
 const SignInRoute = "/signInRoute";
 const SignUpRoute = "/signUpRoute";
-String JWT = "";
 
 final storage = FlutterSecureStorage();
 
@@ -41,7 +40,7 @@ void main() =>  runApp(
 
 class MyApp extends StatelessWidget {
 
-
+  JwtModel jwtModel;
 
   Future<String> jwtOrEmpty() async {
     var jwt = await storage.read(key: "jwt");
@@ -59,7 +58,7 @@ class MyApp extends StatelessWidget {
 
     return Consumer<JwtModel>(
         builder: (context,jwtModel,child){
-
+          this.jwtModel=jwtModel;
           return MaterialApp(
           onGenerateRoute: _routes(),
           title: 'Flutter Demo',
@@ -72,32 +71,9 @@ class MyApp extends StatelessWidget {
                 },
               )
           ),
-          home: FutureBuilder(
-              future: jwtOrEmpty(),
-              builder: (context, snapshot) {
-                print("ilk açılışta jwt null mı değilmi if controlu");
-                if(snapshot.hasData) {
-                  print("----------------------------------");
-                  print("ilk açılılşta jwt dolu okundu sistemden");
-                  print("ilk açılışta okunan jwt değeri::"+ snapshot.data.toString());
-                  print("----------------------------------");
-                  jwtModel.set(snapshot.data.toString());
-                  return ScrollConfiguration(
-                    behavior: BounceScrollBehavior(),
-                    child: DashboardScreen(),
-                  );
-
-                }
-                else{
-                  print("**************************************");
-                  print("ilk açılılşta jwt boş okundu sistemden");
-                  print("ilk açılışta boş okunan jwt değeri::"+ snapshot.data.toString());
-                  print("**************************************");
-                  return  CircularProgressIndicator();
-
-                }
-
-              }
+          home:  ScrollConfiguration(
+            behavior: BounceScrollBehavior(),
+            child: DashboardScreen(jwtModel),
           )
 
 
@@ -115,7 +91,7 @@ class MyApp extends StatelessWidget {
       Widget screen;
       switch(settings.name){
         case DashboardRoute:
-          screen = DashboardScreen();
+          screen = DashboardScreen(this.jwtModel);
           break;
         case ProductRoute:
           screen = ProductScreen(arguments["productItem"]);

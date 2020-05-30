@@ -85,7 +85,7 @@ class AppBarContent extends StatelessWidget {
   handleAccountClick(BuildContext context) {
 
     //if user  signed in
-    if(_jwtModel.getJwt().length>0){
+    if(_jwtModel.getJwt()!=null){
       _scaffoldKey.currentState.openDrawer();
     }
     else{

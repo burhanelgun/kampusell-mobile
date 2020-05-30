@@ -23,7 +23,7 @@ class DashboardState extends State<DashboardScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController searchTextController = TextEditingController();
   JwtModel jwtModel;
-  DashboardState();
+  DashboardState(this.jwtModel);
 
   @override
   void initState() {
@@ -40,39 +40,34 @@ class DashboardState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
 
-          return Consumer<JwtModel>(
-            builder: (context,jwtModel,child){
-              this.jwtModel = jwtModel;
-              return Scaffold(
-                key: _scaffoldKey,
-                drawer: NavDrawer(this),
-                appBar: AppBar(
-                    titleSpacing: 0.0,
-                    automaticallyImplyLeading: false,
-                    title: AppBarContent(_scaffoldKey, searchTextController, this,jwtModel)),
-                body: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    CategoriesList(),
-                    FutureBuilder(
-                        future: products,
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          return ProductsList(null, snapshot);
-                        })
-                  ],
-                ),
-                floatingActionButton: Container(
-                    padding: EdgeInsets.only(bottom: 10.0),
-                    child: FloatingActionButton.extended(
-                      onPressed: () => _onSellProductBtnClick(context,jwtModel),
-                      label: Text('Eşyalarını Sat'),
-                      icon: Icon(Icons.photo_camera),
-                      backgroundColor: Colors.pink,
-                    )),
-                floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-              );
-            }
+          return Scaffold(
+            key: _scaffoldKey,
+            drawer: NavDrawer(this),
+            appBar: AppBar(
+                titleSpacing: 0.0,
+                automaticallyImplyLeading: false,
+                title: AppBarContent(_scaffoldKey, searchTextController, this,jwtModel)),
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                CategoriesList(),
+                FutureBuilder(
+                    future: products,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      return ProductsList(null, snapshot);
+                    })
+              ],
+            ),
+            floatingActionButton: Container(
+                padding: EdgeInsets.only(bottom: 10.0),
+                child: FloatingActionButton.extended(
+                  onPressed: () => _onSellProductBtnClick(context,jwtModel),
+                  label: Text('Eşyalarını Sat'),
+                  icon: Icon(Icons.photo_camera),
+                  backgroundColor: Colors.pink,
+                )),
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
           );
 
   }
