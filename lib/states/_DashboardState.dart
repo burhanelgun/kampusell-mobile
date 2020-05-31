@@ -38,6 +38,25 @@ class DashboardState extends State<DashboardScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    final jwtModel = Provider.of<JwtModel>(context);
+
+    if (this.jwtModel != jwtModel) {
+      this.jwtModel = jwtModel;
+      Future.microtask(() => jwtModel.read());
+    }
+    products = getDefaultProducts();
+    searchTextController.addListener(() {
+      print(searchTextController.text);
+      setState(() {
+
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
 
           return Scaffold(

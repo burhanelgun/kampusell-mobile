@@ -40,13 +40,8 @@ void main() =>  runApp(
 
 class MyApp extends StatelessWidget {
 
-  JwtModel jwtModel;
 
-  Future<String> jwtOrEmpty() async {
-    var jwt = await storage.read(key: "jwt");
-    if(jwt == null) return "";
-    return jwt;
-  }
+
 
   // This widget is the root of your application.
   @override
@@ -58,9 +53,8 @@ class MyApp extends StatelessWidget {
 
     return Consumer<JwtModel>(
         builder: (context,jwtModel,child){
-          this.jwtModel=jwtModel;
           return MaterialApp(
-          onGenerateRoute: _routes(),
+          onGenerateRoute: _routes(jwtModel),
           title: 'Flutter Demo',
           theme: ThemeData(
               primarySwatch: Colors.blue,
@@ -85,13 +79,13 @@ class MyApp extends StatelessWidget {
 
   }
 
-  RouteFactory _routes() {
+  RouteFactory _routes(JwtModel jwtModel) {
     return (settings){
       final Map<String,dynamic> arguments = settings.arguments;
       Widget screen;
       switch(settings.name){
         case DashboardRoute:
-          screen = DashboardScreen(this.jwtModel);
+          screen = DashboardScreen(jwtModel);
           break;
         case ProductRoute:
           screen = ProductScreen(arguments["productItem"]);

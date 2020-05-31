@@ -180,9 +180,7 @@ class SignInState extends State<SignInScreen> {
       String localJwt = jsonData["tokenType"].toString()+" "+jsonData["accessToken"].toString();
       print("yazılan jwt:"+localJwt);
 
-      storage.delete(key:"jwt");
-      storage.write(key: "jwt", value: localJwt);
-      jwtProvider.set(localJwt);
+      jwtProvider.write(localJwt);
       Navigator.of(context).pop(true);
 
 
