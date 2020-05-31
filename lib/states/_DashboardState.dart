@@ -61,7 +61,7 @@ class DashboardState extends State<DashboardScreen> {
 
           return Scaffold(
             key: _scaffoldKey,
-            drawer: NavDrawer(this),
+            drawer: NavDrawer(this,jwtModel),
             appBar: AppBar(
                 titleSpacing: 0.0,
                 automaticallyImplyLeading: false,
@@ -170,15 +170,44 @@ class DashboardState extends State<DashboardScreen> {
   }
 
   _onSellProductBtnClick(BuildContext context, JwtModel jwtModel) {
-    Navigator.pushNamed(context, FillProductInfosRoute,arguments: {"jwtModel": jwtModel}).then((value) {
-      setState(() {
-        if (category == null) {
-          products = getDefaultProducts();
-        } else {
-          updateProducts(category);
+
+
+    //if user  signed in
+    if(jwtModel.getJwt().length>0){
+      Navigator.pushNamed(context, FillProductInfosRoute,arguments: {"jwtModel": jwtModel}).then((value) {
+        setState(() {
+          if (category == null) {
+            products = getDefaultProducts();
+          } else {
+            updateProducts(category);
+          }
+        });
+      });
+    }
+    else {
+      Navigator.pushNamed(context, SignInRoute).then((value) async {
+        //read "value" value for checking is user signed in
+        //after the sign in
+        bool isUserSignIn = value;
+        if(isUserSignIn){
+          //change default user icon with the user image in app bar
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text("Giriş Yapıldı"),
+          ));
+          updateProductsDefault();
+
+        }
+        else{
+          //User couldn't sign in but user can go the dashboard
         }
       });
-    });
+    }
+
+
+
+
+
+
   }
 
   refresh() {

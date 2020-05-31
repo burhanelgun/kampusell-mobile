@@ -63,8 +63,31 @@ class AppBarContent extends StatelessWidget {
   }
 
   _onSellProductBtnClick(BuildContext context) async {
-    final productFilter = await Navigator.pushNamed(context, FilterSettingsRoute);
-    _dashboardState.filter(productFilter);
+
+    //if user  signed in
+    if(_jwtModel.getJwt().length>0){
+      final productFilter = await Navigator.pushNamed(context, FilterSettingsRoute);
+      _dashboardState.filter(productFilter);
+    }
+    else{
+      Navigator.pushNamed(context, SignInRoute).then((value) async {
+        //read "value" value for checking is user signed in
+        //after the sign in
+        bool isUserSignIn = value;
+        if(isUserSignIn){
+          //change default user icon with the user image in app bar
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text("Giriş Yapıldı"),
+          ));
+          final productFilter = await Navigator.pushNamed(context, FilterSettingsRoute);
+          _dashboardState.filter(productFilter);
+
+        }
+        else{
+          //User couldn't sign in but user can go the dashboard
+        }
+      });
+    }
 
 
   }

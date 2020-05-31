@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/states/_DashboardState.dart';
 
 import '../../main.dart';
 
 class NavDrawer extends StatelessWidget {
   DashboardState _dashboardState;
-  NavDrawer(DashboardState dashboardState){
+  JwtModel jwtModel;
+  NavDrawer(DashboardState dashboardState, JwtModel jwtModel){
+    this.jwtModel=jwtModel;
     _dashboardState=dashboardState;
   }
 
@@ -69,5 +72,7 @@ class NavDrawer extends StatelessWidget {
 
   onTapLogout(BuildContext context) {
     Navigator.of(context).pop();
+    jwtModel.set("");
+
   }
 }

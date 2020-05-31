@@ -22,15 +22,11 @@ class JwtModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> write(String jwt)  {
-    storage.delete(key:"jwt");
-    storage.write(key: "jwt", value: jwt);
-    _jwt=jwt;
-    notifyListeners();
-  }
 
   void set(String newJwt) {
     this._jwt=newJwt;
+    storage.delete(key:"jwt");
+    storage.write(key: "jwt", value: newJwt);
     // This call tells the widgets that are listening to this model to rebuild.
     notifyListeners();
   }
