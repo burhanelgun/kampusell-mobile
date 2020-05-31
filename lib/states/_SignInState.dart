@@ -117,12 +117,11 @@ class SignInState extends State<SignInScreen> {
   }
   _onSignUpButtonClick(BuildContext context) {
     //if user not signed in(for now it is false)
-    bool isUserSignedUp = false;
 
     Navigator.pushNamed(context, SignUpRoute).then((value) {
       //read "value" value for checking is user signed up
       print("value:"+value.toString());
-      isUserSignedUp=value;
+      bool isUserSignedUp=value;
       if(isUserSignedUp==true){
         //User could sign up
         Scaffold.of(context).showSnackBar(SnackBar(
@@ -135,6 +134,8 @@ class SignInState extends State<SignInScreen> {
 
       }
     });
+   // Navigator.pushNamed(context, ActivationRoute);
+
 
   }
 

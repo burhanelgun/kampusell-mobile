@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/category.dart';
 import 'package:kampusell/providers/jwt_model.dart';
+import 'package:kampusell/screens/activation/activation.dart';
 import 'package:kampusell/screens/dashboard/dashboard.dart';
 import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
 import 'package:kampusell/screens/filter-settings/filter-settings.dart';
@@ -27,6 +28,8 @@ const MyProductsRoute = "/myProductsRoute";
 const MyMessagesRoute = "/myMessagesRoute";
 const SignInRoute = "/signInRoute";
 const SignUpRoute = "/signUpRoute";
+const ActivationRoute = "/activationRoute";
+
 
 final storage = FlutterSecureStorage();
 
@@ -110,6 +113,9 @@ class MyApp extends StatelessWidget {
           break;
         case SignUpRoute:
           screen = SignUpScreen();
+          break;
+        case ActivationRoute:
+          screen = ActivationScreen(jwtModel,arguments["signUpForm"]);
           break;
         default:
           return null;

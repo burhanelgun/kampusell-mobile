@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kampusell/model/category.dart';
 import 'package:kampusell/model/product.dart';
 import 'package:kampusell/model/signup-form.dart';
+import 'package:kampusell/model/student.dart';
 import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
 import 'package:kampusell/screens/signin/sign_in.dart';
 import 'package:kampusell/screens/signup/sign_up.dart';
@@ -143,9 +144,28 @@ class SignUpState extends State<SignUpScreen> {
     print("------------------------------------------");
 
     if(data.statusCode==200){
-      //signed up done. so, go the sign in page
-      bool isUserSignedUp = true;
-      Navigator.of(context).pop(isUserSignedUp);
+      //half signed up done. so, go the activation  page
+      bool isUserSignedUpHalf = true;
+
+      Navigator.pushNamed(context, ActivationRoute,arguments: {"signUpForm": signUpForm}).then((value) {
+        //read "value" value for checking is user signed up
+        print("value:"+value.toString());
+        bool isUserActivated=value;
+        if(isUserActivated==true){
+          //User could activate the code so user signed up successfully, then wait in sign in page
+          Navigator.of(context).pop(true);
+
+        }
+        else{
+          //user couldn't activate the code, wait on the page, don't do automatic process
+          bool isUserSignedUp = false;
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text("Aktivasyon Kodu Doğrulanmadı"),
+          ));
+        }
+      });
+
+      //Navigator.of(context).pop(isUserSignedUp);
 
 
     }
