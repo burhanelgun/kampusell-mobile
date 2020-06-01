@@ -29,7 +29,7 @@ class ActivationState extends State<ActivationScreen> with TickerProviderStateMi
 
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 60),
+      duration: Duration(seconds: 45),
     );
     controller.reverse(
         from: controller.value == 0.0
@@ -130,7 +130,7 @@ class ActivationState extends State<ActivationScreen> with TickerProviderStateMi
   }
 
   Future<http.Response> deleteUser() {
-
+    signUpForm.activationCode=this.activationCode;
     if(isLocal){
       return http.post(
         'http://10.0.2.2:8080/api/auth/deleteUser',
@@ -155,6 +155,7 @@ class ActivationState extends State<ActivationScreen> with TickerProviderStateMi
 
 
   }
+
 
 
 

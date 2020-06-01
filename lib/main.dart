@@ -16,7 +16,7 @@ import 'framework/bounce_scroll_behavior.dart';
 import 'screens/product/product.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
-bool isLocal= true;
+bool isLocal= false;
 
 const DashboardRoute = "/";
 const ProductRoute = "/product";
