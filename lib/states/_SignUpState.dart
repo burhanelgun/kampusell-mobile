@@ -142,12 +142,11 @@ class SignUpState extends State<SignUpScreen> {
     print("------------------------------------------");
     print(data.body);
     print("------------------------------------------");
-
     if(data.statusCode==200){
       //half signed up done. so, go the activation  page
       bool isUserSignedUpHalf = true;
-
-      Navigator.pushNamed(context, ActivationRoute,arguments: {"signUpForm": signUpForm}).then((value) {
+      String activationCode=json.decode(data.body)["message"].toString();
+      Navigator.pushNamed(context, ActivationRoute,arguments: {"signUpForm": signUpForm,"activationCode": activationCode}).then((value) {
         //read "value" value for checking is user signed up
         print("value:"+value.toString());
         bool isUserActivated=value;

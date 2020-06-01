@@ -16,7 +16,7 @@ import 'framework/bounce_scroll_behavior.dart';
 import 'screens/product/product.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
-bool isLocal= false;
+bool isLocal= true;
 
 const DashboardRoute = "/";
 const ProductRoute = "/product";
@@ -115,7 +115,7 @@ class MyApp extends StatelessWidget {
           screen = SignUpScreen();
           break;
         case ActivationRoute:
-          screen = ActivationScreen(jwtModel,arguments["signUpForm"]);
+          screen = ActivationScreen(jwtModel,arguments["signUpForm"],arguments["activationCode"]);
           break;
         default:
           return null;

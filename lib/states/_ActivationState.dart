@@ -7,6 +7,7 @@ import 'package:kampusell/screens/dashboard/product-item.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math' show Random;
 
 import '../main.dart';
 
@@ -14,19 +15,21 @@ class ActivationState extends State<ActivationScreen> with TickerProviderStateMi
   final activationCodeTextController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   AnimationController controller;
-
+  String activationCode;
   JwtModel jwtModel;
 
   SignUpForm signUpForm;
 
-  ActivationState(this.jwtModel, this.signUpForm);
+  ActivationState(this.jwtModel, this.signUpForm, this.activationCode);
 
   @override
-  void initState() {
+  Future<void> initState()  {
     super.initState();
+
+
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 10),
+      duration: Duration(seconds: 60),
     );
     controller.reverse(
         from: controller.value == 0.0
@@ -108,13 +111,17 @@ class ActivationState extends State<ActivationScreen> with TickerProviderStateMi
 
 
     bool isRegistrationIsActivated = true;
+    print("*****");
+    print(activationCodeTextController.text);
+    print(activationCode);
+    print("*****");
 
-    if(isRegistrationIsActivated){
+    if(activationCodeTextController.text==activationCode){
       controller.dispose();
       Navigator.of(context).pop(true);
     }
     else{
-
+      Navigator.of(context).pop(false);
     }
 
 
@@ -148,6 +155,7 @@ class ActivationState extends State<ActivationScreen> with TickerProviderStateMi
 
 
   }
+
 
 
 }

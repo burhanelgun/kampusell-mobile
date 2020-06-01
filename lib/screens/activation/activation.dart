@@ -8,11 +8,13 @@ import 'package:kampusell/states/_ActivationState.dart';
 class ActivationScreen extends StatefulWidget {
   JwtModel jwtModel;
   SignUpForm signUpForm;
-  ActivationScreen(this.jwtModel, this.signUpForm);
+  String activationCode;
+
+  ActivationScreen(this.jwtModel, this.signUpForm,this.activationCode);
 
   static ActivationState of(BuildContext context) =>
       context.findAncestorStateOfType();
 
   @override
-  ActivationState createState() => ActivationState(jwtModel,signUpForm);
+  ActivationState createState() => ActivationState(jwtModel,signUpForm,activationCode);
 }
