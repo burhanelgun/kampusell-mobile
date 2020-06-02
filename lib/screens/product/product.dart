@@ -1,40 +1,145 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kampusell/model/product.dart';
 import 'package:kampusell/screens/dashboard/product-item.dart';
 
 class ProductScreen extends StatelessWidget {
-  final ProductItem _productItem;
+  Product product;
 
-  ProductScreen(this._productItem);
+  ProductScreen(this.product);
 
-  @override
+
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(titleSpacing: 0.0, title: Text(_productItem.product.name)),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text(_productItem.product.id),
-          Text(_productItem.product.name),
-          Text(_productItem.product.category.name),
-          Text(_productItem.product.description),
-          Text(_productItem.product.student.username),
-          Text(_productItem.product.price.toString()),
-          new Container(
-              width: 150.0,
-              height: 150.0,
-              decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  image: _productItem.product.imagePaths == null
-                      ? null
-                      : new DecorationImage(
-                          fit: BoxFit.scaleDown,
-                          image:
-                              NetworkImage(_productItem.product.imagePaths[0]),
-                        )))
-        ],
-      ),
+      appBar: AppBar(titleSpacing: 0.0, title: Text(product.name)),
+      body: SafeArea(child: Container(
+        child: Column(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Center(
+                  child: Image.network(
+                    product.imagePaths[0],
+                    height: 250,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+
+
+
+                  ],
+                ),
+
+
+
+              ],
+            ),
+
+              Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(product.name, style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 20),),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(product.price.toString()+ "TL", textAlign: TextAlign.end,
+                          style: TextStyle(color: Colors.black,
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold),),
+                      ),
+                    ],
+                  ),
+                ),
+
+            Expanded(
+              child: Container(
+
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: <Widget>[
+                          Text("Ürün Açıklaması",
+                              style: TextStyle(color: Colors.black))
+                        ],
+                      ),
+                    ),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                                product.description,
+                                style: TextStyle(color: Colors.black)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.account_circle),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(product.student.username),
+                                ),
+                              ],
+                            )
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding:
+                      const EdgeInsets.all(9),
+                      child: Material(
+                          borderRadius: BorderRadius.circular(15.0),
+                          color: Colors.pink,
+                          elevation: 0.0,
+                          child: MaterialButton(
+                            onPressed: () {},
+                            minWidth: MediaQuery
+                                .of(context)
+                                .size
+                                .width,
+                            child: Text(
+                              "Satıcıya Mesaj Gönder",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0),
+                            ),
+                          )),
+                    ),
+
+                  ],
+                ),
+              ),
+            )
+
+          ],
+        ),
+      )),
     );
   }
 }

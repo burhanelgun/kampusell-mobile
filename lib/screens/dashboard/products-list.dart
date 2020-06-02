@@ -31,11 +31,8 @@ class ProductsList extends StatelessWidget {
         itemBuilder: (context, index) {
           ProductItem productItem = new ProductItem(snapshot.data[index]);
 
-          return GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            child: productItem,
-            onTap: () => _onProductTap(context, productItem),
-          );
+          return productItem;
+
         },
 
       ));
@@ -45,18 +42,5 @@ class ProductsList extends StatelessWidget {
 
 
 
-  _onProductTap(BuildContext context, ProductItem productItem) {
-    print("************************************************");
-    print(productItem.product.id);
-    print(productItem.product.name);
-    print(productItem.product.imagePaths);
-    print(productItem.product.price);
-    print(productItem.product.description);
-    print(productItem.product.category.name);
-    print(productItem.product.student.username);
-    print("************************************************");
 
-    Navigator.pushNamed(context, ProductRoute,
-        arguments: {"productItem": productItem});
-  }
 }

@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: _routes(jwtModel),
           title: 'Flutter Demo',
           theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primarySwatch: Colors.blueGrey,
               pageTransitionsTheme: PageTransitionsTheme(
                 builders: <TargetPlatform, PageTransitionsBuilder>{
                   TargetPlatform.android: CupertinoPageTransitionsBuilder(),
@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
           screen = DashboardScreen(jwtModel);
           break;
         case ProductRoute:
-          screen = ProductScreen(arguments["productItem"]);
+          screen = ProductScreen(arguments["product"]);
           break;
         case FillProductInfosRoute:
           screen = FillProductInfosScreen(arguments["jwtModel"]);
@@ -128,6 +128,7 @@ class MyApp extends StatelessWidget {
       );
     };
   }
+
 }
 
 

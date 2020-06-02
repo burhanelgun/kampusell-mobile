@@ -9,21 +9,24 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        new Text(category.name, textScaleFactor: 1.0),
-        new Container(
-            width: 50.0,
-            height: 50.0,
-            decoration: new BoxDecoration(
-                shape: BoxShape.circle,
-                image: new DecorationImage(
-                    fit: BoxFit.fill,
-                    image: new AssetImage('assets/images/emlak.png'))))
-      ],
-    ));
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10,0,10,0),
+      child: Container(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          new Text(category.name, textScaleFactor: 1.0),
+          new Container(
+              width: 50.0,
+              height: 50.0,
+              decoration: new BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: new DecorationImage(
+                      fit: BoxFit.fill,
+                      image: new AssetImage('assets/images/'+category.iconName))))
+        ],
+      )),
+    );
   }
 }

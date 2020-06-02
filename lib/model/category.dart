@@ -1,15 +1,18 @@
 class Category {
   String id;
   String name;
+  String iconName;
 
-  Category(this.id, this.name);
+  Category(this.id, this.name,this.iconName);
 
   static List<Category> fetchAll() {
     return [
-      Category('1', 'Kitap'),
-      Category('2', 'Elektronik'),
-      Category('3', 'Giyim'),
-      Category('4', 'Emlak')
+      Category('1', 'Kitaplar',"kitap.png"),
+      Category('2', 'Materyaller',"materyal.png"),
+      Category('3', 'Notlar',"not.png"),
+      Category('4', 'Elektronik',"elektronik.png"),
+      Category('5', 'Emlak',"emlak.png"),
+
     ];
   }
 

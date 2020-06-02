@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/product.dart';
 
+import '../../main.dart';
+
 class ProductItem extends StatelessWidget {
   Product product;
 
@@ -10,20 +12,21 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 8.0,
-      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      elevation: 15.0,
+      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       child: Container(
-        decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+        decoration: BoxDecoration(color: Colors.black54),
         child: ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          onTap: ()=>_onProductTap(context)  ,
+            contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
             leading: Container(
-              padding: EdgeInsets.only(right: 12.0),
+              padding: EdgeInsets.only(right: 15.0),
               decoration: new BoxDecoration(
                   border: new Border(
-                      right: new BorderSide(width: 1.0, color: Colors.white24))),
+                      right: new BorderSide(width: 1.0, color: Colors.white30))),
               child: Container(
-                  width: 50.0,
-                  height: 50.0,
+                  width: 80.0,
+                  height: 80.0,
                   decoration: new BoxDecoration(
                       shape: BoxShape.rectangle,
                       image: product.imagePaths == null
@@ -46,14 +49,17 @@ class ProductItem extends StatelessWidget {
                 ),
               ],
             ),
-            trailing:
-            Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0)),
+            trailing: Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0)),
       ),
     );
   }
 
 
+  _onProductTap(BuildContext context) {
 
+    Navigator.pushNamed(context, ProductRoute,
+        arguments: {"product": product});
+  }
 
 
 }

@@ -100,7 +100,7 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
         onWillPop: _onWillPop,
         child: Scaffold(
             appBar: AppBar(
-                titleSpacing: 0.0, title: Text("ürün bilgilerini giriniz")),
+                titleSpacing: 0.0, title: Text("Ürün bilgileri")),
             body: Builder(
               builder: (context) => Container(
                 margin: EdgeInsets.all(20),
@@ -110,7 +110,7 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
                   children: <Widget>[
                     Center(
                         child: _image == null
-                            ? Text('No image selected.')
+                            ? Text('')
                             : Container(
                                 width: 70.0,
                                 height: 70.0,
@@ -186,25 +186,58 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
                               );
                             }).toList(),
                           ),
+                          SizedBox(height: 20),
                           FloatingActionButton(
                             onPressed: getImage,
                             tooltip: 'Pick Image',
                             child: Icon(Icons.add_a_photo),
                           ),
-                          RaisedButton(
-                            onPressed: () {
-                              // Validate returns true if the form is valid, otherwise false.
-                              if (_formKey.currentState.validate()) {
-                                // If the form is valid, display a snackbar. In the real world,
-                                // you'd often call a server or save the information in a database.
-                                uploadFile();
-                                Scaffold.of(context).showSnackBar(
-                                    SnackBar(content: Text('Processing Data')));
-                                print("satışa çıkarıldı");
-                              }
-                            },
-                            child: Text('Satışa Çıkar'),
-                          )
+                          SizedBox(height: 20),
+
+
+
+
+
+                          Padding(
+                            padding:
+                            const EdgeInsets.all(9),
+                            child: Material(
+                                borderRadius: BorderRadius.circular(15.0),
+                                color: Colors.pink,
+                                elevation: 0.0,
+                                child:MaterialButton(
+                                  onPressed: () {
+                                    // Validate returns true if the form is valid, otherwise false.
+                                    if (_formKey.currentState.validate()) {
+                                      // If the form is valid, display a snackbar. In the real world,
+                                      // you'd often call a server or save the information in a database.
+                                      uploadFile();
+                                      Scaffold.of(context).showSnackBar(
+                                          SnackBar(content: Text('Processing Data')));
+                                      print("satışa çıkarıldı");
+                                    }
+                                  },
+                                  minWidth: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width,
+                                  child: Text('Satışa Çıkar',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.0),
+                                  ),
+                                )),
+                          ),
+
+
+
+
+
+
+
+
                         ])),
                   ],
                 ),
