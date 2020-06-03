@@ -22,7 +22,6 @@ class Student {
       };
 
   Student.fromJson(Map<String, dynamic> json) {
-    print("çalışıyor mu?");
     this.id = json['id'].toString();
     this.username = json['username'].toString();
   }

@@ -23,6 +23,7 @@ class DashboardState extends State<DashboardScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController searchTextController = TextEditingController();
   JwtModel jwtModel;
+  int _filter=0;
 
   DashboardState(this.jwtModel);
 
@@ -45,10 +46,14 @@ class DashboardState extends State<DashboardScreen> {
       this.jwtModel = jwtModel;
       Future.microtask(() => jwtModel.read());
     }
-    products = getDefaultProducts();
+   if(_filter!=1){
+      products = getDefaultProducts();
+      _filter=0;
+    }
     searchTextController.addListener(() {
       setState(() {});
     });
+
   }
 
   @override
@@ -205,6 +210,8 @@ class DashboardState extends State<DashboardScreen> {
     print("filtreleme işlemi başladı:");
     setState(() {
       products = getFilteredProducts(productFilter);
+      print(products);
+      _filter=1;
     });
   }
 
@@ -242,6 +249,7 @@ class DashboardState extends State<DashboardScreen> {
 
   Future<List<Product>> getFilteredProducts(ProductFilter productFilter) async {
     var data;
+
 
     if (isLocal) {
       data = await http.post(
