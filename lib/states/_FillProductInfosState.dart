@@ -25,7 +25,6 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
 
   JwtModel jwtModel;
 
-
   FillProductInfosState(this.jwtModel);
 
   Future getImage() async {
@@ -40,43 +39,32 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
     //'http://192.168.1.36:8080/api/products/s',
     //'https://kampusell-api.herokuapp.com/api/products/s'
 
-      print("satışta gonderilen jwt");
-      print(jwtModel.getJwt());
-      if(isLocal){
-        return http.post(
-          'http://10.0.2.2:8080/api/products/s',
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            "Authorization": jwtModel.getJwt()
-          },
-          body: jsonEncode(product),
-        );
-      }
-      else{
-        return http.post(
-          'https://kampusell-api.herokuapp.com/api/products/s',
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            "Authorization": jwtModel.getJwt()
-          },
-          body: jsonEncode(product),
-        );
-      }
-
-
-
-
+    if (isLocal) {
+      return http.post(
+        'http://10.0.2.2:8080/api/products/s',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": jwtModel.getJwt()
+        },
+        body: jsonEncode(product),
+      );
+    } else {
+      return http.post(
+        'https://kampusell-api.herokuapp.com/api/products/s',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": jwtModel.getJwt()
+        },
+        body: jsonEncode(product),
+      );
+    }
   }
 
   Future uploadFile() async {
-    print('File Uploaded1');
     StorageReference storageReference =
         FirebaseStorage.instance.ref().child(productNameController.text);
-    print('File Uploaded2');
     StorageUploadTask uploadTask = storageReference.putFile(_image);
-    print('File Uploaded3');
     await uploadTask.onComplete;
-    print('File Uploaded4');
     storageReference.getDownloadURL().then((fileURL) {
       setState(() {
         print(fileURL);
@@ -99,8 +87,7 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
     return new WillPopScope(
         onWillPop: _onWillPop,
         child: Scaffold(
-            appBar: AppBar(
-                titleSpacing: 0.0, title: Text("Ürün bilgileri")),
+            appBar: AppBar(titleSpacing: 0.0, title: Text("Ürün bilgileri")),
             body: Builder(
               builder: (context) => Container(
                 margin: EdgeInsets.all(20),
@@ -194,18 +181,13 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
                           ),
                           SizedBox(height: 20),
 
-
-
-
-
                           Padding(
-                            padding:
-                            const EdgeInsets.all(9),
+                            padding: const EdgeInsets.all(9),
                             child: Material(
                                 borderRadius: BorderRadius.circular(15.0),
                                 color: Colors.pink,
                                 elevation: 0.0,
-                                child:MaterialButton(
+                                child: MaterialButton(
                                   onPressed: () {
                                     // Validate returns true if the form is valid, otherwise false.
                                     if (_formKey.currentState.validate()) {
@@ -213,15 +195,14 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
                                       // you'd often call a server or save the information in a database.
                                       uploadFile();
                                       Scaffold.of(context).showSnackBar(
-                                          SnackBar(content: Text('Processing Data')));
-                                      print("satışa çıkarıldı");
+                                          SnackBar(
+                                              content:
+                                                  Text('Satışa Çıkarıldı.')));
                                     }
                                   },
-                                  minWidth: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width,
-                                  child: Text('Satışa Çıkar',
+                                  minWidth: MediaQuery.of(context).size.width,
+                                  child: Text(
+                                    'Satışa Çıkar',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white,
@@ -230,14 +211,6 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
                                   ),
                                 )),
                           ),
-
-
-
-
-
-
-
-
                         ])),
                   ],
                 ),

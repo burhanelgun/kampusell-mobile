@@ -14,7 +14,7 @@ class Student {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'username':username ,
+        'username': username,
         'name': name,
         'surname': surname,
         'email': email,
@@ -26,5 +26,4 @@ class Student {
     this.id = json['id'].toString();
     this.username = json['username'].toString();
   }
-
 }

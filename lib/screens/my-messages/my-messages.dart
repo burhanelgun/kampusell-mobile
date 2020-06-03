@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyMessagesScreen extends StatelessWidget {
-
   MyMessagesScreen();
-
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +12,8 @@ class MyMessagesScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text("merhbalar"),
-          Text("merhbalar"),
-
+          Text("abcde"),
+          Text("abcde"),
         ],
       ),
     );

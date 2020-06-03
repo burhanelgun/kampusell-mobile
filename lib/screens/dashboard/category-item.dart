@@ -10,7 +10,7 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10,0,10,0),
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Container(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -24,7 +24,8 @@ class CategoryItem extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: new DecorationImage(
                       fit: BoxFit.fill,
-                      image: new AssetImage('assets/images/'+category.iconName))))
+                      image: new AssetImage(
+                          'assets/images/' + category.iconName))))
         ],
       )),
     );

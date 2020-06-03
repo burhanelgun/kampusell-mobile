@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kampusell/main.dart';
 import 'package:kampusell/model/category.dart';
 import 'package:kampusell/model/product.dart';
 import 'package:kampusell/screens/dashboard/product-item.dart';
@@ -22,25 +21,17 @@ class ProductsList extends StatelessWidget {
     } else {
       List<Product> products = snapshot.data;
 
-
       return Expanded(
           child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: snapshot.data.length,
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: snapshot.data.length,
         itemBuilder: (context, index) {
           ProductItem productItem = new ProductItem(snapshot.data[index]);
 
           return productItem;
-
         },
-
       ));
     }
   }
-
-
-
-
-
 }

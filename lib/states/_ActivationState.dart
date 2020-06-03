@@ -1,17 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:kampusell/model/signup-form.dart';
 import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/screens/activation/activation.dart';
-import 'package:kampusell/screens/dashboard/product-item.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'dart:io';
-import 'dart:math' show Random;
 
 import '../main.dart';
 
-class ActivationState extends State<ActivationScreen> with TickerProviderStateMixin {
+class ActivationState extends State<ActivationScreen>
+    with TickerProviderStateMixin {
   final activationCodeTextController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   AnimationController controller;
@@ -23,38 +22,29 @@ class ActivationState extends State<ActivationScreen> with TickerProviderStateMi
   ActivationState(this.jwtModel, this.signUpForm, this.activationCode);
 
   @override
-  Future<void> initState()  {
+  Future<void> initState() {
     super.initState();
-
 
     controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 45),
     );
-    controller.reverse(
-        from: controller.value == 0.0
-            ? 1.0
-            : controller.value);
+    controller.reverse(from: controller.value == 0.0 ? 1.0 : controller.value);
 
     controller.addStatusListener((AnimationStatus status) async {
-      if (status == AnimationStatus.dismissed){
+      if (status == AnimationStatus.dismissed) {
         //delete user and navigate to sign up page
         await deleteUser();
         Navigator.of(context).pop(false);
-
-
       }
     });
-
-
-
   }
-
 
   String get timerString {
     Duration duration = controller.duration * controller.value;
     return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +55,7 @@ class ActivationState extends State<ActivationScreen> with TickerProviderStateMi
         children: <Widget>[
           AnimatedBuilder(
             animation: controller,
-            builder: (context,child){
+            builder: (context, child) {
               return Text(timerString);
             },
           ),
@@ -87,7 +77,6 @@ class ActivationState extends State<ActivationScreen> with TickerProviderStateMi
                 ),
                 SizedBox(height: 10),
 
-
                 RaisedButton(
                   onPressed: () {
                     // Validate returns true if the form is valid, otherwise false.
@@ -97,41 +86,26 @@ class ActivationState extends State<ActivationScreen> with TickerProviderStateMi
                   },
                   child: Text('Aktive Et'),
                 )
-
-
-              ]
-              )
-          ),
+              ])),
         ],
       ),
     );
   }
 
   void _onActivateButtonClick(BuildContext context) {
-
-
     bool isRegistrationIsActivated = true;
-    print("*****");
-    print(activationCodeTextController.text);
-    print(activationCode);
-    print("*****");
 
-    if(activationCodeTextController.text==activationCode){
+    if (activationCodeTextController.text == activationCode) {
       controller.dispose();
       Navigator.of(context).pop(true);
-    }
-    else{
+    } else {
       Navigator.of(context).pop(false);
     }
-
-
-
-
   }
 
   Future<http.Response> deleteUser() {
-    signUpForm.activationCode=this.activationCode;
-    if(isLocal){
+    signUpForm.activationCode = this.activationCode;
+    if (isLocal) {
       return http.post(
         'http://10.0.2.2:8080/api/auth/deleteUser',
         headers: <String, String>{
@@ -140,8 +114,7 @@ class ActivationState extends State<ActivationScreen> with TickerProviderStateMi
         },
         body: jsonEncode(signUpForm),
       );
-    }
-    else{
+    } else {
       return http.post(
         'https://kampusell-api.herokuapp.com/api/auth/deleteUser',
         headers: <String, String>{
@@ -151,12 +124,5 @@ class ActivationState extends State<ActivationScreen> with TickerProviderStateMi
         body: jsonEncode(signUpForm),
       );
     }
-
-
-
   }
-
-
-
-
 }

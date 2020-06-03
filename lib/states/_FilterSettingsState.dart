@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/category.dart';
-import 'package:kampusell/screens/dashboard/app-bar-content.dart';
-import 'package:kampusell/screens/filter-settings/filter-settings.dart';
 import 'package:kampusell/model/product-filter.dart';
+import 'package:kampusell/screens/filter-settings/filter-settings.dart';
 
 class FilterSettingsState extends State<FilterSettingsScreen> {
   FilterSettingsState();
+
   Category selectedCategory = null;
   final _formKey = GlobalKey<FormState>();
   final List<Category> categories = Category.fetchAll();
   final minPriceController = TextEditingController();
   final maxPriceController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -26,7 +27,7 @@ class FilterSettingsState extends State<FilterSettingsScreen> {
         body: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(15,10,15,0),
+            padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
             child: Column(
               children: <Widget>[
                 SizedBox(height: 10),
@@ -42,8 +43,7 @@ class FilterSettingsState extends State<FilterSettingsScreen> {
                   maxLength: 1450,
                   maxLines: null,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Minimum Fiyat'),
+                      border: OutlineInputBorder(), labelText: 'Minimum Fiyat'),
                 ),
                 SizedBox(height: 20),
                 TextFormField(
@@ -58,13 +58,10 @@ class FilterSettingsState extends State<FilterSettingsScreen> {
                   maxLength: 1450,
                   maxLines: null,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Maximum Fiyat'),
+                      border: OutlineInputBorder(), labelText: 'Maximum Fiyat'),
                 ),
                 DropdownButtonFormField<Category>(
-                  value: selectedCategory != null
-                      ? selectedCategory
-                      : null,
+                  value: selectedCategory != null ? selectedCategory : null,
                   icon: Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
@@ -75,26 +72,22 @@ class FilterSettingsState extends State<FilterSettingsScreen> {
                       selectedCategory = newValue;
                     });
                   },
-                  items: categories.map<DropdownMenuItem<Category>>(
-                          (Category category) {
-                        return DropdownMenuItem<Category>(
-                          value: category,
-                          child: Text(category.name),
-                        );
-                      }).toList(),
+                  items: categories
+                      .map<DropdownMenuItem<Category>>((Category category) {
+                    return DropdownMenuItem<Category>(
+                      value: category,
+                      child: Text(category.name),
+                    );
+                  }).toList(),
                 ),
                 SizedBox(height: 70),
-
-
-
                 Padding(
-                  padding:
-                  const EdgeInsets.all(9),
+                  padding: const EdgeInsets.all(9),
                   child: Material(
                       borderRadius: BorderRadius.circular(15.0),
                       color: Colors.pink,
                       elevation: 0.0,
-                      child:MaterialButton(
+                      child: MaterialButton(
                         onPressed: () {
                           // Validate returns true if the form is valid, otherwise false.
                           if (_formKey.currentState.validate()) {
@@ -103,11 +96,9 @@ class FilterSettingsState extends State<FilterSettingsScreen> {
                             filterProducts();
                           }
                         },
-                        minWidth: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
-                        child: Text('Filtrele',
+                        minWidth: MediaQuery.of(context).size.width,
+                        child: Text(
+                          'Filtrele',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.white,
@@ -116,20 +107,15 @@ class FilterSettingsState extends State<FilterSettingsScreen> {
                         ),
                       )),
                 ),
-
               ],
             ),
           ),
-        )
-    );
+        ));
   }
 
   void filterProducts() {
-
-    print("merhabalarrr");
-    ProductFilter productFilter = new ProductFilter(selectedCategory,minPriceController.text,maxPriceController.text);
+    ProductFilter productFilter = new ProductFilter(
+        selectedCategory, minPriceController.text, maxPriceController.text);
     Navigator.of(context).pop(productFilter);
-
-
   }
 }

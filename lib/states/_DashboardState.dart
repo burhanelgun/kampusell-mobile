@@ -13,9 +13,9 @@ import 'package:kampusell/screens/dashboard/categories-list.dart';
 import 'package:kampusell/screens/dashboard/dashboard.dart';
 import 'package:kampusell/screens/dashboard/products-list.dart';
 import 'package:kampusell/screens/side-menu/NavDrawer.dart';
+import 'package:provider/provider.dart';
 
 import '../main.dart';
-import 'package:provider/provider.dart';
 
 class DashboardState extends State<DashboardScreen> {
   Category category;
@@ -23,6 +23,7 @@ class DashboardState extends State<DashboardScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController searchTextController = TextEditingController();
   JwtModel jwtModel;
+
   DashboardState(this.jwtModel);
 
   @override
@@ -30,10 +31,7 @@ class DashboardState extends State<DashboardScreen> {
     super.initState();
     products = getDefaultProducts();
     searchTextController.addListener(() {
-      print(searchTextController.text);
-      setState(() {
-
-      });
+      setState(() {});
     });
   }
 
@@ -49,46 +47,42 @@ class DashboardState extends State<DashboardScreen> {
     }
     products = getDefaultProducts();
     searchTextController.addListener(() {
-      print(searchTextController.text);
-      setState(() {
-
-      });
+      setState(() {});
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
-          return Scaffold(
-            key: _scaffoldKey,
-            drawer: NavDrawer(this,jwtModel),
-            appBar: AppBar(
-                titleSpacing: 0.0,
-                automaticallyImplyLeading: false,
-                title: AppBarContent(_scaffoldKey, searchTextController, this,jwtModel)),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                CategoriesList(),
-                FutureBuilder(
-                    future: products,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      return ProductsList(null, snapshot);
-                    })
-              ],
-            ),
-            floatingActionButton: Container(
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: FloatingActionButton.extended(
-                  onPressed: () => _onSellProductBtnClick(context,jwtModel),
-                  label: Text('Eşyalarını Sat'),
-                  icon: Icon(Icons.photo_camera),
-                  backgroundColor: Colors.pink,
-                )),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-          );
-
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer: NavDrawer(this, jwtModel),
+      appBar: AppBar(
+          titleSpacing: 0.0,
+          automaticallyImplyLeading: false,
+          title: AppBarContent(
+              _scaffoldKey, searchTextController, this, jwtModel)),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          CategoriesList(jwtModel, _scaffoldKey),
+          FutureBuilder(
+              future: products,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                return ProductsList(null, snapshot);
+              })
+        ],
+      ),
+      floatingActionButton: Container(
+          padding: EdgeInsets.only(bottom: 10.0),
+          child: FloatingActionButton.extended(
+            onPressed: () => _onSellProductBtnClick(context, jwtModel),
+            label: Text('Eşyalarını Sat'),
+            icon: Icon(Icons.photo_camera),
+            backgroundColor: Colors.pink,
+          )),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
   }
 
   void updateProducts(Category category) {
@@ -98,39 +92,35 @@ class DashboardState extends State<DashboardScreen> {
     });
   }
 
-
   void updateProductsDefault() {
     this.category = category;
     setState(() {
       products = getDefaultProducts();
     });
   }
+
   Future<List<Product>> getDefaultProducts() async {
-    print("getDefaultProducts with this jwt:");
-    print(jwtModel.getJwt());
-    print("1111111");
     var data;
-    if(isLocal){
-      data = await http.get("http://10.0.2.2:8080/api/products",headers: {"Authorization": jwtModel.getJwt()});
-    }
-    else{
-      print("hello"+jwtModel.getJwt().toString());
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products",headers: {"Authorization": jwtModel.getJwt()});
+    if (isLocal) {
+      data = await http.get("http://10.0.2.2:8080/api/products",
+          headers: {"Authorization": jwtModel.getJwt()});
+    } else {
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products",
+          headers: {"Authorization": jwtModel.getJwt()});
     }
     List<dynamic> jsonData = json.decode(data.body);
-    print(jsonData);
     List<Product> products = [];
     for (int i = 0; i < jsonData.length; i++) {
       List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
       Product product = new Product(
-          jsonData[i]['id'].toString(),
-          jsonData[i]['name'].toString(),
-          jsonData[i]['description'].toString(),
-          double.parse(jsonData[i]['price'].toString()),
-          imagePaths,
-          Student.fromJson(jsonData[i]['student']),
-          Category.fromJson(jsonData[i]['category']),
-          );
+        jsonData[i]['id'].toString(),
+        jsonData[i]['name'].toString(),
+        jsonData[i]['description'].toString(),
+        double.parse(jsonData[i]['price'].toString()),
+        imagePaths,
+        Student.fromJson(jsonData[i]['student']),
+        Category.fromJson(jsonData[i]['category']),
+      );
       products.add(product);
     }
     return products;
@@ -138,18 +128,19 @@ class DashboardState extends State<DashboardScreen> {
 
   Future<List<Product>> getProductsByCategory(Category category) async {
     var data;
-    print("categorye göre seçim yaparken gönderilen jwt:");
-    print(jwtModel.getJwt());
 
-    if(isLocal){
-      data = await http.get("http://10.0.2.2:8080/api/products/categoryName=" + category.name,headers: {"Authorization": jwtModel.getJwt()});
-    }
-    else{
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products/categoryName=" + category.name,headers: {"Authorization": jwtModel.getJwt()});
+    if (isLocal) {
+      data = await http.get(
+          "http://10.0.2.2:8080/api/products/categoryName=" + category.name,
+          headers: {"Authorization": jwtModel.getJwt()});
+    } else {
+      data = await http.get(
+          "https://kampusell-api.herokuapp.com/api/products/categoryName=" +
+              category.name,
+          headers: {"Authorization": jwtModel.getJwt()});
     }
 
     List<dynamic> jsonData = json.decode(data.body);
-    print(jsonData.toString());
     List<Product> products = [];
     for (int i = 0; i < jsonData.length; i++) {
       if (Category.fromJson(jsonData[i]['category']).name == category.name) {
@@ -170,11 +161,10 @@ class DashboardState extends State<DashboardScreen> {
   }
 
   _onSellProductBtnClick(BuildContext context, JwtModel jwtModel) {
-
-
     //if user  signed in
-    if(jwtModel.getJwt().length>0){
-      Navigator.pushNamed(context, FillProductInfosRoute,arguments: {"jwtModel": jwtModel}).then((value) {
+    if (jwtModel.getJwt().length > 0) {
+      Navigator.pushNamed(context, FillProductInfosRoute,
+          arguments: {"jwtModel": jwtModel}).then((value) {
         setState(() {
           if (category == null) {
             products = getDefaultProducts();
@@ -183,64 +173,54 @@ class DashboardState extends State<DashboardScreen> {
           }
         });
       });
-    }
-    else {
+    } else {
       Navigator.pushNamed(context, SignInRoute).then((value) async {
         //read "value" value for checking is user signed in
         //after the sign in
         bool isUserSignIn = value;
-        if(isUserSignIn){
+        if (isUserSignIn) {
           //change default user icon with the user image in app bar
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             content: Text("Giriş Yapıldı"),
           ));
           updateProductsDefault();
-
-        }
-        else{
+        } else {
           //User couldn't sign in but user can go the dashboard
         }
       });
     }
-
-
-
-
-
-
   }
 
   refresh() {
     setState(() {});
   }
 
-  void search()  {
-    print("search işlemi başladı:");
+  void search() {
     setState(() {
-      products=getSearchedProducts(searchTextController.text);
+      products = getSearchedProducts(searchTextController.text);
     });
-
   }
 
-  void filter(ProductFilter productFilter)  {
+  void filter(ProductFilter productFilter) {
     print("filtreleme işlemi başladı:");
     setState(() {
-      products=getFilteredProducts(productFilter);
+      products = getFilteredProducts(productFilter);
     });
-
   }
 
-  Future<List<Product>> getSearchedProducts(String searchText) async{
+  Future<List<Product>> getSearchedProducts(String searchText) async {
     var data;
 
-    if(isLocal){
-      data = await http.get("http://10.0.2.2:8080/api/products/searchText=" + searchText,headers: {"Authorization": jwtModel.getJwt()});
+    if (isLocal) {
+      data = await http.get(
+          "http://10.0.2.2:8080/api/products/searchText=" + searchText,
+          headers: {"Authorization": jwtModel.getJwt()});
+    } else {
+      data = await http.get(
+          "https://kampusell-api.herokuapp.com/api/products/searchText=" +
+              searchText,
+          headers: {"Authorization": jwtModel.getJwt()});
     }
-    else{
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products/searchText=" + searchText,headers: {"Authorization": jwtModel.getJwt()});
-    }
-
-
 
     List<dynamic> jsonData = json.decode(data.body);
     List<Product> products = [];
@@ -258,19 +238,12 @@ class DashboardState extends State<DashboardScreen> {
       products.add(product);
     }
     return products;
-
   }
 
-  Future<List<Product>> getFilteredProducts(ProductFilter productFilter) async{
-    print("filtre2");
-
-    print(productFilter.category);
-    print(productFilter.minPrice);
-    print(productFilter.maxPrice);
-
+  Future<List<Product>> getFilteredProducts(ProductFilter productFilter) async {
     var data;
 
-    if(isLocal){
+    if (isLocal) {
       data = await http.post(
         'http://10.0.2.2:8080/api/products/filter',
         headers: <String, String>{
@@ -279,8 +252,7 @@ class DashboardState extends State<DashboardScreen> {
         },
         body: jsonEncode(productFilter),
       );
-    }
-    else{
+    } else {
       data = await http.post(
         'https://kampusell-api.herokuapp.com/api/products/filter',
         headers: <String, String>{
@@ -291,7 +263,6 @@ class DashboardState extends State<DashboardScreen> {
       );
     }
 
-
     List<dynamic> jsonData = json.decode(data.body);
     List<Product> products = [];
     for (int i = 0; i < jsonData.length; i++) {
@@ -308,12 +279,5 @@ class DashboardState extends State<DashboardScreen> {
       products.add(product);
     }
     return products;
-
-
-
   }
-
-
-
- }
-
+}

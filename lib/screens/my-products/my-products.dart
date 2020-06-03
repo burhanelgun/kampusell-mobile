@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class MyProductsScreen extends StatelessWidget {
   MyProductsScreen();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,9 +12,8 @@ class MyProductsScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text("merhbalar"),
-          Text("merhbalar"),
-
+          Text("abcde"),
+          Text("abcde"),
         ],
       ),
     );

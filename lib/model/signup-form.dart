@@ -1,9 +1,12 @@
+import 'package:kampusell/model/university.dart';
+
 class SignUpForm {
   String username;
   String email;
   String password;
   String activationCode;
-  SignUpForm(this.username, this.email,this.password);
+  University university;
+  SignUpForm(this.username, this.email,this.password, this.university);
 
 
 
@@ -12,6 +15,7 @@ class SignUpForm {
     this.email = json['email'].toString();
     this.password = json['password'].toString();
     this.activationCode = json['activationCode'].toString();
+    this.university = University.fromJson(json['university']);
 
   }
 
@@ -20,6 +24,7 @@ class SignUpForm {
     'email': email,
     'password': password,
     'role' :["user","pm"],
-    'activationCode':activationCode
+    'activationCode':activationCode,
+    'university':university
   };
 }

@@ -4,6 +4,7 @@ import 'package:kampusell/states/_DashboardState.dart';
 
 class DashboardScreen extends StatefulWidget {
   JwtModel jwtModel;
+
   DashboardScreen(this.jwtModel);
 
   static DashboardState of(BuildContext context) =>

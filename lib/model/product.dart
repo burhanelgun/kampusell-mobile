@@ -14,7 +14,6 @@ class Product {
   Product(this.id, this.name, this.description, this.price, this.imagePaths,
       this.student, this.category);
 
-
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -26,9 +25,4 @@ class Product {
       'imagePaths': imagePaths
     };
   }
-
-
-
-
-
 }
