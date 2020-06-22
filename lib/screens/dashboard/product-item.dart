@@ -46,10 +46,12 @@ class ProductItem extends StatelessWidget {
 
             subtitle: Row(
               children: <Widget>[
-                Text(
-                  product.description,
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.normal),
+                Flexible(
+                  child: Text(
+                    product.description,
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.normal),
+                  ),
                 ),
               ],
             ),

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/product.dart';
 
+import '../../main.dart';
+
 class ProductScreen extends StatelessWidget {
   Product product;
 
@@ -101,7 +103,9 @@ class ProductScreen extends StatelessWidget {
                           color: Colors.pink,
                           elevation: 0.0,
                           child: MaterialButton(
-                            onPressed: () {},
+                              onPressed: () {
+                                sendMessageToSellerBtnClick(context);
+                              },
                             minWidth: MediaQuery.of(context).size.width,
                             child: Text(
                               "Satıcıya Mesaj Gönder",
@@ -121,5 +125,14 @@ class ProductScreen extends StatelessWidget {
         ),
       )),
     );
+  }
+
+  void sendMessageToSellerBtnClick(BuildContext context) {
+
+    Navigator.pushNamed(context, SendMessageToSellerRoute).then((value) async {
+
+    });
+
+
   }
 }

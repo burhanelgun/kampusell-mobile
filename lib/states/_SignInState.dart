@@ -47,7 +47,7 @@ class SignInState extends State<SignInScreen> {
                             TextFormField(
                               validator: (value) {
                                 if (value.isEmpty) {
-                                  return 'Please enter some text';
+                                  return 'Lütfen bir değer giriniz';
                                 }
                                 return null;
                               },
@@ -60,7 +60,7 @@ class SignInState extends State<SignInScreen> {
                             TextFormField(
                               validator: (value) {
                                 if (value.isEmpty) {
-                                  return 'Please enter some text';
+                                  return 'Lütfen bir değer giriniz';
                                 }
                                 return null;
                               },
@@ -71,21 +71,53 @@ class SignInState extends State<SignInScreen> {
                             ),
                             SizedBox(height: 10),
 
-                            RaisedButton(
-                              onPressed: () {
-                                // Validate returns true if the form is valid, otherwise false.
-                                if (_formKey.currentState.validate()) {
-                                  _onSignInButtonClick(jwtProvider);
-                                }
-                              },
-                              child: Text('Giriş Yap'),
+                            Padding(
+                              padding: const EdgeInsets.all(9),
+                              child: Material(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  color: Colors.pink,
+                                  elevation: 0.0,
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      // Validate returns true if the form is valid, otherwise false.
+                                      if (_formKey.currentState.validate()) {
+                                        _onSignInButtonClick(jwtProvider);
+
+                                      }
+                                    },
+                                    minWidth: MediaQuery.of(context).size.width,
+                                    child: Text(
+                                      'Giriş Yap',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20.0),
+                                    ),
+                                  )),
                             ),
-                            RaisedButton(
-                              onPressed: () {
-                                // Validate returns true if the form is valid, otherwise false.
-                                _onSignUpButtonClick(context);
-                              },
-                              child: Text('Kayıt Ol'),
+                            Padding(
+                              padding: const EdgeInsets.all(9),
+                              child: Material(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  color: Colors.pink,
+                                  elevation: 0.0,
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      // Validate returns true if the form is valid, otherwise false.
+                                        _onSignUpButtonClick(context);
+
+                                    },
+                                    minWidth: MediaQuery.of(context).size.width,
+                                    child: Text(
+                                      'Kayıt Ol',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20.0),
+                                    ),
+                                  )),
                             )
                           ])),
                     ],

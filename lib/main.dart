@@ -9,14 +9,16 @@ import 'package:kampusell/screens/my-messages/my-messages.dart';
 import 'package:kampusell/screens/my-products/my-products.dart';
 import 'package:kampusell/screens/my-profile/my-profile.dart';
 import 'package:kampusell/screens/product/product.dart';
+import 'package:kampusell/screens/send-message-to-seller/send-message-to-seller.dart';
 import 'package:kampusell/screens/signin/sign_in.dart';
 import 'package:kampusell/screens/signup/sign_up.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 import 'framework/bounce_scroll_behavior.dart';
 import 'screens/product/product.dart';
 
-bool isLocal = true;
+bool isLocal = false;
 
 const DashboardRoute = "/";
 const ProductRoute = "/product";
@@ -29,6 +31,8 @@ const MyMessagesRoute = "/myMessagesRoute";
 const SignInRoute = "/signInRoute";
 const SignUpRoute = "/signUpRoute";
 const ActivationRoute = "/activationRoute";
+const SendMessageToSellerRoute = "/sendMessageToSellerRoute";
+
 
 final storage = FlutterSecureStorage();
 
@@ -40,6 +44,14 @@ void main() => runApp(
     );
 
 class MyApp extends StatelessWidget {
+
+  List<Item> items = List();
+  Item item;
+  DatabaseReference itemRef;
+
+
+
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -94,6 +106,9 @@ class MyApp extends StatelessWidget {
         case SignUpRoute:
           screen = SignUpScreen();
           break;
+        case SendMessageToSellerRoute:
+          screen = SendMessageToSellerScreen();
+          break;
         case ActivationRoute:
           screen = ActivationScreen(
               jwtModel, arguments["signUpForm"], arguments["activationCode"]);
@@ -107,4 +122,24 @@ class MyApp extends StatelessWidget {
       );
     };
   }
+}
+
+class Item{
+  String key;
+  String title;
+  String body;
+
+  Item(this.title,this.body);
+
+
+  Item.fromJson(Map<String, dynamic> json) {
+    this.key = json['key'].toString();
+    this.title = json['title'].toString();
+    this.body = json['body'].toString();
+  }
+
+  Map<String, dynamic> toJson() => {
+    'title': title,
+    'body': body,
+  };
 }

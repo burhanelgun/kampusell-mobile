@@ -82,7 +82,7 @@ class SignUpState extends State<SignUpScreen> {
                           TextFormField(
                             validator: (value) {
                               if (value.isEmpty) {
-                                return 'Please enter some text';
+                                return 'Lütfen bir değer giriniz';
                               }
                               return null;
                             },
@@ -95,7 +95,7 @@ class SignUpState extends State<SignUpScreen> {
                           TextFormField(
                             validator: (value) {
                               if (value.isEmpty) {
-                                return 'Please enter some text';
+                                return 'Lütfen bir değer girinizt';
                               }
                               return null;
                             },
@@ -108,7 +108,7 @@ class SignUpState extends State<SignUpScreen> {
                           TextFormField(
                             validator: (value) {
                               if (value.isEmpty) {
-                                return 'Please enter some text';
+                                return 'Lütfen bir değer giriniz';
                               }
                               return null;
                             },
@@ -141,12 +141,28 @@ class SignUpState extends State<SignUpScreen> {
                               );
                             }).toList(),
                           ),
-                          RaisedButton(
-                            onPressed: () {
-                              // Validate returns true if the form is valid, otherwise false.
-                              _onSignUpButtonClick(context);
-                            },
-                            child: Text('Kayıt Ol'),
+                          Padding(
+                            padding: const EdgeInsets.all(9),
+                            child: Material(
+                                borderRadius: BorderRadius.circular(15.0),
+                                color: Colors.pink,
+                                elevation: 0.0,
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    // Validate returns true if the form is valid, otherwise false.
+                                    _onSignUpButtonClick(context);
+
+                                  },
+                                  minWidth: MediaQuery.of(context).size.width,
+                                  child: Text(
+                                    'Kayıt Ol',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.0),
+                                  ),
+                                )),
                           )
                         ])),
                   ],
