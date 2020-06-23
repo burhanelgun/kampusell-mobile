@@ -13,6 +13,10 @@ class MessageItem extends StatelessWidget {
 
     @override
     Widget build(BuildContext context) {
+        print("track2(message.senderUsername):"+message.senderUsername);
+        print("track3(username):"+username);
+        print("track4(message.messageContent):"+message.messageContent);
+
         if(username==message.senderUsername){
             return Container(
                 child: Text(message.senderUsername+" "+ message.receiverUsername

@@ -5,23 +5,46 @@ import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/screens/filter-settings/filter-settings.dart';
 import 'package:kampusell/screens/send-message-to-seller/message-item.dart';
 import 'package:kampusell/screens/send-message-to-seller/send-message-to-seller.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:kampusell/model/product.dart';
 
 class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
   JwtModel _jwtModel;
+  Product _product;
   int c =0;
-  SendMessageToSellerState(this._jwtModel);
+  SendMessageToSellerState(this._jwtModel,this._product);
 
   final _formKey = GlobalKey<FormState>();
   final minPriceController = TextEditingController();
   final maxPriceController = TextEditingController();
   TextEditingController messageTextController = TextEditingController();
+  DatabaseReference messagesReference;
+  DatabaseReference privMessagesReference;
 
-  List<Message> messages = List();
+  List<Message> messages = new List<Message>();
+
 
   @override
   void initState() {
     super.initState();
-    messages = Message.fetchAll();
+    //messages = Message.fetchAll();
+    messagesReference = FirebaseDatabase.instance.reference().child("messages");
+    List<String> twoUsernames = List();
+    twoUsernames.add(_product.student.username);
+    twoUsernames.add(_jwtModel.getUsername());
+    twoUsernames.sort();
+    privMessagesReference = messagesReference.child(twoUsernames[0]+"_"+twoUsernames[1]);
+    privMessagesReference.onChildAdded.listen(_onNewMessageSent);
+
+  }
+  _onNewMessageSent(Event event) {
+    Message m= Message.fromSnapshot(event.snapshot);
+    print("buyuk:"+ m.messageContent);
+    setState(() {
+      messages.add(m);
+    });
+
+
   }
 
   @override
@@ -90,11 +113,16 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
     print("text:"+ messageTextController.text);
     setState(() {
       if(c==0){
-        messages.add(new Message(_jwtModel.getUsername(), messageTextController.text, messageTextController.text));
-        c=1;
+        print("track1(_jwtModel.getUsername()):"+_jwtModel.getUsername());
+        Message m = new Message(_jwtModel.getUsername(), _product.student.username, messageTextController.text);
+        messages.add(m);
+        privMessagesReference.push().set(m.toJson());
+        //c=1;
       }
       else{
-        messages.add(new Message("otherUser", messageTextController.text, messageTextController.text));
+        Message m = new Message(_product.student.username, _jwtModel.getUsername(), messageTextController.text);
+        messages.add(m);
+        privMessagesReference.push().set(m.toJson());
         c=0;
       }
     });
@@ -115,5 +143,6 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
   }
 
 }
+
 
 

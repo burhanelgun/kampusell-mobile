@@ -133,6 +133,7 @@ class ProductScreen extends StatelessWidget {
 
     Navigator.pushNamed(context, SendMessageToSellerRoute,arguments: {
       "jwtModel": _jwtModel,
+      "product": product
     }).then((value) async {
 
     });

@@ -1,3 +1,5 @@
+import 'package:firebase_database/firebase_database.dart';
+
 class Message {
   String senderUsername;
   String receiverUsername;
@@ -22,7 +24,12 @@ class Message {
     this.messageContent = json['messageContent'].toString();
 
   }
+  Message.fromSnapshot(DataSnapshot snapshot) {
+    this.senderUsername = snapshot.value["senderUsername"];
+    this.receiverUsername = snapshot.value["receiverUsername"];
+    this.messageContent = snapshot.value["messageContent"];
 
+  }
   Map<String, dynamic> toJson() => {
     'senderUsername': senderUsername,
     'receiverUsername': receiverUsername,

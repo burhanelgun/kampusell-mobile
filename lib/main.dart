@@ -13,7 +13,6 @@ import 'package:kampusell/screens/send-message-to-seller/send-message-to-seller.
 import 'package:kampusell/screens/signin/sign_in.dart';
 import 'package:kampusell/screens/signup/sign_up.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 import 'framework/bounce_scroll_behavior.dart';
 import 'screens/product/product.dart';
@@ -47,7 +46,6 @@ class MyApp extends StatelessWidget {
 
   List<Item> items = List();
   Item item;
-  DatabaseReference itemRef;
 
 
 
@@ -107,7 +105,7 @@ class MyApp extends StatelessWidget {
           screen = SignUpScreen();
           break;
         case SendMessageToSellerRoute:
-          screen = SendMessageToSellerScreen(arguments["jwtModel"]);
+          screen = SendMessageToSellerScreen(arguments["jwtModel"],arguments["product"]);
           break;
         case ActivationRoute:
           screen = ActivationScreen(
