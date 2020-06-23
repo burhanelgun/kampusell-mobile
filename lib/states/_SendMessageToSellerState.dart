@@ -19,7 +19,8 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
   final maxPriceController = TextEditingController();
   TextEditingController messageTextController = TextEditingController();
   DatabaseReference messagesReference;
-  DatabaseReference privMessagesReference;
+  DatabaseReference privMessagesReferenceMe;
+  DatabaseReference privMessagesReferenceOther;
 
   List<Message> messages = new List<Message>();
 
@@ -29,12 +30,12 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
     super.initState();
     //messages = Message.fetchAll();
     messagesReference = FirebaseDatabase.instance.reference().child("messages");
-    List<String> twoUsernames = List();
-    twoUsernames.add(_product.student.username);
-    twoUsernames.add(_jwtModel.getUsername());
-    twoUsernames.sort();
-    privMessagesReference = messagesReference.child(twoUsernames[0]+"_"+twoUsernames[1]);
-    privMessagesReference.onChildAdded.listen(_onNewMessageSent);
+
+    privMessagesReferenceMe = messagesReference.child(_product.student.username).child(_jwtModel.getUsername()).child(_product.id);
+    privMessagesReferenceOther = messagesReference.child(_jwtModel.getUsername()).child(_product.student.username).child(_product.id);
+
+    privMessagesReferenceMe.onChildAdded.listen(_onNewMessageSent);
+
 
   }
   _onNewMessageSent(Event event) {
@@ -46,6 +47,8 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
       });
 
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +118,9 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
       //need to locally stored for no internet connection
         Message m = new Message(_jwtModel.getUsername(), _product.student.username, messageTextController.text);
         //messages.add(m);
-        privMessagesReference.push().set(m.toJson());
+        privMessagesReferenceMe.push().set(m.toJson());
+        privMessagesReferenceOther.push().set(m.toJson());
+
     });
     messageTextController.clear();
 

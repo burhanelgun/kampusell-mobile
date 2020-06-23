@@ -20,10 +20,11 @@ import '../main.dart';
 
 class DashboardState extends State<DashboardScreen> {
   Category category;
-  Future<List<Product>> products;
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController searchTextController = TextEditingController();
   JwtModel jwtModel;
+  Future<List<Product>> products;
   int _filter=0;
   String username;
 
