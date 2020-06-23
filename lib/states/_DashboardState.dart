@@ -76,7 +76,7 @@ class DashboardState extends State<DashboardScreen> {
           FutureBuilder(
               future: products,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                return ProductsList(null, snapshot,username);
+                return ProductsList(null, snapshot,jwtModel);
               })
         ],
       ),
@@ -193,9 +193,7 @@ class DashboardState extends State<DashboardScreen> {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             content: Text("Giriş Yapıldı"),
           ));
-          SignInForm signInForm = popReturn["signInForm"];
           updateProductsDefault();
-          setUserName(signInForm.username);
         } else {
           //User couldn't sign in but user can go the dashboard
         }
@@ -296,10 +294,5 @@ class DashboardState extends State<DashboardScreen> {
     return products;
   }
 
-  void setUserName(String username) {
-    setState(() {
-      this.username= username;
-    });
 
-  }
 }

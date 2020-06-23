@@ -2,14 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/category.dart';
 import 'package:kampusell/model/product.dart';
+import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/screens/dashboard/product-item.dart';
 
 class ProductsList extends StatelessWidget {
   Category _category;
   AsyncSnapshot snapshot;
-  String username;
+  JwtModel _jwtModel;
 
-  ProductsList(this._category, this.snapshot, this.username);
+  ProductsList(this._category, this.snapshot, this._jwtModel);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class ProductsList extends StatelessWidget {
         shrinkWrap: true,
         itemCount: snapshot.data.length,
         itemBuilder: (context, index) {
-          ProductItem productItem = new ProductItem(snapshot.data[index],username);
+          ProductItem productItem = new ProductItem(snapshot.data[index],_jwtModel);
 
           return productItem;
         },

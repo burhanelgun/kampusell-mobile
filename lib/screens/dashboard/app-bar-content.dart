@@ -115,8 +115,6 @@ class AppBarContent extends StatelessWidget {
             content: Text("Giriş Yapıldı"),
           ));
           _dashboardState.updateProductsDefault();
-          SignInForm signInForm = popReturn["signInForm"];
-          _dashboardState.setUserName(signInForm.username);
         } else {
           //User couldn't sign in but user can go the dashboard
         }

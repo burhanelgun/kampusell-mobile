@@ -186,7 +186,8 @@ class SignInState extends State<SignInScreen> {
           " " +
           jsonData["accessToken"].toString();
 
-      jwtProvider.set(localJwt);
+      print("dewnemeeee:"+ signInForm.username);
+      jwtProvider.set(localJwt,signInForm.username);
       Navigator.of(context).pop({"isSignIn": true, "signInForm":signInForm});
     } else {
       bool isUserSignedUp = false;

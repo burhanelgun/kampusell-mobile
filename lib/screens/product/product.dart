@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/product.dart';
+import 'package:kampusell/providers/jwt_model.dart';
 
 import '../../main.dart';
 
 class ProductScreen extends StatelessWidget {
   Product product;
-  String username;
+  JwtModel _jwtModel;
 
-  ProductScreen(this.product, this.username);
+  ProductScreen(this.product, this._jwtModel);
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +132,7 @@ class ProductScreen extends StatelessWidget {
   void sendMessageToSellerBtnClick(BuildContext context) {
 
     Navigator.pushNamed(context, SendMessageToSellerRoute,arguments: {
-      "username": username,
+      "jwtModel": _jwtModel,
     }).then((value) async {
 
     });

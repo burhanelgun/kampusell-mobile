@@ -63,6 +63,6 @@ class NavDrawer extends StatelessWidget {
 
   onTapLogout(BuildContext context) {
     Navigator.of(context).pop();
-    jwtModel.set("");
+    jwtModel.set("","");
   }
 }
