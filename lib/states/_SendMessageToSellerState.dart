@@ -38,12 +38,12 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
 
   }
   _onNewMessageSent(Event event) {
-    Message m= Message.fromSnapshot(event.snapshot);
-    print("buyuk:"+ m.messageContent);
-    setState(() {
-      messages.add(m);
-    });
+      setState(() {
+        Message m= Message.fromSnapshot(event.snapshot);
+        print("buyuk:"+ m.messageContent);
+        messages.add(m);
 
+      });
 
   }
 
@@ -112,19 +112,10 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
     print("onsearchtexteditingcomplete");
     print("text:"+ messageTextController.text);
     setState(() {
-      if(c==0){
-        print("track1(_jwtModel.getUsername()):"+_jwtModel.getUsername());
+      //need to locally stored for no internet connection
         Message m = new Message(_jwtModel.getUsername(), _product.student.username, messageTextController.text);
-        messages.add(m);
+        //messages.add(m);
         privMessagesReference.push().set(m.toJson());
-        //c=1;
-      }
-      else{
-        Message m = new Message(_product.student.username, _jwtModel.getUsername(), messageTextController.text);
-        messages.add(m);
-        privMessagesReference.push().set(m.toJson());
-        c=0;
-      }
     });
     messageTextController.clear();
 
