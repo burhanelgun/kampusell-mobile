@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:kampusell/model/category.dart';
 import 'package:kampusell/model/product-filter.dart';
 import 'package:kampusell/model/product.dart';
+import 'package:kampusell/model/signin-form.dart';
 import 'package:kampusell/model/student.dart';
 import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/screens/dashboard/app-bar-content.dart';
@@ -24,6 +25,7 @@ class DashboardState extends State<DashboardScreen> {
   TextEditingController searchTextController = TextEditingController();
   JwtModel jwtModel;
   int _filter=0;
+  String username;
 
   DashboardState(this.jwtModel);
 
@@ -74,7 +76,7 @@ class DashboardState extends State<DashboardScreen> {
           FutureBuilder(
               future: products,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
-                return ProductsList(null, snapshot);
+                return ProductsList(null, snapshot,username);
               })
         ],
       ),
@@ -182,13 +184,18 @@ class DashboardState extends State<DashboardScreen> {
       Navigator.pushNamed(context, SignInRoute).then((value) async {
         //read "value" value for checking is user signed in
         //after the sign in
-        bool isUserSignIn = value;
-        if (isUserSignIn) {
+
+        Map<String, dynamic> popReturn = value;
+
+
+        if (popReturn["isSignIn"]) {
           //change default user icon with the user image in app bar
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             content: Text("Giriş Yapıldı"),
           ));
+          SignInForm signInForm = popReturn["signInForm"];
           updateProductsDefault();
+          setUserName(signInForm.username);
         } else {
           //User couldn't sign in but user can go the dashboard
         }
@@ -287,5 +294,12 @@ class DashboardState extends State<DashboardScreen> {
       products.add(product);
     }
     return products;
+  }
+
+  void setUserName(String username) {
+    setState(() {
+      this.username= username;
+    });
+
   }
 }

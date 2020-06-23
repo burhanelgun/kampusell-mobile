@@ -7,8 +7,9 @@ import 'package:kampusell/screens/dashboard/product-item.dart';
 class ProductsList extends StatelessWidget {
   Category _category;
   AsyncSnapshot snapshot;
+  String username;
 
-  ProductsList(this._category, this.snapshot);
+  ProductsList(this._category, this.snapshot, this.username);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class ProductsList extends StatelessWidget {
         shrinkWrap: true,
         itemCount: snapshot.data.length,
         itemBuilder: (context, index) {
-          ProductItem productItem = new ProductItem(snapshot.data[index]);
+          ProductItem productItem = new ProductItem(snapshot.data[index],username);
 
           return productItem;
         },

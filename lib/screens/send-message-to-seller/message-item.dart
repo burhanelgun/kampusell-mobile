@@ -7,15 +7,32 @@ import '../../main.dart';
 
 class MessageItem extends StatelessWidget {
     Message message;
+    String username;
 
-    MessageItem(this.message);
+    MessageItem(this.message, this.username);
 
     @override
     Widget build(BuildContext context) {
-        return Container(
-            child: Text(message.senderUsername+" "+ message.receiverUsername
-            +" "+message.messageContent),
-        );
+        if(username==message.senderUsername){
+            return Container(
+                child: Text(message.senderUsername+" "+ message.receiverUsername
+                    +" "+message.messageContent,
+                    textAlign: TextAlign.end, // has impact
+
+                ),
+
+            );
+        }
+        else{
+            return Container(
+                child: Text(message.senderUsername+" "+ message.receiverUsername
+                    +" "+message.messageContent,
+                ),
+
+            );
+        }
+
+
     }
 
 }

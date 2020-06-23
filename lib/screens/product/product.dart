@@ -6,8 +6,9 @@ import '../../main.dart';
 
 class ProductScreen extends StatelessWidget {
   Product product;
+  String username;
 
-  ProductScreen(this.product);
+  ProductScreen(this.product, this.username);
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,7 +130,9 @@ class ProductScreen extends StatelessWidget {
 
   void sendMessageToSellerBtnClick(BuildContext context) {
 
-    Navigator.pushNamed(context, SendMessageToSellerRoute).then((value) async {
+    Navigator.pushNamed(context, SendMessageToSellerRoute,arguments: {
+      "username": username,
+    }).then((value) async {
 
     });
 

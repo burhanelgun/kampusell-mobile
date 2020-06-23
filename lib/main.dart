@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
           screen = DashboardScreen(jwtModel);
           break;
         case ProductRoute:
-          screen = ProductScreen(arguments["product"]);
+          screen = ProductScreen(arguments["product"],arguments["username"]);
           break;
         case FillProductInfosRoute:
           screen = FillProductInfosScreen(arguments["jwtModel"]);
@@ -107,7 +107,7 @@ class MyApp extends StatelessWidget {
           screen = SignUpScreen();
           break;
         case SendMessageToSellerRoute:
-          screen = SendMessageToSellerScreen();
+          screen = SendMessageToSellerScreen(arguments["username"]);
           break;
         case ActivationRoute:
           screen = ActivationScreen(

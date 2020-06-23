@@ -6,8 +6,9 @@ import '../../main.dart';
 
 class ProductItem extends StatelessWidget {
   Product product;
+  String username;
 
-  ProductItem(this.product);
+  ProductItem(this.product,this.username);
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +63,7 @@ class ProductItem extends StatelessWidget {
   }
 
   _onProductTap(BuildContext context) {
-    Navigator.pushNamed(context, ProductRoute, arguments: {"product": product});
+    Navigator.pushNamed(context, ProductRoute, arguments: {"product": product,
+      "username": username});
   }
 }

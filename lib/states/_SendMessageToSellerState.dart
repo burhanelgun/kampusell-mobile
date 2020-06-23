@@ -6,7 +6,9 @@ import 'package:kampusell/screens/send-message-to-seller/message-item.dart';
 import 'package:kampusell/screens/send-message-to-seller/send-message-to-seller.dart';
 
 class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
-  SendMessageToSellerState();
+  String username;
+  int c =0;
+  SendMessageToSellerState(this.username);
 
   final _formKey = GlobalKey<FormState>();
   final minPriceController = TextEditingController();
@@ -55,7 +57,7 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
                       shrinkWrap: true,
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
-                        MessageItem messageItem = new MessageItem(messages[messages.length - index - 1]);
+                        MessageItem messageItem = new MessageItem(messages[messages.length - index - 1],username);
 
                         return messageItem;
                       },
@@ -82,13 +84,20 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
 
 
   _onSearchTextEditingComplete() {
-
+    print(username);
     print("onsearchtexteditingcomplete");
     print("text:"+ messageTextController.text);
     setState(() {
-      messages.add(new Message(messageTextController.text, messageTextController.text, messageTextController.text));
+      if(c==0){
+        messages.add(new Message(username, messageTextController.text, messageTextController.text));
+        c=1;
+      }
+      else{
+        messages.add(new Message("otherUser", messageTextController.text, messageTextController.text));
+        c=0;
+      }
     });
-
+    messageTextController.clear();
 
   }
 

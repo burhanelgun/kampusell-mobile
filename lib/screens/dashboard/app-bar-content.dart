@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kampusell/main.dart';
+import 'package:kampusell/model/signin-form.dart';
 import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/states/_DashboardState.dart';
 
@@ -104,13 +105,18 @@ class AppBarContent extends StatelessWidget {
       Navigator.pushNamed(context, SignInRoute).then((value) {
         //read "value" value for checking is user signed in
         //after the sign in
-        bool isUserSignIn = value;
-        if (isUserSignIn) {
+
+        Map<String, dynamic> popReturn = value;
+
+
+        if (popReturn["isSignIn"]) {
           //change default user icon with the user image in app bar
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             content: Text("Giriş Yapıldı"),
           ));
           _dashboardState.updateProductsDefault();
+          SignInForm signInForm = popReturn["signInForm"];
+          _dashboardState.setUserName(signInForm.username);
         } else {
           //User couldn't sign in but user can go the dashboard
         }

@@ -128,7 +128,7 @@ class SignInState extends State<SignInScreen> {
   }
 
   Future<bool> _onWillPop() async {
-    Navigator.of(context).pop(false);
+    Navigator.of(context).pop({"isSignIn": false});
     return false;
   }
 
@@ -187,7 +187,7 @@ class SignInState extends State<SignInScreen> {
           jsonData["accessToken"].toString();
 
       jwtProvider.set(localJwt);
-      Navigator.of(context).pop(true);
+      Navigator.of(context).pop({"isSignIn": true, "signInForm":signInForm});
     } else {
       bool isUserSignedUp = false;
       _scaffoldKey.currentState.showSnackBar(SnackBar(
