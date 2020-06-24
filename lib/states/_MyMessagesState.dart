@@ -13,6 +13,7 @@ class MyMessagesState extends State<MyMessagesScreen> {
   JwtModel jwtModel;
   List<MessageContainer> messageContainers=new List<MessageContainer>();
 
+
   MyMessagesState(this.jwtModel);
   DatabaseReference messagesReference;
 
@@ -28,6 +29,42 @@ class MyMessagesState extends State<MyMessagesScreen> {
         values.forEach((key1, values1) {
           String otherUsername = key1;
           print("otherUsername:" + otherUsername);
+          DatabaseReference existedOtherUserReference =messagesReference.child(otherUsername) ;
+
+          existedOtherUserReference.onChildAdded.listen((
+              Event event) {
+            print("1111111111111");
+
+
+
+            Map<dynamic, dynamic> values = event.snapshot.value;
+            values.forEach((key, values1) {
+              String productId =  event.snapshot.key.toString();
+              MessageContainer messageContainer = new MessageContainer(
+                  productId, otherUsername, values1["messageContent"],
+                  messagesReference.child(otherUsername).child(productId));
+              print(messageContainer.otherUsername);
+              print(messageContainer.lastMessage);
+              print(messageContainer.productId);
+
+
+              setState(() {
+                int flag=0;
+                for(int i = 0;i <messageContainers.length;i++){
+                  if(messageContainers[i].productId == messageContainer.productId &&
+                      messageContainers[i].otherUsername==messageContainer.otherUsername){
+                      flag=1;
+                  }
+                }
+                if(flag==0){
+                  messageContainers.insert(0,messageContainer);
+                }
+
+              });
+            });
+
+
+          });
 
           Map<dynamic, dynamic> values2 = values1;
           values2.forEach((key3, values3) {
@@ -50,9 +87,21 @@ class MyMessagesState extends State<MyMessagesScreen> {
             print(messageContainer.messagesReference.path);
             messageContainer.messagesReference.onChildAdded.listen((
                 Event event) {
-              print("event.snapshot:"+event.snapshot.value.toString());
+              print("2222222222222222");
+              print("eventer.:"+event.snapshot.value.toString());
 
-              print("listener calisti:"+messageContainer.productId);
+
+                setState(() {
+                  //new message should seen in first of the list
+                  print("bakalim");
+                  messageContainers.remove(messageContainer);
+                  messageContainer.lastMessage = event.snapshot.value["messageContent"];
+                  messageContainers.insert(0,messageContainer);
+
+
+                });
+
+
 
 
 
@@ -70,16 +119,7 @@ class MyMessagesState extends State<MyMessagesScreen> {
 
 
   }
-  _onNewMessageSent(Event event) {
-    //print("listenerrrrrrr");
-    setState(() {
-      //print("event.snapshot:"+event.snapshot.value.toString());
-      //Message m= Message.fromSnapshot(event.snapshot);
-      //print("buyuk:"+ m.messageContent);
 
-    });
-
-  }
 
   @override
   Widget build(BuildContext context) {
