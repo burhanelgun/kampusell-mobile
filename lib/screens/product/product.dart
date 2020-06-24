@@ -131,7 +131,7 @@ class ProductScreen extends StatelessWidget {
   }
 
   void sendMessageToSellerBtnClick(BuildContext context) {
-    MessageContainer messageContainer = new MessageContainer(product.name, product.student.username, "", null);
+    MessageContainer messageContainer = new MessageContainer(product.name, product.student.username, "", null,product.imagePaths[0]);
     Navigator.pushNamed(context, SendMessageToSellerRoute,arguments: {
       "jwtModel": _jwtModel,
       "messageContainer": messageContainer

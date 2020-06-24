@@ -70,14 +70,14 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
             title: Text("Mesaj Gönder"),
           ),
           body: Container(
-            color: Colors.blue,
+            color: Colors.white,
             child: Column(
               children: <Widget>[
                 Expanded(
                   child: Container(
                     height: double.infinity,
                     width: double.infinity,
-                    color: Colors.red,
+                    color: Colors.white,
                     child: ListView.builder(
                       reverse: true,
                       scrollDirection: Axis.vertical,
@@ -91,7 +91,7 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
                     ),
                   ),
                 ),
-                TextField(
+               /* TextField(
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter a search term'
@@ -101,7 +101,49 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
                   onChanged: _onSearchTextChanged(),
                   onEditingComplete: () => _onSearchTextEditingComplete(),
 
+                )*/
+                Container(
+                  margin: EdgeInsets.all(15.0),
+                  height: 50,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(35.0),
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(0, 3),
+                                  blurRadius: 5,
+                                  color: Colors.grey)
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(20,0,0,0),
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                        hintText: "Bir mesaj yaz",
+                                        border: InputBorder.none),
+                                    controller: messageTextController,
+                                    onSubmitted: _onSearchTextSubmitted(),
+                                    onChanged: _onSearchTextChanged(),
+                                    onEditingComplete: () => _onSearchTextEditingComplete(),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
                 )
+
               ],
             ),
           )
@@ -116,7 +158,7 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
     print("text:"+ messageTextController.text);
     setState(() {
       //need to locally stored for no internet connection
-        Message m = new Message(_jwtModel.getUsername(),messageContainer.otherUsername, messageTextController.text);
+        Message m = new Message(_jwtModel.getUsername(),messageContainer.otherUsername, messageTextController.text,messageContainer.productPhotoUrl);
         //messages.add(m);
         privMessagesReferenceMe.push().set(m.toJson());
         privMessagesReferenceOther.push().set(m.toJson());

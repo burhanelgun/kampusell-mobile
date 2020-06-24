@@ -81,7 +81,11 @@ class MessageContainerItem extends StatelessWidget {
                 height: 80.0,
                 decoration: new BoxDecoration(
                     shape: BoxShape.rectangle,
-                    image:  null
+                    image:  messageContainer.productPhotoUrl == null
+                        ? null
+                        : new DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(messageContainer.productPhotoUrl))
                         )),
           ),
           title: Text(

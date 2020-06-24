@@ -42,7 +42,7 @@ class MyMessagesState extends State<MyMessagesScreen> {
               String productId =  event.snapshot.key.toString();
               MessageContainer messageContainer = new MessageContainer(
                   productId, otherUsername, values1["messageContent"],
-                  messagesReference.child(otherUsername).child(productId));
+                  messagesReference.child(otherUsername).child(productId),values1["productPhotoUrl"]);
               print(messageContainer.otherUsername);
               print(messageContainer.lastMessage);
               print(messageContainer.productId);
@@ -71,18 +71,22 @@ class MyMessagesState extends State<MyMessagesScreen> {
             String productId = key3;
             print("productId:" + productId);
             String lastMessageContent;
+            String productPhotoUrl;
+
             values3.forEach((key4, values5) {
               String hashedKeyOfSingleMessage = key4;
 
               String senderUsername = values5["senderUsername"];
               String receiverUsername = values5["receiverUsername"];
               String messageContent = values5["messageContent"];
+              productPhotoUrl = values5["productPhotoUrl"];
+
               lastMessageContent = messageContent;
             });
             print("lastMessageContent:" + lastMessageContent);
             MessageContainer messageContainer = new MessageContainer(
                 productId, otherUsername, lastMessageContent,
-                messagesReference.child(otherUsername).child(productId));
+                messagesReference.child(otherUsername).child(productId),productPhotoUrl);
 
             print(messageContainer.messagesReference.path);
             messageContainer.messagesReference.onChildAdded.listen((
