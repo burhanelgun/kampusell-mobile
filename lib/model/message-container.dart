@@ -5,6 +5,6 @@ class MessageContainer {
   String productId;
   String otherUsername;
   String lastMessage;
-  MessageContainer(this.productId,this.otherUsername,this.lastMessage);
-
+  DatabaseReference messagesReference;
+  MessageContainer(this.productId,this.otherUsername,this.lastMessage,this.messagesReference);
 }
