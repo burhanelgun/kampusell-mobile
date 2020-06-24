@@ -105,7 +105,7 @@ class MyApp extends StatelessWidget {
           screen = SignUpScreen();
           break;
         case SendMessageToSellerRoute:
-          screen = SendMessageToSellerScreen(arguments["jwtModel"],arguments["product"]);
+          screen = SendMessageToSellerScreen(arguments["jwtModel"],arguments["messageContainer"]);
           break;
         case ActivationRoute:
           screen = ActivationScreen(

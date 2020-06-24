@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kampusell/model/message-container.dart';
 import 'package:kampusell/model/message.dart';
 import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/screens/filter-settings/filter-settings.dart';
@@ -10,9 +11,9 @@ import 'package:kampusell/model/product.dart';
 
 class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
   JwtModel _jwtModel;
-  Product _product;
+  MessageContainer messageContainer;
   int c =0;
-  SendMessageToSellerState(this._jwtModel,this._product);
+  SendMessageToSellerState(this._jwtModel,this.messageContainer);
 
   final _formKey = GlobalKey<FormState>();
   final minPriceController = TextEditingController();
@@ -30,9 +31,8 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
     super.initState();
     //messages = Message.fetchAll();
     messagesReference = FirebaseDatabase.instance.reference().child("messages");
-
-    privMessagesReferenceMe = messagesReference.child(_product.student.username).child(_jwtModel.getUsername()).child(_product.id);
-    privMessagesReferenceOther = messagesReference.child(_jwtModel.getUsername()).child(_product.student.username).child(_product.id);
+    privMessagesReferenceMe = messagesReference.child(messageContainer.otherUsername).child(_jwtModel.getUsername()).child(messageContainer.productId);
+    privMessagesReferenceOther = messagesReference.child(_jwtModel.getUsername()).child(messageContainer.otherUsername).child(messageContainer.productId);
 
     privMessagesReferenceMe.onChildAdded.listen(_onNewMessageSent);
 
@@ -116,7 +116,7 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
     print("text:"+ messageTextController.text);
     setState(() {
       //need to locally stored for no internet connection
-        Message m = new Message(_jwtModel.getUsername(), _product.student.username, messageTextController.text);
+        Message m = new Message(_jwtModel.getUsername(),messageContainer.otherUsername, messageTextController.text);
         //messages.add(m);
         privMessagesReferenceMe.push().set(m.toJson());
         privMessagesReferenceOther.push().set(m.toJson());

@@ -134,7 +134,7 @@ class MessageContainerItem extends StatelessWidget {
   _onMessageContainerTap(BuildContext context) {
     Navigator.pushNamed(context, SendMessageToSellerRoute,arguments: {
       "jwtModel": _jwtModel,
-      "product": messageContainer.productId
+      "messageContainer": messageContainer
     }).then((value) async {
 
     });
