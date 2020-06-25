@@ -5,6 +5,7 @@ import 'package:kampusell/screens/activation/activation.dart';
 import 'package:kampusell/screens/dashboard/dashboard.dart';
 import 'package:kampusell/screens/fill-product-infos/fill-product-infos.dart';
 import 'package:kampusell/screens/filter-settings/filter-settings.dart';
+import 'package:kampusell/screens/find-with-photo/find-with-photo.dart';
 import 'package:kampusell/screens/my-messages/my-messages.dart';
 import 'package:kampusell/screens/my-products/my-products.dart';
 import 'package:kampusell/screens/my-profile/my-profile.dart';
@@ -12,6 +13,7 @@ import 'package:kampusell/screens/product/product.dart';
 import 'package:kampusell/screens/send-message-to-seller/send-message-to-seller.dart';
 import 'package:kampusell/screens/signin/sign_in.dart';
 import 'package:kampusell/screens/signup/sign_up.dart';
+import 'package:kampusell/states/_FindWithPhotoState.dart';
 import 'package:provider/provider.dart';
 
 import 'framework/bounce_scroll_behavior.dart';
@@ -31,6 +33,7 @@ const SignInRoute = "/signInRoute";
 const SignUpRoute = "/signUpRoute";
 const ActivationRoute = "/activationRoute";
 const SendMessageToSellerRoute = "/sendMessageToSellerRoute";
+const FindWithPhotoRoute = "/findWithPhotoRoute";
 
 
 final storage = FlutterSecureStorage();
@@ -97,6 +100,9 @@ class MyApp extends StatelessWidget {
           break;
         case MyMessagesRoute:
           screen = MyMessagesScreen(arguments["jwtModel"]);
+          break;
+        case FindWithPhotoRoute:
+          screen = FindWithPhotoScreen();
           break;
         case SignInRoute:
           screen = SignInScreen();

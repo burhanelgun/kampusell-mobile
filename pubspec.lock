@@ -106,6 +106,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.6"
+  firebase_ml_vision:
+    dependency: "direct dev"
+    description:
+      name: firebase_ml_vision
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.4"
   firebase_storage:
     dependency: "direct dev"
     description:
@@ -212,6 +219,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.8"
+  mlkit:
+    dependency: "direct dev"
+    description:
+      name: mlkit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.15.1"
   path:
     dependency: transitive
     description:

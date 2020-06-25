@@ -28,13 +28,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  image_picker:
+  image_picker: ^0.6.7+2
   firebase_core: 0.4.4+3
   firebase_storage: 3.1.5
   firebase_database: ^3.1.6
   dash_chat: ^1.1.9
   flutter_secure_storage: ^3.3.3
+  firebase_ml_vision: ^0.9.4
   provider: ^3.0.0
+  mlkit: ^0.15.1
 
 
 

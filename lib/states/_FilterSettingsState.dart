@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kampusell/main.dart';
 import 'package:kampusell/model/category.dart';
 import 'package:kampusell/model/product-filter.dart';
 import 'package:kampusell/screens/filter-settings/filter-settings.dart';
@@ -23,6 +24,20 @@ class FilterSettingsState extends State<FilterSettingsScreen> {
         appBar: new AppBar(
           titleSpacing: 0.0,
           title: Text("Ürünleri Filtrele"),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0,0,25,0),
+              child: IconButton(
+                icon: Icon(Icons.photo_camera),
+                onPressed: () {
+                  Navigator.pushNamed(context, FindWithPhotoRoute).then((value) {
+
+                  });
+
+
+                },
+              ),
+            )]
         ),
         body: Form(
           key: _formKey,
