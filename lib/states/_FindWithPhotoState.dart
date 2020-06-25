@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:kampusell/model/category.dart';
+import 'package:kampusell/model/photo-value.dart';
 import 'package:kampusell/model/product-filter.dart';
 import 'package:kampusell/screens/filter-settings/filter-settings.dart';
 import 'package:kampusell/screens/find-with-photo/find-with-photo.dart';
@@ -14,7 +15,8 @@ class FindWithPhotoState extends State<FindWithPhotoScreen> {
   String _text = " ";
   String _labelText = " ";
   final picker = ImagePicker();
-
+  List<String> texts =new List();
+  List<String> labels =new List();
 
   FindWithPhotoState();
 
@@ -55,6 +57,27 @@ class FindWithPhotoState extends State<FindWithPhotoScreen> {
                 child: _text == null
                     ? Text('Etiketler')
                     : Text(_text)),
+            Padding(
+              padding: const EdgeInsets.all(9),
+              child: Material(
+                  borderRadius: BorderRadius.circular(15.0),
+                  color: Colors.pink,
+                  elevation: 0.0,
+                  child: MaterialButton(
+                    onPressed: () {
+                       findWithPhotoBtnClick();
+                    },
+                    minWidth: MediaQuery.of(context).size.width,
+                    child: Text(
+                      'Benzer Ürünleri Getir',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0),
+                    ),
+                  )),
+            ),
 
           ],
         )
@@ -78,6 +101,9 @@ class FindWithPhotoState extends State<FindWithPhotoScreen> {
     String labelText = "";
     for (ImageLabel label in imageLabels) {
       final double confidence = label.confidence;
+      if(labels.length<5){
+        labels.add(label.text);
+      }
       labelText = labelText + label.text + ":  " + confidence.toStringAsFixed(2)+ "\n";
     }
     labeler.close();
@@ -89,6 +115,9 @@ class FindWithPhotoState extends State<FindWithPhotoScreen> {
     for (TextBlock block in visionText.blocks) {
       for (TextLine line in block.lines) {
         for (TextElement word in line.elements) {
+          if(texts.length<5){
+            texts.add(word.text);
+          }
           setState(() {
             text = text + word.text + ' ';
           });
@@ -109,11 +138,11 @@ class FindWithPhotoState extends State<FindWithPhotoScreen> {
 
   }
 
+  }
 
-
-
-
-
+  void findWithPhotoBtnClick() {
+    PhotoValue photoValue = new PhotoValue(texts,labels);
+    Navigator.of(context).pop(photoValue);
   }
 
 

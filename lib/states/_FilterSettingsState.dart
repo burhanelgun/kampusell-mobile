@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kampusell/main.dart';
 import 'package:kampusell/model/category.dart';
+import 'package:kampusell/model/photo-value.dart';
 import 'package:kampusell/model/product-filter.dart';
 import 'package:kampusell/screens/filter-settings/filter-settings.dart';
 
@@ -31,7 +32,12 @@ class FilterSettingsState extends State<FilterSettingsScreen> {
                 icon: Icon(Icons.photo_camera),
                 onPressed: () {
                   Navigator.pushNamed(context, FindWithPhotoRoute).then((value) {
+                      if(value!=null){
+                        PhotoValue photoValue = value;
+                        Navigator.of(context).pop({ "productFilter" : null, "photoValue" : photoValue });
 
+
+                      }
                   });
 
 
@@ -131,6 +137,6 @@ class FilterSettingsState extends State<FilterSettingsScreen> {
   void filterProducts() {
     ProductFilter productFilter = new ProductFilter(
         selectedCategory, minPriceController.text, maxPriceController.text);
-    Navigator.of(context).pop(productFilter);
+    Navigator.of(context).pop({ "productFilter" : productFilter, "photoValue" : null });
   }
 }

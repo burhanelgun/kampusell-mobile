@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:kampusell/model/category.dart';
+import 'package:kampusell/model/photo-value.dart';
 import 'package:kampusell/model/product-filter.dart';
 import 'package:kampusell/model/product.dart';
 import 'package:kampusell/model/signin-form.dart';
@@ -223,12 +224,16 @@ class DashboardState extends State<DashboardScreen> {
   }
 
   void filter(ProductFilter productFilter) {
-    print("filtreleme işlemi başladı:");
-    setState(() {
-      products = getFilteredProducts(productFilter);
-      print(products);
-      _filter=1;
-    });
+
+
+    if(productFilter!=null){
+      print("filtreleme işlemi başladı:");
+      setState(() {
+        products = getFilteredProducts(productFilter);
+        print(products);
+        _filter=1;
+      });
+    }
   }
 
   Future<List<Product>> getSearchedProducts(String searchText) async {
@@ -308,6 +313,61 @@ class DashboardState extends State<DashboardScreen> {
         Category.fromJson(jsonData[i]['category']),
         texts,
         labels
+      );
+      products.add(product);
+    }
+    return products;
+  }
+
+  void filterWithPhoto(PhotoValue photoValue) {
+    if(photoValue!=null){
+      print("filtreleme işlemi başladı:");
+      setState(() {
+        products = getSimilarProducts(photoValue);
+        print(products);
+        _filter=1;
+      });
+    }
+  }
+
+  Future<List<Product>> getSimilarProducts(PhotoValue photoValue) async {
+    var data;
+    if (isLocal) {
+      data = await http.post(
+        'http://10.0.2.2:8080/api/products/findWithPhoto',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": jwtModel.getJwt()
+        },
+        body: jsonEncode(photoValue),
+      );
+    } else {
+      data = await http.post(
+        'https://kampusell-api.herokuapp.com/api/products/findWithPhoto',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": jwtModel.getJwt()
+        },
+        body: jsonEncode(photoValue),
+      );
+    }
+
+    List<dynamic> jsonData = json.decode(data.body);
+    List<Product> products = [];
+    for (int i = 0; i < jsonData.length; i++) {
+      List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
+      List<String> texts = jsonData[i]['texts'].cast<String>();
+      List<String> labels = jsonData[i]['labels'].cast<String>();
+      Product product = new Product(
+          jsonData[i]['id'].toString(),
+          jsonData[i]['name'].toString(),
+          jsonData[i]['description'].toString(),
+          double.parse(jsonData[i]['price'].toString()),
+          imagePaths,
+          Student.fromJson(jsonData[i]['student']),
+          Category.fromJson(jsonData[i]['category']),
+          texts,
+          labels
       );
       products.add(product);
     }

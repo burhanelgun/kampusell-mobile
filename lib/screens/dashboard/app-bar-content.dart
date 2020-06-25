@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kampusell/main.dart';
+import 'package:kampusell/model/photo-value.dart';
+import 'package:kampusell/model/product-filter.dart';
 import 'package:kampusell/model/signin-form.dart';
 import 'package:kampusell/providers/jwt_model.dart';
 import 'package:kampusell/states/_DashboardState.dart';
@@ -60,9 +62,19 @@ class AppBarContent extends StatelessWidget {
   _onSellProductBtnClick(BuildContext context) async {
     //if user  signed in
     if (_jwtModel.getJwt().length > 0) {
-      final productFilter =
-          await Navigator.pushNamed(context, FilterSettingsRoute);
-      _dashboardState.filter(productFilter);
+      var output = await Navigator.pushNamed(context, FilterSettingsRoute);
+      Map map = output;
+      if(map["productFilter"]==null){
+        PhotoValue photoValue = map["photoValue"];
+        _dashboardState.filterWithPhoto(map["photoValue"]);
+
+      }
+      else if(map["photoValue"]==null){
+        _dashboardState.filter(map["productFilter"]);
+      }
+      else{
+        _dashboardState.filter(null);
+      }
     } else {
       Navigator.pushNamed(context, SignInRoute).then((value) async {
         //read "value" value for checking is user signed in
