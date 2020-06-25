@@ -58,6 +58,7 @@ class SignInState extends State<SignInScreen> {
                             ),
                             SizedBox(height: 10),
                             TextFormField(
+                              obscureText: true,
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return 'Lütfen bir değer giriniz';

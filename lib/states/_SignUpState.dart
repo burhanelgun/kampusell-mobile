@@ -16,7 +16,8 @@ class SignUpState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final List<Category> categories = Category.fetchAll();
   final usernameController = TextEditingController();
-  final emailController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController universityController = TextEditingController(text: "@");
   final passwordController = TextEditingController();
   List<University> universities = new List<University>();
   University selectedUniversity = null;
@@ -92,20 +93,45 @@ class SignUpState extends State<SignUpScreen> {
                             controller: usernameController,
                           ),
                           SizedBox(height: 10),
-                          TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Lütfen bir değer girinizt';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'E-mail'),
-                            controller: emailController,
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                child:   TextFormField(
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Lütfen bir değer girinizt';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: 'E-mail'),
+                                  controller: emailController,
+                                ) ,
+                              ),
+                              Expanded(
+                                child:   TextFormField(
+                                  enabled: true,
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Lütfen bir değer girinizt';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                     ),
+                                  controller: universityController,
+                                ) ,
+                              )
+
+
+                            ],
                           ),
+
                           SizedBox(height: 10),
                           TextFormField(
+                            obscureText: true,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Lütfen bir değer giriniz';
@@ -130,6 +156,7 @@ class SignUpState extends State<SignUpScreen> {
                             onChanged: (University newUniversity) {
                               setState(() {
                                 selectedUniversity = newUniversity;
+                                universityController..text = "@"+selectedUniversity.email;
                               });
                             },
                             items: universities
@@ -178,8 +205,9 @@ class SignUpState extends State<SignUpScreen> {
 
   _onSignUpButtonClick(BuildContext context) async {
     //Initialize signup-form
+    print("emailController.text+universityController.text:"+emailController.text+universityController.text);
     SignUpForm signUpForm = new SignUpForm(usernameController.text,
-        emailController.text, passwordController.text, selectedUniversity);
+        emailController.text+universityController.text, passwordController.text, selectedUniversity);
 
     http.Response data;
 

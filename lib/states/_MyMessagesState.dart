@@ -143,7 +143,7 @@ class MyMessagesState extends State<MyMessagesScreen> {
       return Scaffold(
           appBar: new AppBar(
             titleSpacing: 0.0,
-            title: Text("Mesaj Gönder"),
+            title: Text("Mesajlarım"),
           ),
           body:  Column(
               children: <Widget>[
@@ -151,7 +151,7 @@ class MyMessagesState extends State<MyMessagesScreen> {
                   child: Container(
                     height: double.infinity,
                     width: double.infinity,
-                    color: Colors.red,
+                    color: Color(0xfff98eda2),
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
@@ -168,14 +168,7 @@ class MyMessagesState extends State<MyMessagesScreen> {
                     ),
                   ),
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Enter a search term'
-                  ),
 
-
-                )
               ],
             ),
 
