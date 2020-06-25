@@ -8,11 +8,13 @@ class Product {
   String description;
   double price;
   List<String> imagePaths;
+  List<String> texts;
+  List<String> labels;
   Student student;
   Category category;
 
   Product(this.id, this.name, this.description, this.price, this.imagePaths,
-      this.student, this.category);
+      this.student, this.category,this.texts,this.labels);
 
   Map<String, dynamic> toJson() {
     return {
@@ -22,7 +24,10 @@ class Product {
       'price': price,
       'category': category,
       'student': student,
-      'imagePaths': imagePaths
+      'imagePaths': imagePaths,
+      'texts': texts,
+      'labels': labels,
+
     };
   }
 }

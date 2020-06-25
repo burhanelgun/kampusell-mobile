@@ -26,7 +26,8 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
   final picker = ImagePicker();
 
   List<String> photoPaths = new List();
-
+  List<String> texts =new List();
+  List<String> labels =new List();
   JwtModel jwtModel;
 
   FillProductInfosState(this.jwtModel);
@@ -44,11 +45,12 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
     final ImageLabeler labeler = FirebaseVision.instance.imageLabeler();
     final List<ImageLabel> imageLabels = await labeler.processImage(
         visionImage);
-    String labelText = "";
     for (ImageLabel label in imageLabels) {
       final double confidence = label.confidence;
-      labelText =
-          labelText + label.text + ":  " + confidence.toStringAsFixed(2) + "\n";
+      if(labels.length<2){
+        labels.add(label.text);
+      }
+
     }
     labeler.close();
 
@@ -60,24 +62,21 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
     for (TextBlock block in visionText.blocks) {
       for (TextLine line in block.lines) {
         for (TextElement word in line.elements) {
-          setState(() {
             text = text + word.text + ' ';
-          });
+            if(texts.length<5){
+              texts.add(word.text);
+            }
         }
         text = text + '\n';
       }
     }
     textRecognizer.close();
 
-    print(labelText);
     print("-----------------------------------");
-    print(text);
 
     if (mounted) {
       setState(() {
         _image = file;
-        _labelText = labelText;
-        _text = text;
       });
     }
   }
@@ -124,7 +123,9 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
             double.parse(productPriceController.text),
             photoPaths,
             null,
-            productCategory);
+            productCategory,
+            texts,
+            labels);
         createProduct(product);
       });
     });
