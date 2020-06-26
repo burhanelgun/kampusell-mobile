@@ -1,21 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kampusell/providers/jwt_model.dart';
+import 'package:kampusell/states/_MyProductsState.dart';
 
-class MyProductsScreen extends StatelessWidget {
-  MyProductsScreen();
+class MyProductsScreen extends StatefulWidget {
+
+  JwtModel jwtModel;
+  static MyProductsState of(BuildContext context) =>
+      context.findAncestorStateOfType();
+
+  MyProductsScreen(this.jwtModel);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(titleSpacing: 0.0, title: Text("My Products")),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text("abcde"),
-          Text("abcde"),
-        ],
-      ),
-    );
-  }
+  MyProductsState createState() => MyProductsState(jwtModel);
 }

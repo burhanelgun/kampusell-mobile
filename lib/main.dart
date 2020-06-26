@@ -96,7 +96,7 @@ class MyApp extends StatelessWidget {
           screen = MyProfileScreen();
           break;
         case MyProductsRoute:
-          screen = MyProductsScreen();
+          screen = MyProductsScreen(arguments["jwtModel"]);
           break;
         case MyMessagesRoute:
           screen = MyMessagesScreen(arguments["jwtModel"]);
