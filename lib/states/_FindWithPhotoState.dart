@@ -41,8 +41,8 @@ class FindWithPhotoState extends State<FindWithPhotoScreen> {
                 child: _image == null
                     ? Text('')
                     : Container(
-                    width: 250.0,
-                    height: 250.0,
+                    width: 350.0,
+                    height: 350.0,
                     decoration: new BoxDecoration(
                         shape: BoxShape.rectangle,
                         image: new DecorationImage(
@@ -53,10 +53,7 @@ class FindWithPhotoState extends State<FindWithPhotoScreen> {
                     ? Text('Kelimeler')
                     : Text(_labelText)),
             Divider(color: Colors.red),
-            Center(
-                child: _text == null
-                    ? Text('Etiketler')
-                    : Text(_text)),
+
             Padding(
               padding: const EdgeInsets.all(9),
               child: Material(

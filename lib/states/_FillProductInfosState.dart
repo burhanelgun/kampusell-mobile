@@ -116,6 +116,9 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
       setState(() {
         print(fileURL);
         photoPaths.add(fileURL);
+        if(labels.length<2){
+          labels.add(null);
+        }
         Product product = new Product(
             null,
             productNameController.text,

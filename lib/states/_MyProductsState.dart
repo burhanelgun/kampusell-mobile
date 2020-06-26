@@ -46,7 +46,7 @@ class MyProductsState extends State<MyProductsScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text("Ürünlerim"),
+        title: Text("Satıştaki Ürünlerim"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
