@@ -125,7 +125,8 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
             null,
             productCategory,
             texts,
-            labels);
+            labels[0],
+        labels[1]);
         createProduct(product);
       });
     });

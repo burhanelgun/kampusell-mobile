@@ -122,7 +122,6 @@ class DashboardState extends State<DashboardScreen> {
     for (int i = 0; i < jsonData.length; i++) {
       List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
       List<String> texts = jsonData[i]['texts'].cast<String>();
-      List<String> labels = jsonData[i]['labels'].cast<String>();
 
       Product product = new Product(
         jsonData[i]['id'].toString(),
@@ -133,7 +132,8 @@ class DashboardState extends State<DashboardScreen> {
         Student.fromJson(jsonData[i]['student']),
         Category.fromJson(jsonData[i]['category']),
         texts,
-        labels
+        jsonData[i]['label1'].toString(),
+        jsonData[i]['label2'].toString(),
       );
       products.add(product);
     }
@@ -160,7 +160,6 @@ class DashboardState extends State<DashboardScreen> {
       if (Category.fromJson(jsonData[i]['category']).name == category.name) {
         List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
         List<String> texts = jsonData[i]['texts'].cast<String>();
-        List<String> labels = jsonData[i]['labels'].cast<String>();
 
         Product product = new Product(
           jsonData[i]['id'].toString(),
@@ -171,7 +170,9 @@ class DashboardState extends State<DashboardScreen> {
           Student.fromJson(jsonData[i]['student']),
           Category.fromJson(jsonData[i]['category']),
             texts,
-            labels
+          jsonData[i]['label1'].toString(),
+          jsonData[i]['label2'].toString(),
+
         );
         products.add(product);
       }
@@ -255,7 +256,6 @@ class DashboardState extends State<DashboardScreen> {
     for (int i = 0; i < jsonData.length; i++) {
       List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
       List<String> texts = jsonData[i]['texts'].cast<String>();
-      List<String> labels = jsonData[i]['labels'].cast<String>();
 
       Product product = new Product(
         jsonData[i]['id'].toString(),
@@ -266,7 +266,8 @@ class DashboardState extends State<DashboardScreen> {
         Student.fromJson(jsonData[i]['student']),
         Category.fromJson(jsonData[i]['category']),
         texts,
-        labels
+        jsonData[i]['label1'].toString(),
+        jsonData[i]['label2'].toString(),
       );
       products.add(product);
     }
@@ -302,7 +303,6 @@ class DashboardState extends State<DashboardScreen> {
     for (int i = 0; i < jsonData.length; i++) {
       List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
       List<String> texts = jsonData[i]['texts'].cast<String>();
-      List<String> labels = jsonData[i]['labels'].cast<String>();
       Product product = new Product(
         jsonData[i]['id'].toString(),
         jsonData[i]['name'].toString(),
@@ -312,7 +312,8 @@ class DashboardState extends State<DashboardScreen> {
         Student.fromJson(jsonData[i]['student']),
         Category.fromJson(jsonData[i]['category']),
         texts,
-        labels
+        jsonData[i]['label1'].toString(),
+        jsonData[i]['label2'].toString(),
       );
       products.add(product);
     }
@@ -357,7 +358,6 @@ class DashboardState extends State<DashboardScreen> {
     for (int i = 0; i < jsonData.length; i++) {
       List<String> imagePaths = jsonData[i]['imagePaths'].cast<String>();
       List<String> texts = jsonData[i]['texts'].cast<String>();
-      List<String> labels = jsonData[i]['labels'].cast<String>();
       Product product = new Product(
           jsonData[i]['id'].toString(),
           jsonData[i]['name'].toString(),
@@ -367,7 +367,8 @@ class DashboardState extends State<DashboardScreen> {
           Student.fromJson(jsonData[i]['student']),
           Category.fromJson(jsonData[i]['category']),
           texts,
-          labels
+        jsonData[i]['label1'].toString(),
+        jsonData[i]['label2'].toString(),
       );
       products.add(product);
     }
