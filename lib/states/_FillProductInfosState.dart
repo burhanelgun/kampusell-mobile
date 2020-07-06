@@ -47,9 +47,9 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
         visionImage);
     for (ImageLabel label in imageLabels) {
       final double confidence = label.confidence;
-      if(labels.length<2){
-        labels.add(label.text);
-      }
+
+      labels.add(label.text);
+
 
     }
     labeler.close();
@@ -116,9 +116,6 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
       setState(() {
         print(fileURL);
         photoPaths.add(fileURL);
-        if(labels.length<2){
-          labels.add(null);
-        }
         Product product = new Product(
             null,
             productNameController.text,
@@ -128,8 +125,7 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
             null,
             productCategory,
             texts,
-            labels[0],
-        labels[1]);
+            labels);
         createProduct(product);
       });
     });

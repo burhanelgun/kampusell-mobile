@@ -98,9 +98,9 @@ class FindWithPhotoState extends State<FindWithPhotoScreen> {
     String labelText = "";
     for (ImageLabel label in imageLabels) {
       final double confidence = label.confidence;
-      if(labels.length<5){
-        labels.add(label.text);
-      }
+
+      labels.add(label.text);
+
       labelText = labelText + label.text + ":  " + confidence.toStringAsFixed(2)+ "\n";
     }
     labeler.close();
@@ -112,9 +112,8 @@ class FindWithPhotoState extends State<FindWithPhotoScreen> {
     for (TextBlock block in visionText.blocks) {
       for (TextLine line in block.lines) {
         for (TextElement word in line.elements) {
-          if(texts.length<5){
             texts.add(word.text);
-          }
+
           setState(() {
             text = text + word.text + ' ';
           });
