@@ -29,7 +29,7 @@ class ProductsList extends StatelessWidget {
         shrinkWrap: true,
         itemCount: snapshot.data.length,
         itemBuilder: (context, index) {
-          ProductItem productItem = new ProductItem(snapshot.data[index],_jwtModel);
+          ProductItem productItem = new ProductItem(snapshot.data[snapshot.data.length-index-1],_jwtModel);
 
           return productItem;
         },
