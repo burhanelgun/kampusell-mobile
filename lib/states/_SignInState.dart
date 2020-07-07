@@ -36,92 +36,94 @@ class SignInState extends State<SignInScreen> {
                 margin: EdgeInsets.all(20),
                 child:
                     Consumer<JwtModel>(builder: (context, jwtProvider, child) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Form(
-                          key: _formKey,
-                          child: Column(children: <Widget>[
-                            // Add TextFormFields and RaisedButton here.
-                            TextFormField(
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Lütfen bir değer giriniz';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Kullanıcı Adı'),
-                              controller: usernameController,
-                            ),
-                            SizedBox(height: 10),
-                            TextFormField(
-                              obscureText: true,
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Lütfen bir değer giriniz';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Şifre'),
-                              controller: passwordController,
-                            ),
-                            SizedBox(height: 10),
+                  return SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Form(
+                            key: _formKey,
+                            child: Column(children: <Widget>[
+                              // Add TextFormFields and RaisedButton here.
+                              TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Lütfen bir değer giriniz';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Kullanıcı Adı'),
+                                controller: usernameController,
+                              ),
+                              SizedBox(height: 10),
+                              TextFormField(
+                                obscureText: true,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Lütfen bir değer giriniz';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Şifre'),
+                                controller: passwordController,
+                              ),
+                              SizedBox(height: 10),
 
-                            Padding(
-                              padding: const EdgeInsets.all(9),
-                              child: Material(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  color: Colors.pink,
-                                  elevation: 0.0,
-                                  child: MaterialButton(
-                                    onPressed: () {
-                                      // Validate returns true if the form is valid, otherwise false.
-                                      if (_formKey.currentState.validate()) {
-                                        _onSignInButtonClick(jwtProvider);
+                              Padding(
+                                padding: const EdgeInsets.all(9),
+                                child: Material(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    color: Colors.pink,
+                                    elevation: 0.0,
+                                    child: MaterialButton(
+                                      onPressed: () {
+                                        // Validate returns true if the form is valid, otherwise false.
+                                        if (_formKey.currentState.validate()) {
+                                          _onSignInButtonClick(jwtProvider);
 
-                                      }
-                                    },
-                                    minWidth: MediaQuery.of(context).size.width,
-                                    child: Text(
-                                      'Giriş Yap',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20.0),
-                                    ),
-                                  )),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(9),
-                              child: Material(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  color: Colors.pink,
-                                  elevation: 0.0,
-                                  child: MaterialButton(
-                                    onPressed: () {
-                                      // Validate returns true if the form is valid, otherwise false.
-                                        _onSignUpButtonClick(context);
+                                        }
+                                      },
+                                      minWidth: MediaQuery.of(context).size.width,
+                                      child: Text(
+                                        'Giriş Yap',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20.0),
+                                      ),
+                                    )),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(9),
+                                child: Material(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    color: Colors.pink,
+                                    elevation: 0.0,
+                                    child: MaterialButton(
+                                      onPressed: () {
+                                        // Validate returns true if the form is valid, otherwise false.
+                                          _onSignUpButtonClick(context);
 
-                                    },
-                                    minWidth: MediaQuery.of(context).size.width,
-                                    child: Text(
-                                      'Kayıt Ol',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20.0),
-                                    ),
-                                  )),
-                            )
-                          ])),
-                    ],
+                                      },
+                                      minWidth: MediaQuery.of(context).size.width,
+                                      child: Text(
+                                        'Kayıt Ol',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20.0),
+                                      ),
+                                    )),
+                              )
+                            ])),
+                      ],
+                    ),
                   );
                 }),
               ),

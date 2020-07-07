@@ -140,128 +140,130 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
             body: Builder(
               builder: (context) => Container(
                 margin: EdgeInsets.all(20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Center(
-                        child: _image == null
-                            ? Text('')
-                            : Container(
-                                width: 70.0,
-                                height: 70.0,
-                                decoration: new BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    image: new DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: FileImage(_image))))),
-                    Form(
-                        key: _formKey,
-                        child: Column(children: <Widget>[
-                          // Add TextFormFields and RaisedButton here.
-                          TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Ürün Adı'),
-                            controller: productNameController,
-                          ),
-                          SizedBox(height: 10),
-                          TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Ürün Açıklaması'),
-                            controller: productDescriptionController,
-                          ),
-                          SizedBox(height: 10),
-                          TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                            controller: productPriceController,
-                            keyboardType: TextInputType.multiline,
-                            maxLength: 1450,
-                            maxLines: null,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Ürün Fiyatı'),
-                          ),
-                          DropdownButtonFormField<Category>(
-                            value: productCategory != null
-                                ? productCategory
-                                : null,
-                            icon: Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            hint: Text("Kategori Seçiniz"),
-                            style: TextStyle(color: Colors.deepPurple),
-                            onChanged: (Category newValue) {
-                              setState(() {
-                                productCategory = newValue;
-                              });
-                            },
-                            items: categories.map<DropdownMenuItem<Category>>(
-                                (Category category) {
-                              return DropdownMenuItem<Category>(
-                                value: category,
-                                child: Text(category.name),
-                              );
-                            }).toList(),
-                          ),
-                          SizedBox(height: 20),
-                          FloatingActionButton(
-                            onPressed: getImage,
-                            tooltip: 'Pick Image',
-                            child: Icon(Icons.add_a_photo),
-                          ),
-                          SizedBox(height: 20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Center(
+                          child: _image == null
+                              ? Text('')
+                              : Container(
+                                  width: 70.0,
+                                  height: 70.0,
+                                  decoration: new BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      image: new DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: FileImage(_image))))),
+                      Form(
+                          key: _formKey,
+                          child: Column(children: <Widget>[
+                            // Add TextFormFields and RaisedButton here.
+                            TextFormField(
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Ürün Adı'),
+                              controller: productNameController,
+                            ),
+                            SizedBox(height: 10),
+                            TextFormField(
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Ürün Açıklaması'),
+                              controller: productDescriptionController,
+                            ),
+                            SizedBox(height: 10),
+                            TextFormField(
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                              controller: productPriceController,
+                              keyboardType: TextInputType.multiline,
+                              maxLength: 1450,
+                              maxLines: null,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Ürün Fiyatı'),
+                            ),
+                            DropdownButtonFormField<Category>(
+                              value: productCategory != null
+                                  ? productCategory
+                                  : null,
+                              icon: Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              hint: Text("Kategori Seçiniz"),
+                              style: TextStyle(color: Colors.deepPurple),
+                              onChanged: (Category newValue) {
+                                setState(() {
+                                  productCategory = newValue;
+                                });
+                              },
+                              items: categories.map<DropdownMenuItem<Category>>(
+                                  (Category category) {
+                                return DropdownMenuItem<Category>(
+                                  value: category,
+                                  child: Text(category.name),
+                                );
+                              }).toList(),
+                            ),
+                            SizedBox(height: 20),
+                            FloatingActionButton(
+                              onPressed: getImage,
+                              tooltip: 'Pick Image',
+                              child: Icon(Icons.add_a_photo),
+                            ),
+                            SizedBox(height: 20),
 
-                          Padding(
-                            padding: const EdgeInsets.all(9),
-                            child: Material(
-                                borderRadius: BorderRadius.circular(15.0),
-                                color: Colors.pink,
-                                elevation: 0.0,
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    // Validate returns true if the form is valid, otherwise false.
-                                    if (_formKey.currentState.validate()) {
-                                      // If the form is valid, display a snackbar. In the real world,
-                                      // you'd often call a server or save the information in a database.
-                                      uploadFile();
-                                      Scaffold.of(context).showSnackBar(
-                                          SnackBar(
-                                              content:
-                                                  Text('Satışa Çıkarıldı.')));
-                                    }
-                                  },
-                                  minWidth: MediaQuery.of(context).size.width,
-                                  child: Text(
-                                    'Satışa Çıkar',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20.0),
-                                  ),
-                                )),
-                          ),
-                        ])),
-                  ],
+                            Padding(
+                              padding: const EdgeInsets.all(9),
+                              child: Material(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  color: Colors.pink,
+                                  elevation: 0.0,
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      // Validate returns true if the form is valid, otherwise false.
+                                      if (_formKey.currentState.validate()) {
+                                        // If the form is valid, display a snackbar. In the real world,
+                                        // you'd often call a server or save the information in a database.
+                                        uploadFile();
+                                        Scaffold.of(context).showSnackBar(
+                                            SnackBar(
+                                                content:
+                                                    Text('Satışa Çıkarıldı.')));
+                                      }
+                                    },
+                                    minWidth: MediaQuery.of(context).size.width,
+                                    child: Text(
+                                      'Satışa Çıkar',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20.0),
+                                    ),
+                                  )),
+                            ),
+                          ])),
+                    ],
+                  ),
                 ),
               ),
             )));

@@ -49,86 +49,88 @@ class FilterSettingsState extends State<FilterSettingsScreen> {
           key: _formKey,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 10),
-                TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
-                  controller: minPriceController,
-                  keyboardType: TextInputType.multiline,
-                  maxLength: 1450,
-                  maxLines: null,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Minimum Fiyat'),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
-                  controller: maxPriceController,
-                  keyboardType: TextInputType.multiline,
-                  maxLength: 1450,
-                  maxLines: null,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Maximum Fiyat'),
-                ),
-                DropdownButtonFormField<Category>(
-                  value: selectedCategory != null ? selectedCategory : null,
-                  icon: Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  hint: Text("Kategori Seçiniz"),
-                  style: TextStyle(color: Colors.deepPurple),
-                  onChanged: (Category newValue) {
-                    setState(() {
-                      selectedCategory = newValue;
-                    });
-                  },
-                  items: categories
-                      .map<DropdownMenuItem<Category>>((Category category) {
-                    return DropdownMenuItem<Category>(
-                      value: category,
-                      child: Text(category.name),
-                    );
-                  }).toList(),
-                ),
-                SizedBox(height: 70),
-                Padding(
-                  padding: const EdgeInsets.all(9),
-                  child: Material(
-                      borderRadius: BorderRadius.circular(15.0),
-                      color: Colors.pink,
-                      elevation: 0.0,
-                      child: MaterialButton(
-                        onPressed: () {
-                          // Validate returns true if the form is valid, otherwise false.
-                          if (_formKey.currentState.validate()) {
-                            // If the form is valid, display a snackbar. In the real world,
-                            // you'd often call a server or save the information in a database.
-                            filterProducts();
-                          }
-                        },
-                        minWidth: MediaQuery.of(context).size.width,
-                        child: Text(
-                          'Filtrele',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.0),
-                        ),
-                      )),
-                ),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 10),
+                  TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    controller: minPriceController,
+                    keyboardType: TextInputType.multiline,
+                    maxLength: 1450,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(), labelText: 'Minimum Fiyat'),
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    controller: maxPriceController,
+                    keyboardType: TextInputType.multiline,
+                    maxLength: 1450,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(), labelText: 'Maximum Fiyat'),
+                  ),
+                  DropdownButtonFormField<Category>(
+                    value: selectedCategory != null ? selectedCategory : null,
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    hint: Text("Kategori Seçiniz"),
+                    style: TextStyle(color: Colors.deepPurple),
+                    onChanged: (Category newValue) {
+                      setState(() {
+                        selectedCategory = newValue;
+                      });
+                    },
+                    items: categories
+                        .map<DropdownMenuItem<Category>>((Category category) {
+                      return DropdownMenuItem<Category>(
+                        value: category,
+                        child: Text(category.name),
+                      );
+                    }).toList(),
+                  ),
+                  SizedBox(height: 70),
+                  Padding(
+                    padding: const EdgeInsets.all(9),
+                    child: Material(
+                        borderRadius: BorderRadius.circular(15.0),
+                        color: Colors.pink,
+                        elevation: 0.0,
+                        child: MaterialButton(
+                          onPressed: () {
+                            // Validate returns true if the form is valid, otherwise false.
+                            if (_formKey.currentState.validate()) {
+                              // If the form is valid, display a snackbar. In the real world,
+                              // you'd often call a server or save the information in a database.
+                              filterProducts();
+                            }
+                          },
+                          minWidth: MediaQuery.of(context).size.width,
+                          child: Text(
+                            'Filtrele',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0),
+                          ),
+                        )),
+                  ),
+                ],
+              ),
             ),
           ),
         ));

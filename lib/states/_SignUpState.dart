@@ -73,126 +73,128 @@ class SignUpState extends State<SignUpScreen> {
             body: Builder(
               builder: (context) => Container(
                 margin: EdgeInsets.all(20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Form(
-                        key: _formKey,
-                        child: Column(children: <Widget>[
-                          TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Lütfen bir değer giriniz';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Kullanıcı Adı'),
-                            controller: usernameController,
-                          ),
-                          SizedBox(height: 10),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child:   TextFormField(
-                                  validator: (value) {
-                                    if (value.isEmpty) {
-                                      return 'Lütfen bir değer giriniz';
-                                    }
-                                    return null;
-                                  },
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'E-mail'),
-                                  controller: emailController,
-                                ) ,
-                              ),
-                              Expanded(
-                                child:   TextFormField(
-                                  enabled: true,
-                                  validator: (value) {
-                                    if (value.isEmpty) {
-                                      return 'Lütfen bir değer giriniz';
-                                    }
-                                    return null;
-                                  },
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                     ),
-                                  controller: universityController,
-                                ) ,
-                              )
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Form(
+                          key: _formKey,
+                          child: Column(children: <Widget>[
+                            TextFormField(
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Lütfen bir değer giriniz';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Kullanıcı Adı'),
+                              controller: usernameController,
+                            ),
+                            SizedBox(height: 10),
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child:   TextFormField(
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Lütfen bir değer giriniz';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        labelText: 'E-mail'),
+                                    controller: emailController,
+                                  ) ,
+                                ),
+                                Expanded(
+                                  child:   TextFormField(
+                                    enabled: true,
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Lütfen bir değer giriniz';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                       ),
+                                    controller: universityController,
+                                  ) ,
+                                )
 
 
-                            ],
-                          ),
+                              ],
+                            ),
 
-                          SizedBox(height: 10),
-                          TextFormField(
-                            obscureText: true,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Lütfen bir değer giriniz';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Şifre'),
-                            controller: passwordController,
-                          ),
-                          SizedBox(height: 10),
-                          DropdownButtonFormField<University>(
-                            value: selectedUniversity != null
-                                ? selectedUniversity
-                                : null,
-                            icon: Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            hint: Text("Okul Seçiniz"),
-                            style: TextStyle(color: Colors.deepPurple),
-                            onChanged: (University newUniversity) {
-                              setState(() {
-                                selectedUniversity = newUniversity;
-                                universityController..text = "@"+selectedUniversity.email;
-                              });
-                            },
-                            items: universities
-                                .map<DropdownMenuItem<University>>(
-                                    (University university) {
-                              return DropdownMenuItem<University>(
-                                value: university,
-                                child: Text(university.name),
-                              );
-                            }).toList(),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(9),
-                            child: Material(
-                                borderRadius: BorderRadius.circular(15.0),
-                                color: Colors.pink,
-                                elevation: 0.0,
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    // Validate returns true if the form is valid, otherwise false.
-                                    _onSignUpButtonClick(context);
+                            SizedBox(height: 10),
+                            TextFormField(
+                              obscureText: true,
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Lütfen bir değer giriniz';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Şifre'),
+                              controller: passwordController,
+                            ),
+                            SizedBox(height: 10),
+                            DropdownButtonFormField<University>(
+                              value: selectedUniversity != null
+                                  ? selectedUniversity
+                                  : null,
+                              icon: Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              hint: Text("Okul Seçiniz"),
+                              style: TextStyle(color: Colors.deepPurple),
+                              onChanged: (University newUniversity) {
+                                setState(() {
+                                  selectedUniversity = newUniversity;
+                                  universityController..text = "@"+selectedUniversity.email;
+                                });
+                              },
+                              items: universities
+                                  .map<DropdownMenuItem<University>>(
+                                      (University university) {
+                                return DropdownMenuItem<University>(
+                                  value: university,
+                                  child: Text(university.name),
+                                );
+                              }).toList(),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(9),
+                              child: Material(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  color: Colors.pink,
+                                  elevation: 0.0,
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      // Validate returns true if the form is valid, otherwise false.
+                                      _onSignUpButtonClick(context);
 
-                                  },
-                                  minWidth: MediaQuery.of(context).size.width,
-                                  child: Text(
-                                    'Kayıt Ol',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20.0),
-                                  ),
-                                )),
-                          )
-                        ])),
-                  ],
+                                    },
+                                    minWidth: MediaQuery.of(context).size.width,
+                                    child: Text(
+                                      'Kayıt Ol',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20.0),
+                                    ),
+                                  )),
+                            )
+                          ])),
+                    ],
+                  ),
                 ),
               ),
             )));
