@@ -135,7 +135,7 @@ class MyMessagesState extends State<MyMessagesScreen> {
           ),
           body: Container(
             child: Center(
-              child: Text("Loading..."),
+              child: Text("Yükleniyor..."),
             ),
           ));
     } else {

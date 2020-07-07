@@ -5,9 +5,10 @@ class Message {
   String receiverUsername;
   String messageContent;
   String productPhotoUrl;
+  String formattedDate;
 
 
-  Message(this.senderUsername, this.receiverUsername, this.messageContent,this.productPhotoUrl);
+  Message(this.senderUsername, this.receiverUsername, this.messageContent,this.productPhotoUrl, this.formattedDate);
 
 
   Message.fromJson(Map<String, dynamic> json) {
@@ -15,6 +16,7 @@ class Message {
     this.receiverUsername = json['receiverUsername'].toString();
     this.messageContent = json['messageContent'].toString();
     this.productPhotoUrl = json['productPhotoUrl'].toString();
+    this.formattedDate = json['formattedDate'].toString();
 
   }
   Message.fromSnapshot(DataSnapshot snapshot) {
@@ -22,6 +24,7 @@ class Message {
     this.receiverUsername = snapshot.value["receiverUsername"];
     this.messageContent = snapshot.value["messageContent"];
     this.productPhotoUrl = snapshot.value["productPhotoUrl"];
+    this.formattedDate = snapshot.value["formattedDate"];
 
   }
   Map<String, dynamic> toJson() => {
@@ -29,6 +32,7 @@ class Message {
     'receiverUsername': receiverUsername,
     'messageContent': messageContent,
     'productPhotoUrl': productPhotoUrl,
+    'formattedDate': formattedDate,
 
   };
 }

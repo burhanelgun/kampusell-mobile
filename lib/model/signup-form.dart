@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:kampusell/model/university.dart';
 
 class SignUpForm {
@@ -7,8 +8,6 @@ class SignUpForm {
   String activationCode;
   University university;
   SignUpForm(this.username, this.email,this.password, this.university);
-
-
 
   SignUpForm.fromJson(Map<String, dynamic> json) {
     this.username = json['username'].toString();

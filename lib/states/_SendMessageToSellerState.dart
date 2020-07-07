@@ -8,6 +8,7 @@ import 'package:kampusell/screens/send-message-to-seller/message-item.dart';
 import 'package:kampusell/screens/send-message-to-seller/send-message-to-seller.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:kampusell/model/product.dart';
+import 'package:intl/intl.dart';
 
 class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
   JwtModel _jwtModel;
@@ -60,7 +61,7 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
           ),
           body: Container(
             child: Center(
-              child: Text("Loading..."),
+              child: Text("Yükleniyor..."),
             ),
           ));
     } else {
@@ -158,7 +159,10 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
     print("text:"+ messageTextController.text);
     setState(() {
       //need to locally stored for no internet connection
-        Message m = new Message(_jwtModel.getUsername(),messageContainer.otherUsername, messageTextController.text,messageContainer.productPhotoUrl);
+        DateTime now = DateTime.now();
+        String formattedDate = DateFormat('kk:mm').format(now);
+        Message m = new Message(_jwtModel.getUsername(),messageContainer.otherUsername, messageTextController.text,messageContainer.productPhotoUrl,formattedDate);
+
         //messages.add(m);
         privMessagesReferenceMe.push().set(m.toJson());
         privMessagesReferenceOther.push().set(m.toJson());

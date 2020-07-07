@@ -1,21 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kampusell/providers/jwt_model.dart';
+import 'package:kampusell/states/_MyProfileScreenState.dart';
 
-class MyProfileScreen extends StatelessWidget {
-  MyProfileScreen();
+
+class MyProfileScreen extends StatefulWidget {
+  JwtModel jwtModel;
+
+  MyProfileScreen(this.jwtModel);
+
+  static MyProfileState of(BuildContext context) =>
+      context.findAncestorStateOfType();
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(titleSpacing: 0.0, title: Text("Profile")),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text("abcde"),
-          Text("abcde"),
-        ],
-      ),
-    );
-  }
+  MyProfileState createState() => MyProfileState(jwtModel);
 }
+
+
+
+
+
+
+
+

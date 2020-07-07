@@ -99,7 +99,7 @@ class SignUpState extends State<SignUpScreen> {
                                 child:   TextFormField(
                                   validator: (value) {
                                     if (value.isEmpty) {
-                                      return 'Lütfen bir değer girinizt';
+                                      return 'Lütfen bir değer giriniz';
                                     }
                                     return null;
                                   },
@@ -114,7 +114,7 @@ class SignUpState extends State<SignUpScreen> {
                                   enabled: true,
                                   validator: (value) {
                                     if (value.isEmpty) {
-                                      return 'Lütfen bir değer girinizt';
+                                      return 'Lütfen bir değer giriniz';
                                     }
                                     return null;
                                   },

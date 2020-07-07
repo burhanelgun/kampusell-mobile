@@ -66,7 +66,7 @@ class MessageItem extends StatelessWidget {
                                           ),
                                       ),
                                         Text(
-                                            "08:55",
+                                           message.formattedDate,
                                             style: new TextStyle(
                                                 fontSize: 13,
                                                 color: Colors.grey,
@@ -127,7 +127,7 @@ class MessageItem extends StatelessWidget {
                                               ),
                                           ),
                                           Text(
-                                              "08:55",
+                                              message.formattedDate,
                                               style: new TextStyle(
                                                   fontSize: 13,
                                                   color: Colors.grey,

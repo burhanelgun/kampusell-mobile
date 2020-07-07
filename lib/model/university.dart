@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class University {
   String id;
   String name;
@@ -16,4 +18,6 @@ class University {
         'name': name,
         'email': email,
       };
+
+
 }

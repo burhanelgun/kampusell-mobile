@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
           screen = FilterSettingsScreen();
           break;
         case ProfileRoute:
-          screen = MyProfileScreen();
+          screen = MyProfileScreen(arguments["jwtModel"]);
           break;
         case MyProductsRoute:
           screen = MyProductsScreen(arguments["jwtModel"]);

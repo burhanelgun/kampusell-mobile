@@ -48,7 +48,8 @@ class NavDrawer extends StatelessWidget {
 
   onTapProfile(BuildContext context) {
     Navigator.of(context).pop();
-    Navigator.pushNamed(context, ProfileRoute);
+    Navigator.pushNamed(context, ProfileRoute, arguments: {
+      "jwtModel": jwtModel});
   }
 
   onTapMyProducts(BuildContext context) {
