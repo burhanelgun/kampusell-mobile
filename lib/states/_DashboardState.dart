@@ -21,11 +21,14 @@ import '../main.dart';
 
 class DashboardState extends State<DashboardScreen> {
   Category category;
-
+  ScrollController controller;
+  int status = 0;
+  int incrementVal=6;
+  int start=0;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController searchTextController = TextEditingController();
   JwtModel jwtModel;
-  Future<List<Product>> products;
+  List<Product> _products;
   int _filter=0;
   String username;
 
@@ -34,10 +37,25 @@ class DashboardState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    products = getDefaultProducts();
+    controller = new ScrollController()..addListener(_scrollListener);
+    start=0;
+    _products=null;
+    getDefaultProducts();
     searchTextController.addListener(() {
       setState(() {});
     });
+  }
+  void _scrollListener() {
+    print(controller.position.extentAfter);
+    if (controller.position.extentAfter < 1 && status==0) {
+      setState(() async {
+        print("GETDEFAULTPRODUCTS");
+        status = 1;
+        start=start+1;
+        getDefaultProducts();
+
+      });
+    }
   }
 
   @override
@@ -50,8 +68,9 @@ class DashboardState extends State<DashboardScreen> {
       this.jwtModel = jwtModel;
       Future.microtask(() => jwtModel.read());
     }
-   if(_filter!=1){
-      products = getDefaultProducts();
+    if(_filter!=1){
+
+      getDefaultProducts();
       _filter=0;
     }
     searchTextController.addListener(() {
@@ -75,11 +94,8 @@ class DashboardState extends State<DashboardScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           CategoriesList(jwtModel, _scaffoldKey),
-          FutureBuilder(
-              future: products,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                return ProductsList(null, snapshot,jwtModel);
-              })
+          ProductsList(null, _products,jwtModel,controller)
+
         ],
       ),
       floatingActionButton: Container(
@@ -97,24 +113,24 @@ class DashboardState extends State<DashboardScreen> {
   void updateProducts(Category category) {
     this.category = category;
     setState(() {
-      products = getProductsByCategory(category);
+      getProductsByCategory(category);
     });
   }
 
   void updateProductsDefault() {
     this.category = category;
     setState(() {
-      products = getDefaultProducts();
+      getDefaultProducts();
     });
   }
 
-  Future<List<Product>> getDefaultProducts() async {
+  void getDefaultProducts() async {
     var data;
     if (isLocal) {
-      data = await http.get("http://10.0.2.2:8080/api/products",
+      data = await http.get("http://10.0.2.2:8080/api/products/begin="+start.toString()+"/"+"end="+incrementVal.toString(),
           headers: {"Authorization": jwtModel.getJwt()});
     } else {
-      data = await http.get("https://kampusell-api.herokuapp.com/api/products",
+      data = await http.get("https://kampusell-api.herokuapp.com/api/products/begin="+start.toString()+"/"+"end="+incrementVal.toString(),
           headers: {"Authorization": jwtModel.getJwt()});
     }
     List<dynamic> jsonData = json.decode(data.body);
@@ -137,7 +153,29 @@ class DashboardState extends State<DashboardScreen> {
       );
       products.add(product);
     }
-    return products;
+
+    //pagination technique
+    setState(() {
+      print("PRODUCTs-PRODUCTs");
+      print(products);
+      if(_products==null){
+        _products=List();
+      }
+      int flag=0;
+      for(int i = 0; i<_products.length;i++){
+        if(_products[i].name==products[0].name){
+          flag=1;
+        }
+      }
+      if(flag==0){
+        _products.addAll(products);
+      }
+
+      if(products.length>=incrementVal){
+        status=0;
+      }
+    });
+
   }
 
   Future<List<Product>> getProductsByCategory(Category category) async {
@@ -176,7 +214,10 @@ class DashboardState extends State<DashboardScreen> {
         products.add(product);
       }
     }
-    return products;
+    //change with pagination technique
+    setState(() {
+      _products=products;
+    });
   }
 
   _onSellProductBtnClick(BuildContext context, JwtModel jwtModel) {
@@ -186,7 +227,9 @@ class DashboardState extends State<DashboardScreen> {
           arguments: {"jwtModel": jwtModel}).then((value) {
         setState(() {
           if (category == null) {
-            products = getDefaultProducts();
+            _products=null;
+            start=0;
+            getDefaultProducts();
           } else {
             updateProducts(category);
           }
@@ -219,7 +262,7 @@ class DashboardState extends State<DashboardScreen> {
 
   void search() {
     setState(() {
-      products = getSearchedProducts(searchTextController.text);
+      getSearchedProducts(searchTextController.text);
     });
   }
 
@@ -229,8 +272,8 @@ class DashboardState extends State<DashboardScreen> {
     if(productFilter!=null){
       print("filtreleme işlemi başladı:");
       setState(() {
-        products = getFilteredProducts(productFilter);
-        print(products);
+        getFilteredProducts(productFilter);
+        print(_products);
         _filter=1;
       });
     }
@@ -270,8 +313,10 @@ class DashboardState extends State<DashboardScreen> {
       );
       products.add(product);
     }
-    return products;
-  }
+    //change with pagination technique
+    setState(() {
+      _products=products;
+    });  }
 
   Future<List<Product>> getFilteredProducts(ProductFilter productFilter) async {
     var data;
@@ -318,15 +363,17 @@ class DashboardState extends State<DashboardScreen> {
       );
       products.add(product);
     }
-    return products;
-  }
+    //change with pagination technique
+    setState(() {
+      _products=products;
+    });  }
 
   void filterWithPhoto(PhotoValue photoValue) {
     if(photoValue!=null){
       print("filtreleme işlemi başladı:");
       setState(() {
-        products = getSimilarProducts(photoValue);
-        print(products);
+        getSimilarProducts(photoValue);
+        print(_products);
         _filter=1;
       });
     }
@@ -373,8 +420,10 @@ class DashboardState extends State<DashboardScreen> {
       );
       products.add(product);
     }
-    return products;
-  }
+    //change with pagination technique
+    setState(() {
+      _products=products;
+    });  }
 
 
 }

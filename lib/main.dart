@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
 import 'framework/bounce_scroll_behavior.dart';
 import 'screens/product/product.dart';
 
-bool isLocal = false;
+bool isLocal = true;
 
 const DashboardRoute = "/";
 const ProductRoute = "/product";

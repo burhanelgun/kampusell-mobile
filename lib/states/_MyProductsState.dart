@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -26,7 +27,7 @@ class MyProductsState extends State<MyProductsScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController searchTextController = TextEditingController();
   JwtModel jwtModel;
-  Future<List<Product>> products;
+  List<Product> _products;
   int _filter=0;
   String username;
 
@@ -52,11 +53,8 @@ class MyProductsState extends State<MyProductsScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          FutureBuilder(
-              future: products,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                return ProductsList(null, snapshot,jwtModel);
-              })
+          ProductsList(null, _products,jwtModel,new ScrollController())
+
         ],
       ),
 
@@ -66,7 +64,7 @@ class MyProductsState extends State<MyProductsScreen> {
 
 
 
-  Future<List<Product>> getDefaultProducts() async {
+  void getDefaultProducts() async {
     var data;
     if (isLocal) {
       data = await http.get("http://10.0.2.2:8080/api/products",
@@ -95,7 +93,6 @@ class MyProductsState extends State<MyProductsScreen> {
       );
       products.add(product);
     }
-    return products;
   }
 
 
@@ -107,7 +104,7 @@ class MyProductsState extends State<MyProductsScreen> {
 
   void search() {
     setState(() {
-      products = getProductsByUsername(jwtModel.getUsername());
+      getProductsByUsername(jwtModel.getUsername());
     });
   }
 
@@ -117,8 +114,8 @@ class MyProductsState extends State<MyProductsScreen> {
     if(productFilter!=null){
       print("filtreleme işlemi başladı:");
       setState(() {
-        products = getFilteredProducts(productFilter);
-        print(products);
+        getFilteredProducts(productFilter);
+        print(_products);
         _filter=1;
       });
     }
@@ -159,7 +156,10 @@ class MyProductsState extends State<MyProductsScreen> {
       );
       products.add(product);
     }
-    return products;
+    //change with pagination technique
+    setState(() {
+      _products=products;
+    });
   }
 
   Future<List<Product>> getFilteredProducts(ProductFilter productFilter) async {
@@ -213,8 +213,8 @@ class MyProductsState extends State<MyProductsScreen> {
     if(photoValue!=null){
       print("filtreleme işlemi başladı:");
       setState(() {
-        products = getSimilarProducts(photoValue);
-        print(products);
+        getSimilarProducts(photoValue);
+        print(_products);
         _filter=1;
       });
     }

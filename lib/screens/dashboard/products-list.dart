@@ -7,33 +7,42 @@ import 'package:kampusell/screens/dashboard/product-item.dart';
 
 class ProductsList extends StatelessWidget {
   Category _category;
-  AsyncSnapshot snapshot;
+  List<Product> snapshot;
   JwtModel _jwtModel;
-
-  ProductsList(this._category, this.snapshot, this._jwtModel);
+  ScrollController scrollController;
+  ProductsList(this._category, this.snapshot, this._jwtModel, this.scrollController);
 
   @override
   Widget build(BuildContext context) {
-    if (snapshot.data == null) {
+    print("BUILD İŞLEMİ");
+    if (snapshot == null) {
       return Container(
         child: Center(
           child: Text("Yükleniyor..."),
         ),
       );
     } else {
-      List<Product> products = snapshot.data;
+      List<Product> products = snapshot;
 
       return Expanded(
           child: ListView.builder(
+            controller: scrollController,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: snapshot.data.length,
+        itemCount: snapshot.length,
         itemBuilder: (context, index) {
-          ProductItem productItem = new ProductItem(snapshot.data[snapshot.data.length-index-1],_jwtModel);
+         // ProductItem productItem = new ProductItem(snapshot[snapshot.length-index-1],_jwtModel);
+          ProductItem productItem = new ProductItem(snapshot[index],_jwtModel);
 
           return productItem;
         },
       ));
+    }
+  }
+  void _scrollListener() {
+    print(scrollController.position.extentAfter);
+    if (scrollController.position.extentAfter < 500) {
+      print("scroll calisti");
     }
   }
 }
