@@ -24,7 +24,6 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
   String _text = " ";
   String _labelText = " ";
   final picker = ImagePicker();
-  String _fileUrl;
 
   List<String> photoPaths = new List();
   List<String> texts =new List();
@@ -63,10 +62,10 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
     for (TextBlock block in visionText.blocks) {
       for (TextLine line in block.lines) {
         for (TextElement word in line.elements) {
-            text = text + word.text + ' ';
-            if(texts.length<5){
-              texts.add(word.text);
-            }
+          text = text + word.text + ' ';
+          if(texts.length<5){
+            texts.add(word.text);
+          }
         }
         text = text + '\n';
       }
@@ -80,15 +79,6 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
         _image = file;
       });
     }
-    StorageReference storageReference =
-    FirebaseStorage.instance.ref().child(productNameController.text);
-    StorageUploadTask uploadTask = storageReference.putFile(_image);
-    await uploadTask.onComplete;
-    storageReference.getDownloadURL().then((fileURL) {
-      _fileUrl=fileURL;
-      print(_fileUrl);
-    });
-
   }
 
   Future<http.Response> createProduct(Product product) {
@@ -117,10 +107,15 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
     }
   }
 
-  Future uploadFile() {
-
+  Future uploadFile() async {
+    StorageReference storageReference =
+    FirebaseStorage.instance.ref().child(productNameController.text);
+    StorageUploadTask uploadTask = storageReference.putFile(_image);
+    await uploadTask.onComplete;
+    storageReference.getDownloadURL().then((fileURL) {
       setState(() {
-        photoPaths.add(_fileUrl);
+        print(fileURL);
+        photoPaths.add(fileURL);
         Product product = new Product(
             null,
             productNameController.text,
@@ -133,7 +128,7 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
             labels);
         createProduct(product);
       });
-
+    });
   }
 
   @override
@@ -154,13 +149,13 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
                           child: _image == null
                               ? Text('')
                               : Container(
-                                  width: 70.0,
-                                  height: 70.0,
-                                  decoration: new BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      image: new DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: FileImage(_image))))),
+                              width: 70.0,
+                              height: 70.0,
+                              decoration: new BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  image: new DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: FileImage(_image))))),
                       Form(
                           key: _formKey,
                           child: Column(children: <Widget>[
@@ -221,12 +216,12 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
                                 });
                               },
                               items: categories.map<DropdownMenuItem<Category>>(
-                                  (Category category) {
-                                return DropdownMenuItem<Category>(
-                                  value: category,
-                                  child: Text(category.name),
-                                );
-                              }).toList(),
+                                      (Category category) {
+                                    return DropdownMenuItem<Category>(
+                                      value: category,
+                                      child: Text(category.name),
+                                    );
+                                  }).toList(),
                             ),
                             SizedBox(height: 20),
                             FloatingActionButton(
@@ -243,16 +238,16 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
                                   color: Colors.pink,
                                   elevation: 0.0,
                                   child: MaterialButton(
-                                    onPressed: () async {
+                                    onPressed: () {
                                       // Validate returns true if the form is valid, otherwise false.
                                       if (_formKey.currentState.validate()) {
                                         // If the form is valid, display a snackbar. In the real world,
                                         // you'd often call a server or save the information in a database.
-                                        await uploadFile();
+                                        uploadFile();
                                         Scaffold.of(context).showSnackBar(
                                             SnackBar(
                                                 content:
-                                                    Text('Satışa Çıkarıldı.')));
+                                                Text('Satışa Çıkarıldı.')));
                                       }
                                     },
                                     minWidth: MediaQuery.of(context).size.width,

@@ -99,27 +99,8 @@ class ProductScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(9),
-                      child: Material(
-                          borderRadius: BorderRadius.circular(15.0),
-                          color: Colors.pink,
-                          elevation: 0.0,
-                          child: MaterialButton(
-                              onPressed: () {
-                                sendMessageToSellerBtnClick(context);
-                              },
-                            minWidth: MediaQuery.of(context).size.width,
-                            child: Text(
-                              "Satıcıya Mesaj Gönder",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0),
-                            ),
-                          )),
-                    ),
+                    getPaddind(context)
+
                   ],
                 ),
               ),
@@ -139,6 +120,56 @@ class ProductScreen extends StatelessWidget {
 
     });
 
+
+  }
+
+  Padding getPaddind(BuildContext context) {
+    if(product.student.username!=_jwtModel.getUsername()){
+      return Padding(
+        padding: const EdgeInsets.all(9),
+        child: Material(
+            borderRadius: BorderRadius.circular(15.0),
+            color: Colors.pink,
+            elevation: 0.0,
+            child: MaterialButton(
+              onPressed: () {
+                sendMessageToSellerBtnClick(context);
+              },
+              minWidth: MediaQuery.of(context).size.width,
+              child: Text(
+                "Satıcıya Mesaj Gönder",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0),
+              ),
+            )),
+      );
+    }
+    else{
+      return Padding(
+        padding: const EdgeInsets.all(9),
+        child: Material(
+            borderRadius: BorderRadius.circular(15.0),
+            color: Colors.pink,
+            elevation: 0.0,
+            child: MaterialButton(
+              onPressed: () {
+
+              },
+              minWidth: MediaQuery.of(context).size.width,
+              child: Text(
+                "Düzenle",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0),
+              ),
+            )),
+      );
+    }
 
   }
 }
