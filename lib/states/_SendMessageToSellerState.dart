@@ -161,7 +161,7 @@ class SendMessageToSellerState extends State<SendMessageToSellerScreen> {
       //need to locally stored for no internet connection
         DateTime now = DateTime.now();
         String formattedDate = DateFormat('kk:mm').format(now);
-        Message m = new Message(_jwtModel.getUsername(),messageContainer.otherUsername, messageTextController.text,messageContainer.productPhotoUrl,formattedDate);
+        Message m = new Message(_jwtModel.getUsername(),messageContainer.otherUsername, messageTextController.text,messageContainer.productPhotoUrl,formattedDate, DateTime.now().millisecondsSinceEpoch.toString());
 
         //messages.add(m);
         privMessagesReferenceMe.push().set(m.toJson());
