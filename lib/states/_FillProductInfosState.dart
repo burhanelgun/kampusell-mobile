@@ -24,6 +24,7 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
   String _text = " ";
   String _labelText = " ";
   final picker = ImagePicker();
+  String _fileUrl;
 
   List<String> photoPaths = new List();
   List<String> texts =new List();
@@ -79,6 +80,15 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
         _image = file;
       });
     }
+    StorageReference storageReference =
+    FirebaseStorage.instance.ref().child(productNameController.text);
+    StorageUploadTask uploadTask = storageReference.putFile(_image);
+    await uploadTask.onComplete;
+    storageReference.getDownloadURL().then((fileURL) {
+      _fileUrl=fileURL;
+      print(_fileUrl);
+    });
+
   }
 
   Future<http.Response> createProduct(Product product) {
@@ -107,15 +117,10 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
     }
   }
 
-  Future uploadFile() async {
-    StorageReference storageReference =
-        FirebaseStorage.instance.ref().child(productNameController.text);
-    StorageUploadTask uploadTask = storageReference.putFile(_image);
-    await uploadTask.onComplete;
-    storageReference.getDownloadURL().then((fileURL) {
+  Future uploadFile() {
+
       setState(() {
-        print(fileURL);
-        photoPaths.add(fileURL);
+        photoPaths.add(_fileUrl);
         Product product = new Product(
             null,
             productNameController.text,
@@ -128,7 +133,7 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
             labels);
         createProduct(product);
       });
-    });
+
   }
 
   @override
