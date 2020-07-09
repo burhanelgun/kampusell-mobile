@@ -27,7 +27,7 @@ class ActivationState extends State<ActivationScreen>
 
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 45),
+      duration: Duration(seconds: 59),
     );
     controller.reverse(from: controller.value == 0.0 ? 1.0 : controller.value);
 
