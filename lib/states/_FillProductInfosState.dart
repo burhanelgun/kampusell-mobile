@@ -243,12 +243,12 @@ class FillProductInfosState extends State<FillProductInfosScreen> {
                                   color: Colors.pink,
                                   elevation: 0.0,
                                   child: MaterialButton(
-                                    onPressed: () {
+                                    onPressed: () async {
                                       // Validate returns true if the form is valid, otherwise false.
                                       if (_formKey.currentState.validate()) {
                                         // If the form is valid, display a snackbar. In the real world,
                                         // you'd often call a server or save the information in a database.
-                                        uploadFile();
+                                        await uploadFile();
                                         Scaffold.of(context).showSnackBar(
                                             SnackBar(
                                                 content:
