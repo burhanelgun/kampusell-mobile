@@ -226,6 +226,7 @@ class DashboardState extends State<DashboardScreen> {
       Navigator.pushNamed(context, FillProductInfosRoute,
           arguments: {"jwtModel": jwtModel}).then((value) {
         setState(() {
+          category=null;
           if (category == null) {
             _products=null;
             start=0;
